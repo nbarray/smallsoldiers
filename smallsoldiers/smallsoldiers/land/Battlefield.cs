@@ -14,17 +14,20 @@ namespace smallsoldiers.land
         {
             rect = new Rectangle(Cons.HOMELAND_SIZE - 32, 0, Cons.BATTLEFIELD_SIZE + 64, Cons.HEIGHT);
 
-            int regions_width = Cons.BATTLEFIELD_SIZE / Cons.REGION_SIZE;
-            int regions_height = Cons.HEIGHT / Cons.REGION_SIZE - 1;
+            int region_width = 300;
+            int region_height = 300;
+
+            int regions_width = Cons.BATTLEFIELD_SIZE / region_width;
+            int regions_height = Cons.HEIGHT / region_height;
 
             regions = new Region[regions_width, regions_height];
             for (int i = 0; i < regions.GetLength(0); i++)
             {
                 for (int j = 0; j < regions.GetLength(1); j++)
                 {
-                    regions[i, j] = new Region("slot01", 
-                                               Cons.HOMELAND_SIZE + i * Cons.REGION_SIZE + i * 8, 
-                                               j * Cons.REGION_SIZE + j * 8 + 32 * 2);
+                    regions[i, j] = new Region("slot01",
+                                               Cons.HOMELAND_SIZE + i * region_width + i * 8,
+                                               j * region_height + j * 8 + 32 * 2, region_width, region_height);
                 }
             }
         }

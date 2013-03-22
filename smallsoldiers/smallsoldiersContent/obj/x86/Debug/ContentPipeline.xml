@@ -100,6 +100,15 @@
       <Output>C:\Users\nbarr_000\Desktop\SmallSoldier\smallsoldiers\smallsoldiers\bin\x86\Debug\Content\image\building_nicolas.xnb</Output>
       <Time>2013-03-22T22:14:09.7181798+01:00</Time>
     </Item>
+    <Item>
+      <Source>image\flag_louis.png</Source>
+      <Name>image\flag_louis</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\nbarr_000\Desktop\SmallSoldier\smallsoldiers\smallsoldiers\bin\x86\Debug\Content\image\flag_louis.xnb</Output>
+      <Time>2013-03-22T23:00:41.57298+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
