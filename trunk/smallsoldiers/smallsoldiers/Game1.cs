@@ -61,7 +61,6 @@ namespace smallsoldiers
             zone_joueur_2.Update(mx, my, mpressed);
             test.Update(mx, my, mpressed);
 
-
             base.Update(gameTime);
         }
 

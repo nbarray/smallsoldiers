@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using smallsoldiers.entity;
 
 namespace smallsoldiers.land
 {
@@ -11,17 +12,18 @@ namespace smallsoldiers.land
         private Rectangle rect;
         private bool free;
         private Color color;
+        private Building building;
 
         public Slot(int _i, int _j)
         {
             rect = new Rectangle(_i, _j, Cons.BUILDING_SIZE, Cons.BUILDING_SIZE);
             color = Color.Red;
             free = true;
+            building = null;
         }
 
         public void Update(int _mx, int _my, bool _mpressed)
         {
-
             if (rect.Contains(_mx, _my))
             {
                 if (!_mpressed)
