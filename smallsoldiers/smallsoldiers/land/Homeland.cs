@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace smallsoldiers.land
 {
-    // Classe décrivant les zones de construction
     class Homeland
     {
         private Slot[] slots;

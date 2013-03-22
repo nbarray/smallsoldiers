@@ -22,6 +22,15 @@ namespace smallsoldiers.land
             building = null;
         }
 
+        public void AddBuilding(Building _b)
+        {
+            if (free)
+            {
+                building = _b;
+                free = false;
+            }
+        }
+
         public void Update(int _mx, int _my, bool _mpressed)
         {
             if (rect.Contains(_mx, _my))
@@ -40,8 +49,7 @@ namespace smallsoldiers.land
         public void Draw()
         {
             if (free)
-                Ressource.sb.Draw(Ressource.Get("slot01"), rect, color);
-            Ressource.Draw("slot01", rect, color, 0.8f);
+                Ressource.Draw("slot01", rect, color, 0.8f);
         }
     }
 }
