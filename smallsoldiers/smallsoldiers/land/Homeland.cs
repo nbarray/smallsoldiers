@@ -35,11 +35,17 @@ namespace smallsoldiers.land
                 rect = new Rectangle(Cons.WIDTH - Cons.HOMELAND_SIZE, 0, Cons.HOMELAND_SIZE, Cons.HEIGHT);
         }
 
-        public void Update(int _mx, int _my, bool _mpressed)
+        public void Update(int _mx, int _my, bool _mpressed, Player _player)
         {
             for (int i = 0; i < slots.Length; i++)
             {
-                slots[i].Update(_mx, _my, _mpressed);   
+                slots[i].Update(_mx, _my, _mpressed, _player);   
+            }
+
+            // Si c'est le joueur 1
+            if (_player.IsPlayer())
+            {
+                 
             }
         }
 

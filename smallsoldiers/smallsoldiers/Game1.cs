@@ -18,9 +18,9 @@ namespace smallsoldiers
     {
         GraphicsDeviceManager graphics;
 
-        Homeland zone_joueur_1, zone_joueur_2;
-        Battlefield test;
-        Hud test_hud;
+        Player p1, p2;
+        Battlefield call_of_duty;
+        Hud hud;
         Building home;
 
         public Game1()
@@ -39,10 +39,10 @@ namespace smallsoldiers
             Ressource.LoadContent();
 
             //Initialize objects here
-            zone_joueur_1 = new Homeland(true);
-            zone_joueur_2 = new Homeland(false);
-            test = new Battlefield();
-            test_hud = new Hud();
+            p1 = new Player("nicolas", true);
+            p2 = new Player("nicolas", false);
+            call_of_duty = new Battlefield();
+            hud = new Hud();
 
             base.Initialize();
         }
@@ -58,9 +58,10 @@ namespace smallsoldiers
             bool mpressed = mstate.LeftButton == ButtonState.Pressed;
             bool mreleased = mstate.LeftButton == ButtonState.Released;
 
-            zone_joueur_1.Update(mx, my, mpressed);
-            zone_joueur_2.Update(mx, my, mpressed);
-            test.Update(mx, my, mpressed);
+            p1.Update(hud, mx, my, mpressed);
+            p2.Update(hud, mx, my, mpressed);
+
+            call_of_duty.Update(mx, my, mpressed);
 
             base.Update(gameTime);
         }
@@ -70,12 +71,11 @@ namespace smallsoldiers
             GraphicsDevice.Clear(Color.Black);
 
             Ressource.sb.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
-            zone_joueur_1.Draw();
-            zone_joueur_2.Draw();
-            test.Draw();
-            test_hud.Draw();
+            p1.Draw();
+            p2.Draw();
+            call_of_duty.Draw();
+            hud.Draw();
             Ressource.sb.End();
-
             base.Draw(gameTime);
         }
     }

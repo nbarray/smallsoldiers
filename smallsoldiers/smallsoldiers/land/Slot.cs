@@ -10,7 +10,7 @@ namespace smallsoldiers.land
     class Slot
     {
         private Rectangle rect;
-        private bool free;
+        private bool free, een;
         private Color color;
         private Building building;
 
@@ -20,6 +20,7 @@ namespace smallsoldiers.land
             color = Color.Red;
             free = true;
             building = null;
+            een = false;
         }
 
         public void AddBuilding(Building _b)
@@ -31,14 +32,24 @@ namespace smallsoldiers.land
             }
         }
 
-        public void Update(int _mx, int _my, bool _mpressed)
+        public void Update(int _mx, int _my, bool _mpressed, Player p)
         {
             if (rect.Contains(_mx, _my))
             {
                 if (!_mpressed)
+                {
+                    een = false;
                     color = Color.Yellow;
+                }
                 else
+                {
+                    if (!een && p.IsPlayer())
+                    {
+                        AddBuilding(new Building("building_nicolas"));
+                        een = true;
+                    }
                     color = Color.Purple;
+                }
             }
             else
             {
@@ -51,7 +62,7 @@ namespace smallsoldiers.land
             if (free)
                 Ressource.Draw("slot01", rect, color, 0.8f);
             else
-                Ressource.Draw("building_nicolas", rect, new Rectangle(0, 0, 96, 96), Color.White, 0.8f);
+                Ressource.Draw("building_nicolas", rect, new Rectangle(0, 0, 96, 96), Color.White, 0.7f);
         }
     }
 }

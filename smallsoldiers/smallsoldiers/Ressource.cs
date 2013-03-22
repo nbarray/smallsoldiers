@@ -59,5 +59,10 @@ namespace smallsoldiers
         {
             sb.Draw(textures[_asset], _rect, textures[_asset].Bounds, _color, 0f, new Vector2(), _se, _depth);
         }
+
+        public static void DrawString(string _asset, string _text, Vector2 _vector, Color _color, float _depth)
+        {
+            sb.DrawString(fonts[_asset], _text, _vector, _color, 0f, new Vector2(), 1f, SpriteEffects.None, _depth);
+        }
     }
 }
