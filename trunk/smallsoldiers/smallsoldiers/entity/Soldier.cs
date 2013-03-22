@@ -15,8 +15,9 @@ namespace smallsoldiers.entity
         private float speed;
         private act_mode mode;
         protected float pos_x, pos_y;
+        private Flag fanion;
 
-        public Soldier(string _asset, int _x, int _y)
+        public Soldier(string _asset, int _x, int _y, Flag _link)
             : base(_asset,
                    new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE),
                    new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE),
@@ -26,6 +27,8 @@ namespace smallsoldiers.entity
             dest_x = _x;
             dest_y = _y;
             mode = act_mode.Move;
+            fanion = _link;
+            fanion.add_new_soldier(this);
         }
 
         public void move_to(int _dest_x, int _dest_y)
