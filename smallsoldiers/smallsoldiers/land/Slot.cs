@@ -61,8 +61,10 @@ namespace smallsoldiers.land
                 if (_mpressed) { show_choice_menu = false; }
                 color = Color.Red;
             }
-
-
+            if (building != null)
+            {
+                building.Update(p.army);
+            }
         }
 
         public void Draw()
@@ -75,7 +77,10 @@ namespace smallsoldiers.land
             if (free)
                 Ressource.Draw("slot01", rect, color, 0.8f);
             else
+            {
                 building.Draw();
+                building.Draw_flag();
+            }
         }
     }
 }
