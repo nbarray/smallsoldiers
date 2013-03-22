@@ -8,10 +8,10 @@ namespace smallsoldiers.entity
 {
     class Entity
     {
-        string asset;
-        Rectangle rect;
-        Rectangle source;
-        Color color;
+        private string asset;
+        protected Rectangle rect;
+        protected Rectangle source;
+        protected Color color;
 
         public Entity(string _asset, Rectangle _rect, Color _color)
         {
