@@ -46,13 +46,13 @@ namespace smallsoldiers.land
         public void Draw()
         {
             Ressource.Draw("bg01", rect, Color.White, 0f);
-            for (int i = 0; i < regions.GetLength(0); i++)
-            {
-                for (int j = 0; j < regions.GetLength(1); j++)
-                {
-                    regions[i, j].Draw();
-                }
-            }
+            //for (int i = 0; i < regions.GetLength(0); i++)
+            //{
+            //    for (int j = 0; j < regions.GetLength(1); j++)
+            //    {
+            //        regions[i, j].Draw();
+            //    }
+            //}
         }
     }
 }

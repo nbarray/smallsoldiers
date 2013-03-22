@@ -31,7 +31,7 @@ namespace smallsoldiers
         public void Update(GameTime _gameTime, Hud _hud, int _mx, int _my, bool _mpressed, bool _rpressed)
         {
             army.Update(_gameTime);
-            home.Update(_mx, _my, _mpressed, _rpressed, this);
+            home.Update(_gameTime, _mx, _my, _mpressed, _rpressed, this);
         }
 
         public void Draw()

@@ -15,6 +15,6 @@ namespace smallsoldiers
         public const int BATTLEFIELD_SIZE = WIDTH - 2 * HOMELAND_SIZE;
 
         public const float DEPTH_HUD = 0.8f;
-        public const float FRAME_DURATION = 250f; // Milliseconds
+        public const float FRAME_DURATION = 150f; // Milliseconds
     }
 }
