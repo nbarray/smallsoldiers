@@ -37,15 +37,13 @@ namespace smallsoldiers.land
 
         public void Update(int _mx, int _my, bool _mpressed, Player _player)
         {
-            for (int i = 0; i < slots.Length; i++)
-            {
-                slots[i].Update(_mx, _my, _mpressed, _player);   
-            }
-
             // Si c'est le joueur 1
             if (_player.IsPlayer())
             {
-                 
+                for (int i = 0; i < slots.Length; i++)
+                {
+                    slots[i].Update(_mx, _my, _mpressed, _player);
+                }
             }
         }
 
@@ -56,10 +54,10 @@ namespace smallsoldiers.land
             else
                 Ressource.Draw("homelands_louis", rect, Color.White, 0.1f, SpriteEffects.FlipHorizontally);
 
-                for (int i = 0; i < slots.Length; i++)
-                {
-                    slots[i].Draw();
-                }
+            for (int i = 0; i < slots.Length; i++)
+            {
+                slots[i].Draw();
+            }
         }
     }
 }
