@@ -56,11 +56,13 @@ namespace smallsoldiers
             int my = mstate.Y;
             bool mpressed = mstate.LeftButton == ButtonState.Pressed;
             bool mreleased = mstate.LeftButton == ButtonState.Released;
+            bool rpressed = mstate.RightButton == ButtonState.Pressed;
+            bool rreleased = mstate.RightButton == ButtonState.Released;
 
             hud.Update(p1, p2);
 
-            p1.Update(hud, mx, my, mpressed);
-            p2.Update(hud, mx, my, mpressed);
+            p1.Update(hud, mx, my, mpressed, rpressed);
+            p2.Update(hud, mx, my, mpressed, rpressed);
 
             call_of_duty.Update(mx, my, mpressed);
 

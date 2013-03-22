@@ -24,7 +24,7 @@ namespace smallsoldiers.entity
         {
             fanion = new Flag("flag_louis");
             display_flag = false;
-            delay = 240;
+            delay = 300;
             time_since_last = 0;
             is_working = true;
             //model = new Soldier("fighter_louis", 50, 75, fanion);

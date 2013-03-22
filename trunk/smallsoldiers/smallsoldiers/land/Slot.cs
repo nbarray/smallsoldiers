@@ -10,7 +10,7 @@ namespace smallsoldiers.land
     class Slot
     {
         private Rectangle rect, choice_rect;
-        private bool free, is_selected, een;
+        private bool free, is_selected, een, right_click;
         private Color color;
         private Building building;
 
@@ -35,8 +35,12 @@ namespace smallsoldiers.land
             }
         }
 
-        public void Update(int _mx, int _my, bool _mpressed, Player p)
+        public void Update(int _mx, int _my, bool _mpressed, bool _rpressed, Player p)
         {
+            if (is_selected)
+                update_when_selected(_mx, _my, _rpressed);
+
+            #region mouse
             if (rect.Contains(_mx, _my))
             {
                 if (!_mpressed)
@@ -60,10 +64,23 @@ namespace smallsoldiers.land
             {
                 if (_mpressed) { is_selected = false; }
                 color = Color.Red;
-            }
+            } 
+            #endregion
             if (building != null)
             {
                 building.Update(p.army);
+            }
+        }
+        public void update_when_selected(int _mx, int _my, bool _rpressed)
+        {
+            if (right_click && _rpressed)
+            {
+                right_click = false;
+                building.set_new_flag_pos(_mx, _my);
+            }
+            if (!_rpressed)
+            {
+                right_click = true;
             }
         }
 
@@ -79,6 +96,7 @@ namespace smallsoldiers.land
             else
             {
                 building.Draw();
+                building.display_flag = is_selected;
                 building.Draw_flag();
             }
         }
