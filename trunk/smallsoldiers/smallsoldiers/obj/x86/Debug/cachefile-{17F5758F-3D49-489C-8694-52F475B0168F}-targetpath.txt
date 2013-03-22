@@ -1,3 +1,0 @@
-Content\image\bg01.xnb
-Content\image\pixel.xnb
-Content\image\fighter_louis.xnb
