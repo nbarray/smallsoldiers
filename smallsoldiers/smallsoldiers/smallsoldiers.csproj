@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Army.cs" />
     <Compile Include="Cons.cs" />
     <Compile Include="entity\Building.cs" />
     <Compile Include="entity\Entity.cs" />

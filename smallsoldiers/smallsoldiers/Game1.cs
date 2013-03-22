@@ -21,7 +21,6 @@ namespace smallsoldiers
         Player p1, p2;
         Battlefield call_of_duty;
         Hud hud;
-        Building home;
 
         public Game1()
         {
