@@ -37,9 +37,15 @@ namespace smallsoldiers.gui
 
             Vector2 p1_income_position = new Vector2(flag_rect01.X + flag_rect01.Width + 4, flag_rect01.Y);
             Vector2 p2_income_position = new Vector2(flag_rect02.X - Ressource.GetFont("medium").MeasureString(p2_income).X - 4, flag_rect01.Y);
-
+           
             Ressource.DrawString("medium", p1_income, p1_income_position, Color.Yellow, Cons.DEPTH_HUD + 0.01f);
             Ressource.DrawString("medium", p2_income, p2_income_position, Color.Yellow, Cons.DEPTH_HUD + 0.01f);
+
+            Vector2 p1_pop_position = new Vector2(flag_rect01.X + flag_rect01.Width + 4, flag_rect01.Y + 32);
+            Vector2 p2_pop_position = new Vector2(flag_rect02.X - Ressource.GetFont("medium").MeasureString(p2_income).X - 4, flag_rect01.Y);
+
+            Ressource.DrawString("medium", p1_pop, p1_pop_position, Color.Yellow, Cons.DEPTH_HUD + 0.01f);
+            Ressource.DrawString("medium", p2_pop, p2_pop_position, Color.Yellow, Cons.DEPTH_HUD + 0.01f);
         }
     }
 }

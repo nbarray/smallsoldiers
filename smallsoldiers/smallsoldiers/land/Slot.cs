@@ -9,18 +9,21 @@ namespace smallsoldiers.land
 {
     class Slot
     {
-        private Rectangle rect;
-        private bool free, een;
+        private Rectangle rect, choice_rect;
+        private bool free, show_choice_menu, een;
         private Color color;
         private Building building;
 
         public Slot(int _i, int _j)
         {
             rect = new Rectangle(_i, _j, Cons.BUILDING_SIZE, Cons.BUILDING_SIZE);
+            choice_rect = new Rectangle(_i + Cons.BUILDING_SIZE + 4, _j, 32, 32);
             color = Color.Red;
             free = true;
-            building = null;
             een = false;
+            show_choice_menu = false;
+
+            building = null;
         }
 
         public void AddBuilding(Building _b)
@@ -45,7 +48,8 @@ namespace smallsoldiers.land
                 {
                     if (!een && p.IsPlayer())
                     {
-                        AddBuilding(new Building("building_nicolas"));
+                        show_choice_menu = !show_choice_menu;
+                        // AddBuilding(new Building("building_nicolas"));
                         een = true;
                     }
                     color = Color.Purple;
@@ -53,12 +57,19 @@ namespace smallsoldiers.land
             }
             else
             {
+                if (_mpressed) { show_choice_menu = false; }
                 color = Color.Red;
             }
         }
 
         public void Draw()
         {
+            if (show_choice_menu)
+            {
+                Ressource.Draw("pixel", choice_rect, Color.White, Cons.DEPTH_HUD);
+                
+            }
+
             if (free)
                 Ressource.Draw("slot01", rect, color, 0.8f);
             else

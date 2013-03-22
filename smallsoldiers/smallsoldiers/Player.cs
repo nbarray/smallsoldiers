@@ -22,7 +22,7 @@ namespace smallsoldiers
             player = _player;
         }
 
-        public void Update(Hud _hud/*, Army _army*/, int _mx, int _my, bool _mpressed)
+        public void Update(Hud _hud, int _mx, int _my, bool _mpressed)
         {
             home.Update(_mx, _my, _mpressed, this);
         }
