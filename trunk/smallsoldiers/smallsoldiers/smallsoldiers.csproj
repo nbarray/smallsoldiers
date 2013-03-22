@@ -108,7 +108,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cons.cs" />
+    <Compile Include="entity\Building.cs" />
+    <Compile Include="entity\Entity.cs" />
+    <Compile Include="entity\Soldier.cs" />
     <Compile Include="land\Homeland.cs" />
+    <Compile Include="land\Region.cs" />
     <Compile Include="land\Slot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
