@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace smallsoldiers.entity
 {
-    enum act_mode { Move, Attack }
+    enum act_mode { Move, Attack, Wait }
 
     class Soldier : Entity
     {
@@ -19,7 +20,7 @@ namespace smallsoldiers.entity
             : base(_asset,
                    new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE),
                    new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE),
-                   Color.White)
+                   Color.White, 0.6f)
         {
             speed = 2;
             dest_x = _x;
@@ -31,10 +32,12 @@ namespace smallsoldiers.entity
         {
             dest_x = _dest_x;
             dest_y = _dest_y;
+            mode = act_mode.Move;
         }
 
         public void Update()
         {
+            move_to(Mouse.GetState().X, Mouse.GetState().Y);
             switch (mode)
             {
                 case act_mode.Move:
@@ -42,6 +45,12 @@ namespace smallsoldiers.entity
                         + (dest_y - pos_y) * (dest_y - pos_y));
                     pos_x += (float)(((dest_x - pos_x) * speed) / total_distance);
                     pos_y += (float)(((dest_y - pos_y) * speed) / total_distance);
+                    rect.X = (int)pos_x;
+                    rect.Y = (int)pos_y;
+                    if (rect.X == dest_x && rect.Y == dest_y)
+                        mode = act_mode.Wait;
+                    break;
+                case act_mode.Attack:
                     break;
                 default:
                     break;

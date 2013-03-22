@@ -22,12 +22,13 @@ namespace smallsoldiers.entity
             color = _color;
             depth = _depth;
         }
-        public Entity(string _asset, Rectangle _rect, Rectangle _source, Color _color)
+        public Entity(string _asset, Rectangle _rect, Rectangle _source, Color _color, float _depth)
         {
             asset = _asset;
             rect = _rect;
             source = _source;
             color = _color;
+            depth = _depth;
         }
 
         public void Draw()
