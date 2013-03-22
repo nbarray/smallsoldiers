@@ -22,7 +22,7 @@ namespace smallsoldiers.gui
             flag_rect01 = new Rectangle(10, 10, 64, 64);
             flag_rect02 = new Rectangle(Cons.WIDTH - 64 - 10, 10, 64, 64);
 
-            p1_income = "$";
+            p1_income = "£";
             p2_income = "$";
 
             p1_pop = "0";
@@ -42,7 +42,7 @@ namespace smallsoldiers.gui
             Ressource.DrawString("medium", p2_income, p2_income_position, Color.Yellow, Cons.DEPTH_HUD + 0.01f);
 
             Vector2 p1_pop_position = new Vector2(flag_rect01.X + flag_rect01.Width + 4, flag_rect01.Y + 32);
-            Vector2 p2_pop_position = new Vector2(flag_rect02.X - Ressource.GetFont("medium").MeasureString(p2_income).X - 4, flag_rect01.Y);
+            Vector2 p2_pop_position = new Vector2(flag_rect02.X - Ressource.GetFont("medium").MeasureString(p2_income).X - 4, flag_rect01.Y + 32);
 
             Ressource.DrawString("medium", p1_pop, p1_pop_position, Color.Yellow, Cons.DEPTH_HUD + 0.01f);
             Ressource.DrawString("medium", p2_pop, p2_pop_position, Color.Yellow, Cons.DEPTH_HUD + 0.01f);

@@ -60,6 +60,8 @@ namespace smallsoldiers.land
                 if (_mpressed) { show_choice_menu = false; }
                 color = Color.Red;
             }
+
+
         }
 
         public void Draw()
