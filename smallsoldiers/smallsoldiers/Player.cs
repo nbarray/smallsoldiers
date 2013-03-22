@@ -27,10 +27,10 @@ namespace smallsoldiers
             default_flag = new Flag("flag_louis");
         }
 
-        public void Update(Hud _hud, int _mx, int _my, bool _mpressed)
+        public void Update(Hud _hud, int _mx, int _my, bool _mpressed, bool _rpressed)
         {
             army.Update();
-            home.Update(_mx, _my, _mpressed, this);
+            home.Update(_mx, _my, _mpressed, _rpressed, this);
         }
 
         public void Draw()
