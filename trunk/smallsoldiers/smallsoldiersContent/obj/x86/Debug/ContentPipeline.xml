@@ -91,6 +91,15 @@
       <Output>C:\Users\nbarr_000\Desktop\SmallSoldier\smallsoldiers\smallsoldiers\bin\x86\Debug\Content\image\homelands_nicolas.xnb</Output>
       <Time>2013-03-22T21:33:50.2103296+01:00</Time>
     </Item>
+    <Item>
+      <Source>image\building_nicolas.png</Source>
+      <Name>image\building_nicolas</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\nbarr_000\Desktop\SmallSoldier\smallsoldiers\smallsoldiers\bin\x86\Debug\Content\image\building_nicolas.xnb</Output>
+      <Time>2013-03-22T22:14:09.7181798+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
