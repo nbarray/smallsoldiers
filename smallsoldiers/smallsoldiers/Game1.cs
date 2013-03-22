@@ -23,6 +23,8 @@ namespace smallsoldiers
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            graphics.PreferredBackBufferWidth = 1366;
+            graphics.PreferredBackBufferHeight = 768;
         }
 
         /// <summary>
@@ -31,10 +33,11 @@ namespace smallsoldiers
         /// related content.  Calling base.Initialize will enumerate through any components
         /// and initialize them as well.
         /// </summary>
+        
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            Ressource.Initialize(GraphicsDevice, Content);
             base.Initialize();
         }
 
@@ -48,6 +51,7 @@ namespace smallsoldiers
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            Ressource.LoadContent();
         }
 
         /// <summary>
@@ -81,9 +85,11 @@ namespace smallsoldiers
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
+            Ressource.sb.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            Ressource.sb.Draw(Ressource.Get("bg01"), new Rectangle(0, 0, 1366, 768), Color.White);
+            Ressource.sb.End();
 
             base.Draw(gameTime);
         }
