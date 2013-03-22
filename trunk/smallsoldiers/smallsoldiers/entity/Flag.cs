@@ -16,6 +16,7 @@ namespace smallsoldiers.entity
                    new Rectangle(0, 0, Cons.BUILDING_SIZE, Cons.BUILDING_SIZE),
                    Color.White, 0.5f)
         {
+            soldiers_linked = new List<Soldier>();
         }
 
         public void add_new_soldier(Soldier _s)
