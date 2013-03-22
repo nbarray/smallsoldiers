@@ -18,12 +18,14 @@ namespace smallsoldiers.entity
         private float elapsed;
         private float frame_time;
 
-        public Animation(string _asset, Rectangle _source, int _frame_count, int _offsetX, float _depth)
+        public Animation(string _asset, Rectangle _source, int _frame_count, int _offsetX, float _depth, bool _isflag)
         {
             asset = _asset;
             elapsed = 0;
             frame_count = _frame_count;
-            frame_time = Cons.FRAME_DURATION;
+            frame_time = Cons.FRAME_DURATION_SOLDIERS;
+            if (_isflag)
+                frame_time = Cons.FRAME_DURATION_FLAGS;
             offsetX = _offsetX;
             source = _source;
             depth = _depth;

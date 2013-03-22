@@ -19,7 +19,7 @@ namespace smallsoldiers.entity
                    Color.White, 0.5f)
         {
             soldiers_linked = new List<Soldier>();
-            wind_anim = new Animation(asset, source, 5, 0, depth);
+            wind_anim = new Animation(asset, source, 5, 0, depth, true);
         }
 
         public int get_X()

@@ -38,8 +38,8 @@ namespace smallsoldiers.entity
             fanion = _link;
             fanion.add_new_soldier(this);
 
-            walk_anim = new Animation(asset, new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE), 6, 0, depth);
-            attack_anim = new Animation(asset, new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE), 6, 7, depth);
+            walk_anim = new Animation(asset, new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE), 6, 0, depth, false);
+            attack_anim = new Animation(asset, new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE), 6, 7, depth, false);
         }
 
         public void move_to(int _dest_x, int _dest_y)
