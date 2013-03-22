@@ -16,6 +16,7 @@ namespace smallsoldiers.entity
         private act_mode mode;
         protected float pos_x, pos_y;
         private Flag fanion;
+        private Random r;
 
         public Soldier(string _asset, int _x, int _y, Flag _link)
             : base(_asset,
@@ -23,6 +24,7 @@ namespace smallsoldiers.entity
                    new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE),
                    Color.White, 0.6f)
         {
+            r = new Random();
             speed = 1.1f;
             pos_x = _x;
             dest_x = _x;
@@ -43,9 +45,8 @@ namespace smallsoldiers.entity
         }
         public void go_to_flag()
         {
-            Random r = new Random();
-            int s_x = ((r.Next(100) % 100) + (r.Next(100) % 100)) / 2 - 50;
-            int s_y = ((r.Next(100) % 100) + (r.Next(100) % 100)) / 2 - 50;
+            int s_x = ((r.Next(1000) % 100) + (r.Next(1000) % 100)) / 2 - 50;
+            int s_y = ((r.Next(1000) % 100) + (r.Next(1000) % 100)) / 2 - 50;
             move_to(fanion.get_X()+s_x, fanion.get_Y()+s_y);
         }
 
