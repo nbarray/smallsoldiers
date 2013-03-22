@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using smallsoldiers.entity;
+using Microsoft.Xna.Framework;
 
 namespace smallsoldiers
 {
@@ -29,11 +30,11 @@ namespace smallsoldiers
             }
         }
 
-        public void Update()
+        public void Update(GameTime _gameTime)
         {
             foreach (Soldier item in soldiers)
             {
-                item.Update();
+                item.Update(_gameTime);
             }
         }
 

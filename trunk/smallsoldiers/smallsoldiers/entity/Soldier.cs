@@ -18,6 +18,8 @@ namespace smallsoldiers.entity
         private Flag fanion;
         private Random r;
 
+        private Animation walk_anim, attack_anim;
+
         public Soldier(string _asset, int _x, int _y, Flag _link)
             : base(_asset,
                    new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE),
@@ -35,6 +37,9 @@ namespace smallsoldiers.entity
             mode = act_mode.Move;
             fanion = _link;
             fanion.add_new_soldier(this);
+
+            walk_anim = new Animation(asset, new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE), 6, 0, depth);
+            attack_anim = new Animation(asset, new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE), 6, 7, depth);
         }
 
         public void move_to(int _dest_x, int _dest_y)
@@ -50,12 +55,13 @@ namespace smallsoldiers.entity
             move_to(fanion.get_X()+s_x, fanion.get_Y()+s_y);
         }
 
-        public void Update()
+        public void Update(GameTime _gameTime)
         {
             //move_to(Mouse.GetState().X, Mouse.GetState().Y);
             switch (mode)
             {
                 case act_mode.Move:
+                    walk_anim.Update(_gameTime);
                     double total_distance = Math.Sqrt((dest_x - pos_x) * (dest_x - pos_x)
                         + (dest_y - pos_y) * (dest_y - pos_y));
                     pos_x += (float)(((dest_x - pos_x) * speed) / total_distance);
@@ -66,11 +72,30 @@ namespace smallsoldiers.entity
                         mode = act_mode.Wait;
                     break;
                 case act_mode.Attack:
+                    attack_anim.Update(_gameTime);
                     break;
                 default:
                     break;
             }
             depth = 0.5f + ((float)(rect.Y + 32))/10000f;
+        }
+
+        public override void  Draw()
+        {
+            switch (mode)
+            {
+                case act_mode.Move:
+                    walk_anim.Draw(rect);
+                    break;
+                case act_mode.Attack:
+                    attack_anim.Draw(rect);
+                    break;
+                case act_mode.Wait:
+                    base.Draw();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
