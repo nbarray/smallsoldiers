@@ -43,7 +43,6 @@ namespace smallsoldiers
             zone_joueur_2 = new Homeland(false);
             test = new Battlefield();
             test_hud = new Hud();
-            home = new Building("building_nicolas");
 
             base.Initialize();
         }
@@ -62,7 +61,6 @@ namespace smallsoldiers
             zone_joueur_1.Update(mx, my, mpressed);
             zone_joueur_2.Update(mx, my, mpressed);
             test.Update(mx, my, mpressed);
-            home.Update();
 
             base.Update(gameTime);
         }
@@ -76,8 +74,6 @@ namespace smallsoldiers
             zone_joueur_2.Draw();
             test.Draw();
             test_hud.Draw();
-            home.Draw();
-            home.model.Draw();
             Ressource.sb.End();
 
             base.Draw(gameTime);
