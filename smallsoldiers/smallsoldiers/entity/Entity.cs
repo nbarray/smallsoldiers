@@ -6,9 +6,9 @@ using Microsoft.Xna.Framework;
 
 namespace smallsoldiers.entity
 {
-    class Entity
+    abstract class Entity
     {
-        private string asset;
+        protected string asset;
         protected Rectangle rect;
         protected Rectangle source;
         protected Color color;
@@ -31,7 +31,7 @@ namespace smallsoldiers.entity
             depth = _depth;
         }
 
-        public void Draw()
+        public virtual void Draw()
         {
             Ressource.Draw(asset, rect, source, color, depth);
         }

@@ -5,6 +5,7 @@ using System.Text;
 using smallsoldiers.gui;
 using smallsoldiers.land;
 using smallsoldiers.entity;
+using Microsoft.Xna.Framework;
 
 namespace smallsoldiers
 {
@@ -27,9 +28,9 @@ namespace smallsoldiers
             default_flag = new Flag("flag_louis");
         }
 
-        public void Update(Hud _hud, int _mx, int _my, bool _mpressed, bool _rpressed)
+        public void Update(GameTime _gameTime, Hud _hud, int _mx, int _my, bool _mpressed, bool _rpressed)
         {
-            army.Update();
+            army.Update(_gameTime);
             home.Update(_mx, _my, _mpressed, _rpressed, this);
         }
 
