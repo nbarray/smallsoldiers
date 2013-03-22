@@ -8,8 +8,9 @@ namespace smallsoldiers.entity
 {
     class Building : Entity
     {
-        public Soldier model;
         private Flag fanion;
+        public bool display_flag;
+        private int delay, time_since_last;
 
         public Building(string _asset)
             : base(_asset,
@@ -18,13 +19,27 @@ namespace smallsoldiers.entity
                    Color.White, 0.4f)
         {
             fanion = new Flag("flag_louis");
+            display_flag = false;
+            delay = 60;
+            time_since_last = 0;
             //model = new Soldier("fighter_louis", 50, 75, fanion);
             //model.move_to(Cons.WIDTH / 2, Cons.HEIGHT / 2);
         }
 
-        public void Update()
+        public void Update(Army _a)
         {
+            time_since_last++;
+            if (time_since_last == delay)
+            {
+                time_since_last = 0;
+                _a.Add_soldier(new Soldier("fighter_louis", rect.X + 32, rect.Y + 64, fanion));
+            }
             //model.Update();
+        }
+        public void Draw_flag()//or_not
+        {
+            if (display_flag)
+                fanion.Draw();
         }
 
         public void set_new_flag_pos(int _x, int _y)
