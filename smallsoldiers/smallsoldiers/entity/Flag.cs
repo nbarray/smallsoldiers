@@ -38,9 +38,9 @@ namespace smallsoldiers.entity
             rect.X = _x;
             rect.Y = _y;
             depth = 0.5f + ((float)(rect.Y + 32)) / 10000f;
-            foreach (Soldier item in soldiers_linked)
-            {
-                item.move_to(_x, _y);
+            for (int i = 0; i < soldiers_linked.Count; i++)
+			{
+                soldiers_linked[i].go_to_flag();
             }
         }
     }
