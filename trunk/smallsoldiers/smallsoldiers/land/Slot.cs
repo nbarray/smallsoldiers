@@ -35,7 +35,7 @@ namespace smallsoldiers.land
             }
         }
 
-        public void Update(int _mx, int _my, bool _mpressed, bool _rpressed, Player p)
+        public void Update(GameTime _gameTime, int _mx, int _my, bool _mpressed, bool _rpressed, Player p)
         {
             if (is_selected)
                 update_when_selected(_mx, _my, _rpressed);
@@ -68,7 +68,7 @@ namespace smallsoldiers.land
             #endregion
             if (building != null)
             {
-                building.Update(p.army);
+                building.Update(_gameTime, p.army);
             }
         }
         public void update_when_selected(int _mx, int _my, bool _rpressed)

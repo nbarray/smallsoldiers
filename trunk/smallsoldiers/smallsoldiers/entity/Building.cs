@@ -31,7 +31,7 @@ namespace smallsoldiers.entity
             //model.move_to(Cons.WIDTH / 2, Cons.HEIGHT / 2);
         }
 
-        public void Update(Army _a)
+        public void Update(GameTime _gameTime, Army _a)
         {
             if (is_working)
             {
@@ -41,6 +41,11 @@ namespace smallsoldiers.entity
                     is_working = _a.Add_soldier(new Soldier("fighter_louis", rect.X + 32, rect.Y + 64, fanion));
                     time_since_last = 0;
                 }
+            }
+
+            if (display_flag)
+            {
+                fanion.Update(_gameTime);
             }
             //model.Update();
         }

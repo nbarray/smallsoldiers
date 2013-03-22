@@ -18,7 +18,7 @@ namespace smallsoldiers
 
         public bool Add_soldier(Soldier _s)
         {
-            if (soldiers.Count < 10)
+            if (soldiers.Count < 25)
             {
                 soldiers.Add(_s);
                 soldiers[soldiers.Count - 1].go_to_flag();
