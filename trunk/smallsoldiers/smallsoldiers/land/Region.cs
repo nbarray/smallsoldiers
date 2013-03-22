@@ -10,7 +10,7 @@ namespace smallsoldiers.land
     class Region : Entity
     {
         public Region(string _asset, int _x, int _y)
-            : base(_asset, new Rectangle(_x, _y, Cons.REGION_SIZE, Cons.REGION_SIZE), Color.White)
+            : base(_asset, new Rectangle(_x, _y, Cons.REGION_SIZE, Cons.REGION_SIZE), Color.White, 1f)
         {
 
         }
@@ -26,7 +26,7 @@ namespace smallsoldiers.land
             }
             else
             {
-                color = Color.LightGray;
+                color = Color.White;
             }
         }
     }

@@ -38,7 +38,8 @@ namespace smallsoldiers.land
         public void Draw()
         {
             if (free)
-                Ressource.sb.Draw(Ressource.Get("pixel"), rect, color);
+                Ressource.sb.Draw(Ressource.Get("slot01"), rect, color);
+            Ressource.Draw("slot01", rect, color, 0.8f);
         }
     }
 }

@@ -39,6 +39,9 @@ namespace smallsoldiers
             textures.Add("hud01", content.Load<Texture2D>("image/hud01"));
             textures.Add("flag01", content.Load<Texture2D>("image/flag01"));
             textures.Add("flag02", content.Load<Texture2D>("image/flag02"));
+            textures.Add("slot01", content.Load<Texture2D>("image/slot01"));
+            textures.Add("homelands_nicolas", content.Load<Texture2D>("image/homelands_nicolas"));
+            textures.Add("homelands_louis", content.Load<Texture2D>("image/homelands_louis"));
 
             fonts.Add("medium", content.Load<SpriteFont>("font/medium"));
         }
@@ -46,6 +49,14 @@ namespace smallsoldiers
         public static void Draw(string _asset, Rectangle _rect, Color _color, float _depth)
         {
             sb.Draw(textures[_asset], _rect, textures[_asset].Bounds, _color, 0f, new Vector2(), SpriteEffects.None, _depth);
+        }
+        public static void Draw(string _asset, Rectangle _rect, Rectangle _src, Color _color, float _depth)
+        {
+            sb.Draw(textures[_asset], _rect, _src, _color, 0f, new Vector2(), SpriteEffects.None, _depth);
+        }
+        public static void Draw(string _asset, Rectangle _rect, Color _color, float _depth, SpriteEffects _se)
+        {
+            sb.Draw(textures[_asset], _rect, textures[_asset].Bounds, _color, 0f, new Vector2(), _se, _depth);
         }
     }
 }
