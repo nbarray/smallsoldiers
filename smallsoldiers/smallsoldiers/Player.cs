@@ -29,12 +29,14 @@ namespace smallsoldiers
 
         public void Update(Hud _hud, int _mx, int _my, bool _mpressed)
         {
+            army.Update();
             home.Update(_mx, _my, _mpressed, this);
         }
 
         public void Draw()
         {
             home.Draw();
+            army.Draw();
         }
     }
 }
