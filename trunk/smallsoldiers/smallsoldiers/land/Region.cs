@@ -9,8 +9,8 @@ namespace smallsoldiers.land
 {
     class Region : Entity
     {
-        public Region(string _asset, int _x, int _y)
-            : base(_asset, new Rectangle(_x, _y, Cons.REGION_SIZE, Cons.REGION_SIZE), Color.White, 1f)
+        public Region(string _asset, int _x, int _y, int _width, int _height)
+            : base(_asset, new Rectangle(_x, _y, _width, _height), Color.White, 1f)
         {
 
         }
@@ -20,13 +20,11 @@ namespace smallsoldiers.land
             if (rect.Contains(_mx, _my))
             {
                 if (!_mpressed)
-                    color = Color.IndianRed;
-                else
-                    color = Color.HotPink;
+                    color = Color.White;
             }
             else
             {
-                color = Color.White;
+                color = Color.SandyBrown;
             }
         }
     }

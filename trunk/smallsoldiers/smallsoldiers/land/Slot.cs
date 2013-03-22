@@ -49,7 +49,7 @@ namespace smallsoldiers.land
                     if (!een && p.IsPlayer())
                     {
                         show_choice_menu = !show_choice_menu;
-                        // AddBuilding(new Building("building_nicolas"));
+                        AddBuilding(new Building("building_nicolas"));
                         een = true;
                     }
                     color = Color.Purple;
