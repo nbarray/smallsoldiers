@@ -18,20 +18,22 @@ namespace smallsoldiers.gui
 
         public Hud()
         {
-            top_rect = new Rectangle(0, 0, Cons.WIDTH, 42);
+            top_rect = new Rectangle(0, 0, Cons.WIDTH, 64);
             flag_rect01 = new Rectangle(10, 10, 64, 64);
             flag_rect02 = new Rectangle(Cons.WIDTH - 64 - 10, 10, 64, 64);
 
             p1_income = "$";
             p2_income = "$";
+
             p1_pop = "0";
             p2_pop = "0";
         }
 
         public void Draw()
         {
-            Ressource.sb.Draw(Ressource.Get("flag01"), flag_rect01, Color.White);
-            Ressource.sb.Draw(Ressource.Get("flag02"), flag_rect02, Color.White);
+            Ressource.Draw("hud01", top_rect, Color.White, Cons.DEPTH_HUD);
+            Ressource.Draw("flag01", flag_rect01, Color.White, Cons.DEPTH_HUD + 0.01f);
+            Ressource.Draw("flag02", flag_rect02, Color.White, Cons.DEPTH_HUD + 0.01f);
 
             Vector2 p1_income_position = new Vector2(flag_rect01.X + flag_rect01.Width + 4, flag_rect01.Y);
             Vector2 p2_income_position = new Vector2(flag_rect02.X - Ressource.GetFont("medium").MeasureString(p2_income).X - 4, flag_rect01.Y);

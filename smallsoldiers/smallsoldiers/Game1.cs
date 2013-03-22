@@ -69,7 +69,7 @@ namespace smallsoldiers
         {
             GraphicsDevice.Clear(Color.Black);
 
-            Ressource.sb.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            Ressource.sb.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
             zone_joueur_1.Draw();
             zone_joueur_2.Draw();
             test.Draw();
