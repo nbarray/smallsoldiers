@@ -13,7 +13,7 @@ namespace smallsoldiers
         private string name;
         private Homeland home;
         private bool player;
-        private Army army;
+        public Army army;
         private Flag default_flag;
 
         public bool IsPlayer() { return player; }

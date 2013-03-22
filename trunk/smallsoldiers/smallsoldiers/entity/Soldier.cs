@@ -24,8 +24,12 @@ namespace smallsoldiers.entity
                    Color.White, 0.6f)
         {
             speed = 2;
+            pos_x = _x;
             dest_x = _x;
+            rect.X = _x;
+            pos_y = _y;
             dest_y = _y;
+            rect.Y = _y;
             mode = act_mode.Move;
             fanion = _link;
             fanion.add_new_soldier(this);
