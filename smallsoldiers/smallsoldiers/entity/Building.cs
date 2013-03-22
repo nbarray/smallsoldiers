@@ -12,6 +12,8 @@ namespace smallsoldiers.entity
         public bool display_flag;
         private int delay, time_since_last;
 
+        public void SetPosition(Point _p) { rect.X = _p.X; rect.Y = _p.Y; }
+
         public Building(string _asset)
             : base(_asset,
                    new Rectangle(0, 0, Cons.BUILDING_SIZE, Cons.BUILDING_SIZE),

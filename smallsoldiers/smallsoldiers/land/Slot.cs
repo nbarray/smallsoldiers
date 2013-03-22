@@ -50,6 +50,7 @@ namespace smallsoldiers.land
                     {
                         show_choice_menu = !show_choice_menu;
                         AddBuilding(new Building("building_nicolas"));
+                        building.SetPosition(new Point(rect.X, rect.Y));
                         een = true;
                     }
                     color = Color.Purple;
@@ -68,14 +69,13 @@ namespace smallsoldiers.land
         {
             if (show_choice_menu)
             {
-                Ressource.Draw("pixel", choice_rect, Color.White, Cons.DEPTH_HUD);
-                
+                //Ressource.Draw("pixel", choice_rect, Color.White, Cons.DEPTH_HUD);
             }
 
             if (free)
                 Ressource.Draw("slot01", rect, color, 0.8f);
             else
-                Ressource.Draw("building_nicolas", rect, new Rectangle(0, 0, 96, 96), Color.White, 0.7f);
+                building.Draw();
         }
     }
 }
