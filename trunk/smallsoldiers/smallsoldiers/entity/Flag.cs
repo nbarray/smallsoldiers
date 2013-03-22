@@ -14,7 +14,7 @@ namespace smallsoldiers.entity
             : base(_asset,
                    new Rectangle(0, 0, Cons.BUILDING_SIZE, Cons.BUILDING_SIZE),
                    new Rectangle(0, 0, Cons.BUILDING_SIZE, Cons.BUILDING_SIZE),
-                   Color.White)
+                   Color.White, 0.5f)
         {
         }
 

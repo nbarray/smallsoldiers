@@ -14,7 +14,7 @@ namespace smallsoldiers.entity
             : base(_asset,
                    new Rectangle(0, 0, Cons.BUILDING_SIZE, Cons.BUILDING_SIZE),
                    new Rectangle(0, 0, Cons.BUILDING_SIZE, Cons.BUILDING_SIZE),
-                   Color.White)
+                   Color.White, 0.4f)
         {
             model = new Soldier("fighter_louis", 50, 75);
             model.move_to(Cons.WIDTH / 2, Cons.HEIGHT / 2);
