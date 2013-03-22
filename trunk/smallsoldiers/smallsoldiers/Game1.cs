@@ -9,15 +9,18 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using smallsoldiers.land;
+using smallsoldiers.entity;
+using smallsoldiers.gui;
 
 namespace smallsoldiers
 {
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
 
         Homeland zone_joueur_1, zone_joueur_2;
+        Battlefield test;
+        Hud test_hud;
 
         public Game1()
         {
@@ -30,20 +33,17 @@ namespace smallsoldiers
 
         protected override void Initialize()
         {
+            //Load content in ressource class => go to it's class file then in the LoadContent function
             Ressource.Initialize(GraphicsDevice, Content);
+            Ressource.LoadContent();
+
+            //Initialize objects here
             zone_joueur_1 = new Homeland(true);
             zone_joueur_2 = new Homeland(false);
+            test = new Battlefield();
+            test_hud = new Hud();
+
             base.Initialize();
-        }
-
-        protected override void LoadContent()
-        {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            Ressource.LoadContent();
-        }
-
-        protected override void UnloadContent()
-        {
         }
 
         protected override void Update(GameTime gameTime)
@@ -64,6 +64,8 @@ namespace smallsoldiers
             Ressource.sb.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             zone_joueur_1.Draw();
             zone_joueur_2.Draw();
+            test.Draw();
+            test_hud.Draw();
             Ressource.sb.End();
 
             base.Draw(gameTime);

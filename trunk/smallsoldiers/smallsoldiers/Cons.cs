@@ -7,9 +7,12 @@ namespace smallsoldiers
 {
     static class Cons
     {
-        public const int soldier_size = 32;
-        public const int building_size = soldier_size * 3;
-        public const int width = 1366;
-        public const int height = 768;
+        public const int MAN_SIZE = 32;
+        public const int BUILDING_SIZE = MAN_SIZE * 3;
+        public const int REGION_SIZE = 128;
+        public const int WIDTH = 1366;
+        public const int HEIGHT = 768;
+        public const int HOMELAND_SIZE = 200;
+        public const int BATTLEFIELD_SIZE = WIDTH - 2 * HOMELAND_SIZE;
     }
 }

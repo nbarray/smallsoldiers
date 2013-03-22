@@ -111,6 +111,8 @@
     <Compile Include="entity\Building.cs" />
     <Compile Include="entity\Entity.cs" />
     <Compile Include="entity\Soldier.cs" />
+    <Compile Include="gui\Hud.cs" />
+    <Compile Include="land\Battlefield.cs" />
     <Compile Include="land\Homeland.cs" />
     <Compile Include="land\Region.cs" />
     <Compile Include="land\Slot.cs" />
