@@ -23,7 +23,7 @@ namespace smallsoldiers.entity
                    new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE),
                    Color.White, 0.6f)
         {
-            speed = 2;
+            speed = 1.1f;
             pos_x = _x;
             dest_x = _x;
             rect.X = _x;
