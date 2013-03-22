@@ -22,7 +22,7 @@ namespace smallsoldiers.entity
         {
             fanion = new Flag("flag_louis");
             display_flag = false;
-            delay = 120;
+            delay = 240;
             time_since_last = 0;
             //model = new Soldier("fighter_louis", 50, 75, fanion);
             //model.move_to(Cons.WIDTH / 2, Cons.HEIGHT / 2);

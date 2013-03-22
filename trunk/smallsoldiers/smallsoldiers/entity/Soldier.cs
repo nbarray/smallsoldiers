@@ -41,10 +41,17 @@ namespace smallsoldiers.entity
             dest_y = _dest_y;
             mode = act_mode.Move;
         }
+        public void go_to_flag()
+        {
+            Random r = new Random();
+            int s_x = ((r.Next(100) % 100) + (r.Next(100) % 100)) / 2 - 50;
+            int s_y = ((r.Next(100) % 100) + (r.Next(100) % 100)) / 2 - 50;
+            move_to(fanion.get_X()+s_x, fanion.get_Y()+s_y);
+        }
 
         public void Update()
         {
-            move_to(Mouse.GetState().X, Mouse.GetState().Y);
+            //move_to(Mouse.GetState().X, Mouse.GetState().Y);
             switch (mode)
             {
                 case act_mode.Move:
@@ -54,7 +61,7 @@ namespace smallsoldiers.entity
                     pos_y += (float)(((dest_y - pos_y) * speed) / total_distance);
                     rect.X = (int)pos_x;
                     rect.Y = (int)pos_y;
-                    if (rect.X == dest_x && rect.Y == dest_y)
+                    if (Math.Abs(rect.X - dest_x) < 2 && Math.Abs(rect.Y - dest_y) < 2)
                         mode = act_mode.Wait;
                     break;
                 case act_mode.Attack:
@@ -62,6 +69,7 @@ namespace smallsoldiers.entity
                 default:
                     break;
             }
+            depth = 0.5f + ((float)(rect.Y + 32))/10000f;
         }
     }
 }
