@@ -19,6 +19,7 @@ namespace smallsoldiers
         private static ContentManager content;
 
         public static Texture2D Get(string _name) { return textures[_name]; }
+        public static SpriteFont GetFont(string _name) { return fonts[_name]; }
 
         public static void Initialize(GraphicsDevice _device, ContentManager _content)
         {
@@ -34,6 +35,12 @@ namespace smallsoldiers
         {
             textures.Add("bg01", content.Load<Texture2D>("image/bg01"));
             textures.Add("pixel", content.Load<Texture2D>("image/pixel"));
+            textures.Add("fighter_louis", content.Load<Texture2D>("image/fighter_louis"));
+            textures.Add("hud01", content.Load<Texture2D>("image/hud01"));
+            textures.Add("flag01", content.Load<Texture2D>("image/flag01"));
+            textures.Add("flag02", content.Load<Texture2D>("image/flag02"));
+
+            fonts.Add("medium", content.Load<SpriteFont>("font/medium"));
         }
 
 

@@ -14,7 +14,7 @@ namespace smallsoldiers.land
 
         public Slot(int _i, int _j)
         {
-            rect = new Rectangle(_i, _j, Cons.building_size, Cons.building_size);
+            rect = new Rectangle(_i, _j, Cons.BUILDING_SIZE, Cons.BUILDING_SIZE);
             color = Color.Red;
             free = true;
         }

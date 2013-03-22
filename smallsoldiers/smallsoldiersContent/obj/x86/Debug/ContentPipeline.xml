@@ -28,6 +28,42 @@
       <Output>C:\Users\nbarr_000\Desktop\SmallSoldier\smallsoldiers\smallsoldiers\bin\x86\Debug\Content\image\fighter_louis.xnb</Output>
       <Time>2013-03-22T19:50:34.1809482+01:00</Time>
     </Item>
+    <Item>
+      <Source>image\flag01.png</Source>
+      <Name>image\flag01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\nbarr_000\Desktop\SmallSoldier\smallsoldiers\smallsoldiers\bin\x86\Debug\Content\image\flag01.xnb</Output>
+      <Time>2013-03-22T20:42:30.9591967+01:00</Time>
+    </Item>
+    <Item>
+      <Source>image\flag02.png</Source>
+      <Name>image\flag02</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\nbarr_000\Desktop\SmallSoldier\smallsoldiers\smallsoldiers\bin\x86\Debug\Content\image\flag02.xnb</Output>
+      <Time>2013-03-22T20:30:23.446228+01:00</Time>
+    </Item>
+    <Item>
+      <Source>image\hud01.png</Source>
+      <Name>image\hud01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\nbarr_000\Desktop\SmallSoldier\smallsoldiers\smallsoldiers\bin\x86\Debug\Content\image\hud01.xnb</Output>
+      <Time>2013-03-22T20:28:53.3700694+01:00</Time>
+    </Item>
+    <Item>
+      <Source>font\medium.spritefont</Source>
+      <Name>font\medium</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\nbarr_000\Desktop\SmallSoldier\smallsoldiers\smallsoldiers\bin\x86\Debug\Content\font\medium.xnb</Output>
+      <Time>2013-03-22T20:33:57.6530853+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
