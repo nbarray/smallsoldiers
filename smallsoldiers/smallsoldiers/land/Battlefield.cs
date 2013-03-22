@@ -12,7 +12,7 @@ namespace smallsoldiers.land
         private Region[,] regions;
         public Battlefield()
         {
-            rect = new Rectangle(Cons.HOMELAND_SIZE, 0, Cons.BATTLEFIELD_SIZE, Cons.HEIGHT);
+            rect = new Rectangle(Cons.HOMELAND_SIZE - 32, 0, Cons.BATTLEFIELD_SIZE + 64, Cons.HEIGHT);
 
             int regions_width = Cons.BATTLEFIELD_SIZE / Cons.REGION_SIZE;
             int regions_height = Cons.HEIGHT / Cons.REGION_SIZE - 1;
@@ -22,7 +22,7 @@ namespace smallsoldiers.land
             {
                 for (int j = 0; j < regions.GetLength(1); j++)
                 {
-                    regions[i, j] = new Region("pixel", 
+                    regions[i, j] = new Region("slot01", 
                                                Cons.HOMELAND_SIZE + i * Cons.REGION_SIZE + i * 8, 
                                                j * Cons.REGION_SIZE + j * 8 + 32 * 2);
                 }
@@ -42,6 +42,7 @@ namespace smallsoldiers.land
 
         public void Draw()
         {
+            Ressource.Draw("bg01", rect, Color.White, 0f);
             for (int i = 0; i < regions.GetLength(0); i++)
             {
                 for (int j = 0; j < regions.GetLength(1); j++)

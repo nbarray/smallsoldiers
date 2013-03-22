@@ -12,13 +12,15 @@ namespace smallsoldiers.entity
         protected Rectangle rect;
         protected Rectangle source;
         protected Color color;
+        protected float depth;
 
-        public Entity(string _asset, Rectangle _rect, Color _color)
+        public Entity(string _asset, Rectangle _rect, Color _color, float _depth)
         {
             asset = _asset;
             rect = _rect;
             source = Ressource.Get(asset).Bounds;
             color = _color;
+            depth = _depth;
         }
         public Entity(string _asset, Rectangle _rect, Rectangle _source, Color _color)
         {
@@ -30,7 +32,7 @@ namespace smallsoldiers.entity
 
         public void Draw()
         {
-            Ressource.sb.Draw(Ressource.Get(asset), rect, source, color);
+            Ressource.Draw(asset, rect, source, color, depth);
         }
     }
 }
