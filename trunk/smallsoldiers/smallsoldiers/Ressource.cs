@@ -43,6 +43,9 @@ namespace smallsoldiers
             fonts.Add("medium", content.Load<SpriteFont>("font/medium"));
         }
 
-
+        public static void Draw(string _asset, Rectangle _rect, Color _color, float _depth)
+        {
+            sb.Draw(textures[_asset], _rect, textures[_asset].Bounds, _color, 0f, new Vector2(), SpriteEffects.None, _depth);
+        }
     }
 }
