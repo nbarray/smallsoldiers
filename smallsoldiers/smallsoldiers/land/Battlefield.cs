@@ -29,6 +29,17 @@ namespace smallsoldiers.land
             }
         }
 
+        public void Update(int _mx, int _my, bool _mpressed)
+        {
+            for (int i = 0; i < regions.GetLength(0); i++)
+            {
+                for (int j = 0; j < regions.GetLength(1); j++)
+                {
+                    regions[i, j].Update(_mx, _my, _mpressed);
+                }
+            }
+        }
+
         public void Draw()
         {
             for (int i = 0; i < regions.GetLength(0); i++)

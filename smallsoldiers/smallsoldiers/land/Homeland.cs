@@ -29,17 +29,11 @@ namespace smallsoldiers.land
             }
         }
 
-        public void Update()
+        public void Update(int _mx, int _my, bool _mpressed)
         {
-            MouseState mstate = Mouse.GetState();
-            int mx = mstate.X;
-            int my = mstate.Y;
-            bool mpressed = mstate.LeftButton == ButtonState.Pressed;
-            bool mreleased = mstate.LeftButton == ButtonState.Released;
-
             for (int i = 0; i < slots.Length; i++)
             {
-                slots[i].Update(mx, my, mpressed);   
+                slots[i].Update(_mx, _my, _mpressed);   
             }
         }
 

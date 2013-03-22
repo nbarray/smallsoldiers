@@ -51,8 +51,16 @@ namespace smallsoldiers
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
 
-            zone_joueur_1.Update();
-            zone_joueur_2.Update();
+            MouseState mstate = Mouse.GetState();
+            int mx = mstate.X;
+            int my = mstate.Y;
+            bool mpressed = mstate.LeftButton == ButtonState.Pressed;
+            bool mreleased = mstate.LeftButton == ButtonState.Released;
+
+            zone_joueur_1.Update(mx, my, mpressed);
+            zone_joueur_2.Update(mx, my, mpressed);
+            test.Update(mx, my, mpressed);
+
 
             base.Update(gameTime);
         }

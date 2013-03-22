@@ -14,5 +14,20 @@ namespace smallsoldiers.land
         {
 
         }
+
+        public void Update(int _mx, int _my, bool _mpressed)
+        {
+            if (rect.Contains(_mx, _my))
+            {
+                if (!_mpressed)
+                    color = Color.IndianRed;
+                else
+                    color = Color.HotPink;
+            }
+            else
+            {
+                color = Color.LightGray;
+            }
+        }
     }
 }
