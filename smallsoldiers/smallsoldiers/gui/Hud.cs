@@ -29,6 +29,12 @@ namespace smallsoldiers.gui
             p2_pop = "0";
         }
 
+        public void Update(Player p1, Player p2)
+        {
+            p1_pop = p1.army.soldiers.Count.ToString();
+            p2_pop = p2.army.soldiers.Count.ToString();
+        }
+
         public void Draw()
         {
             Ressource.Draw("hud01", top_rect, Color.White, Cons.DEPTH_HUD);

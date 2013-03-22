@@ -57,6 +57,8 @@ namespace smallsoldiers
             bool mpressed = mstate.LeftButton == ButtonState.Pressed;
             bool mreleased = mstate.LeftButton == ButtonState.Released;
 
+            hud.Update(p1, p2);
+
             p1.Update(hud, mx, my, mpressed);
             p2.Update(hud, mx, my, mpressed);
 
