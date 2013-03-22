@@ -50,6 +50,8 @@ namespace smallsoldiers.land
         {
             if (free)
                 Ressource.Draw("slot01", rect, color, 0.8f);
+            else
+                Ressource.Draw("building_nicolas", rect, new Rectangle(0, 0, 96, 96), Color.White, 0.8f);
         }
     }
 }

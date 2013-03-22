@@ -110,12 +110,14 @@
     <Compile Include="Cons.cs" />
     <Compile Include="entity\Building.cs" />
     <Compile Include="entity\Entity.cs" />
+    <Compile Include="entity\Flag.cs" />
     <Compile Include="entity\Soldier.cs" />
     <Compile Include="gui\Hud.cs" />
     <Compile Include="land\Battlefield.cs" />
     <Compile Include="land\Homeland.cs" />
     <Compile Include="land\Region.cs" />
     <Compile Include="land\Slot.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
