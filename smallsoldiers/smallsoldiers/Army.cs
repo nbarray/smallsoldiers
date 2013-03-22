@@ -15,10 +15,18 @@ namespace smallsoldiers
             soldiers = new List<Soldier>();
         }
 
-        public void Add_soldier(Soldier _s)
+        public bool Add_soldier(Soldier _s)
         {
-            soldiers.Add(_s);
-            soldiers[soldiers.Count - 1].go_to_flag();
+            if (soldiers.Count < 10)
+            {
+                soldiers.Add(_s);
+                soldiers[soldiers.Count - 1].go_to_flag();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void Update()
