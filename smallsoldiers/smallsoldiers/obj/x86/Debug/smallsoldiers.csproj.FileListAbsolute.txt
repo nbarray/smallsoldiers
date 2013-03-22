@@ -1,0 +1,8 @@
+C:\Users\nbarr_000\Desktop\SmallSoldier\smallsoldiers\smallsoldiers\bin\x86\Debug\smallsoldiers.exe
+C:\Users\nbarr_000\Desktop\SmallSoldier\smallsoldiers\smallsoldiers\bin\x86\Debug\smallsoldiers.pdb
+C:\Users\nbarr_000\Desktop\SmallSoldier\smallsoldiers\smallsoldiers\obj\x86\Debug\smallsoldiers.csprojResolveAssemblyReference.cache
+C:\Users\nbarr_000\Desktop\SmallSoldier\smallsoldiers\smallsoldiers\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\nbarr_000\Desktop\SmallSoldier\smallsoldiers\smallsoldiers\obj\x86\Debug\smallsoldiers.exe
+C:\Users\nbarr_000\Desktop\SmallSoldier\smallsoldiers\smallsoldiers\obj\x86\Debug\smallsoldiers.pdb
+C:\Users\nbarr_000\Desktop\SmallSoldier\smallsoldiers\smallsoldiers\bin\x86\Debug\Content\image\bg01.xnb
+C:\Users\nbarr_000\Desktop\SmallSoldier\smallsoldiers\smallsoldiers\bin\x86\Debug\Content\image\pixel.xnb
