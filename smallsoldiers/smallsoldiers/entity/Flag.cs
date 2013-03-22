@@ -19,6 +19,15 @@ namespace smallsoldiers.entity
             soldiers_linked = new List<Soldier>();
         }
 
+        public int get_X()
+        {
+            return rect.X;
+        }
+        public int get_Y()
+        {
+            return rect.Y;
+        }
+
         public void add_new_soldier(Soldier _s)
         {
             soldiers_linked.Add(_s);

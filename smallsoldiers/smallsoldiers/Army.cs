@@ -18,6 +18,7 @@ namespace smallsoldiers
         public void Add_soldier(Soldier _s)
         {
             soldiers.Add(_s);
+            soldiers[soldiers.Count - 1].go_to_flag();
         }
 
         public void Update()
