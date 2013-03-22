@@ -6,3 +6,4 @@ C:\Users\nbarr_000\Desktop\SmallSoldier\smallsoldiers\smallsoldiers\obj\x86\Debu
 C:\Users\nbarr_000\Desktop\SmallSoldier\smallsoldiers\smallsoldiers\obj\x86\Debug\smallsoldiers.pdb
 C:\Users\nbarr_000\Desktop\SmallSoldier\smallsoldiers\smallsoldiers\bin\x86\Debug\Content\image\bg01.xnb
 C:\Users\nbarr_000\Desktop\SmallSoldier\smallsoldiers\smallsoldiers\bin\x86\Debug\Content\image\pixel.xnb
+C:\Users\nbarr_000\Desktop\SmallSoldier\smallsoldiers\smallsoldiers\bin\x86\Debug\Content\image\fighter_louis.xnb

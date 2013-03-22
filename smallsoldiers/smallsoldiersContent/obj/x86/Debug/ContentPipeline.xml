@@ -19,6 +19,15 @@
       <Output>C:\Users\nbarr_000\Desktop\SmallSoldier\smallsoldiers\smallsoldiers\bin\x86\Debug\Content\image\pixel.xnb</Output>
       <Time>2013-03-22T19:10:44.2886306+01:00</Time>
     </Item>
+    <Item>
+      <Source>image\fighter_louis.png</Source>
+      <Name>image\fighter_louis</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\nbarr_000\Desktop\SmallSoldier\smallsoldiers\smallsoldiers\bin\x86\Debug\Content\image\fighter_louis.xnb</Output>
+      <Time>2013-03-22T19:50:34.1809482+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
