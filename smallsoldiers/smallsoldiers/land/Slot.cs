@@ -39,7 +39,7 @@ namespace smallsoldiers.land
             }
         }
 
-        public void Update(GameTime _gameTime, int _mx, int _my, bool _mpressed, bool _rpressed, Player p)
+        public void Update(GameTime _gameTime, int _mx, int _my, bool _mpressed, bool _rpressed, Player _p)
         {
             if (is_selected)
                 update_when_selected(_mx, _my, _rpressed);
@@ -54,7 +54,7 @@ namespace smallsoldiers.land
                 }
                 else
                 {
-                    if (!een && owner == p)
+                    if (!een && owner == _p)
                     {
                         is_selected = !is_selected;
                         AddBuilding(new Building("building_nicolas"));
@@ -73,7 +73,7 @@ namespace smallsoldiers.land
 
             if (building != null)
             {
-                building.Update(_gameTime, p.army);
+                building.Update(_gameTime, _p.army);
             }
         }
         public void update_when_selected(int _mx, int _my, bool _rpressed)
@@ -86,6 +86,19 @@ namespace smallsoldiers.land
             if (!_rpressed)
             {
                 right_click = true;
+            }
+        }
+        public void Update_IA(GameTime _gameTime, Player _p)
+        {
+            if (building != null)
+            {
+                building.Update(_gameTime, _p.army);
+            }
+            else
+            {
+                AddBuilding(new Building("building_nicolas"));
+                building.SetPosition(new Point(rect.X, rect.Y));
+                building.set_new_flag_pos(rect.X - 300, rect.Y + 48);
             }
         }
 

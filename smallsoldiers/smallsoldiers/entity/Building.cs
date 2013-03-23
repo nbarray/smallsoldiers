@@ -10,7 +10,6 @@ namespace smallsoldiers.entity
     {
         private Flag fanion;
         public bool display_flag;
-        private bool is_working;
         private int delay, time_since_last;
 
 
@@ -26,21 +25,17 @@ namespace smallsoldiers.entity
             display_flag = false;
             delay = 300;
             time_since_last = 0;
-            is_working = true;
             //model = new Soldier("fighter_louis", 50, 75, fanion);
             //model.move_to(Cons.WIDTH / 2, Cons.HEIGHT / 2);
         }
 
         public void Update(GameTime _gameTime, Army _a)
         {
-            if (is_working)
+            time_since_last++;
+            if (time_since_last >= delay)
             {
-                time_since_last++;
-                if (time_since_last == delay)
-                {
-                    is_working = _a.Add_soldier(new Soldier("fighter_louis", rect.X + 32, rect.Y + 64, fanion));
+                if (_a.Add_soldier(new Soldier("fighter_louis", rect.X + 32, rect.Y + 64, fanion)))
                     time_since_last = 0;
-                }
             }
 
             if (display_flag)

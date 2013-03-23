@@ -118,7 +118,7 @@ namespace smallsoldiers.entity
                             else
                             {
                                 if (attack_anim.Update(_gameTime))
-                                    target.damage(2);
+                                    target.damage(1.3f);
                             }
                         }
                         else
@@ -137,7 +137,7 @@ namespace smallsoldiers.entity
                     detect_ennemy = 96;
                     goto default;
                 default:
-                    target = _allies.get_target(rect.X, rect.Y, detect_ennemy);
+                    target = _ennemies.get_target(rect.X, rect.Y, detect_ennemy);
                     if (target != null && target != this)
                         set_attack_on(target);
                     break;

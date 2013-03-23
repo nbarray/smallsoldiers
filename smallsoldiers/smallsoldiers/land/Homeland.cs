@@ -56,6 +56,14 @@ namespace smallsoldiers.land
             }
         }
 
+        public void Update_IA(GameTime _gameTime, Player _p)
+        {
+            for (int i = 0; i < slots.Length; i++)
+            {
+                slots[i].Update_IA(_gameTime, _p);
+            }
+        }
+
         public void Draw()
         {
             if (isPlayer)
