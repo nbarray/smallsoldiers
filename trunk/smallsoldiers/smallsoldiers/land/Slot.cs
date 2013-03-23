@@ -13,6 +13,9 @@ namespace smallsoldiers.land
         private bool free, is_selected, een, right_click;
         private Color color;
         private Building building;
+        private Player owner;
+
+        public void SetOwner(Player _owner) { if (owner == null) owner = _owner; }
 
         public Slot(int _i, int _j)
         {
@@ -24,6 +27,7 @@ namespace smallsoldiers.land
             is_selected = false;
 
             building = null;
+            owner = null;
         }
 
         public void AddBuilding(Building _b)
@@ -50,7 +54,7 @@ namespace smallsoldiers.land
                 }
                 else
                 {
-                    if (!een && p.IsPlayer())
+                    if (!een && owner == p)
                     {
                         is_selected = !is_selected;
                         AddBuilding(new Building("building_nicolas"));
@@ -66,6 +70,7 @@ namespace smallsoldiers.land
                 color = Color.Red;
             } 
             #endregion
+
             if (building != null)
             {
                 building.Update(_gameTime, p.army);

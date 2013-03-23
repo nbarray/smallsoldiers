@@ -13,43 +13,52 @@ namespace smallsoldiers.land
     {
         private Slot[] slots;
         private Rectangle rect;
-        private bool player;
+        private bool isPlayer;
 
-        public Homeland(bool _player)
+        private Player owner;
+
+        public Homeland(bool _isPlayer, Player _p)
         {
-            player = _player;
+            isPlayer = _isPlayer;
+            owner = _p;
+
             slots = new Slot[6];
             for (int i = 0; i < slots.Length; i++)
             {
                 int padding = 32;
                 int y = Cons.BUILDING_SIZE * i + i * padding / 2 + padding * 3;
-                if (player)
+                if (isPlayer)
                     slots[i] = new Slot(padding, y);
                 else
                     slots[i] = new Slot(Cons.WIDTH - Cons.BUILDING_SIZE - padding, y);
             }
 
-            if (player)
+            if (isPlayer)
                 rect = new Rectangle(0, 0, Cons.HOMELAND_SIZE, Cons.HEIGHT);
             else
                 rect = new Rectangle(Cons.WIDTH - Cons.HOMELAND_SIZE, 0, Cons.HOMELAND_SIZE, Cons.HEIGHT);
         }
 
-        public void Update(GameTime _gameTime, int _mx, int _my, bool _mpressed, bool _rpressed, Player _player)
+        public void InitializeSlots()
         {
-            // Si c'est le joueur 1
-            if (_player.IsPlayer())
+            for (int i = 0; i < slots.Length; i++)
             {
-                for (int i = 0; i < slots.Length; i++)
-                {
-                    slots[i].Update(_gameTime, _mx, _my, _mpressed, _rpressed, _player);
-                }
+                slots[i].SetOwner(owner);
+            }
+        }
+
+        public void Update(GameTime _gameTime, int _mx, int _my, bool _mpressed, bool _rpressed)
+        {
+            if(owner.IsPlayer())
+            for (int i = 0; i < slots.Length; i++)
+            {
+                slots[i].Update(_gameTime, _mx, _my, _mpressed, _rpressed, owner);
             }
         }
 
         public void Draw()
         {
-            if (player)
+            if (isPlayer)
                 Ressource.Draw("homelands_nicolas", rect, Color.White, 0.1f);
             else
                 Ressource.Draw("homelands_louis", rect, Color.White, 0.1f, SpriteEffects.FlipHorizontally);
