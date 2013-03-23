@@ -27,8 +27,8 @@ namespace smallsoldiers.land
         {
             rect = new Rectangle(_i, _j, Cons.BUILDING_SIZE, Cons.BUILDING_SIZE);
 
-            color = Color.Red;
-            
+            color = Color.White;
+
             een = false;
             is_selected = false;
 
@@ -59,17 +59,14 @@ namespace smallsoldiers.land
                 if (!_mpressed)
                 {
                     een = false;
-                    color = Color.Yellow;
                 }
                 else
                 {
                     if (!een)
                     {
-
                         is_selected = true;
                         een = true;
                     }
-                    color = Color.Purple;
                 }
             }
             else
@@ -78,7 +75,6 @@ namespace smallsoldiers.land
                 {
                     is_selected = false;
                 }
-                color = Color.Red;
             }
             #endregion
 
@@ -91,15 +87,15 @@ namespace smallsoldiers.land
         {
             if (building != null)
             {
-            if (right_click && _rpressed)
-            {
-                right_click = false;
-                building.set_new_flag_pos(_mx, _my);
-            }
-            if (!_rpressed)
-            {
-                right_click = true;
-            }
+                if (right_click && _rpressed)
+                {
+                    right_click = false;
+                    building.set_new_flag_pos(_mx, _my);
+                }
+                if (!_rpressed)
+                {
+                    right_click = true;
+                }
 
             }
         }
@@ -123,7 +119,12 @@ namespace smallsoldiers.land
                 Draw_when_selected();
 
             if (free)
-                Ressource.Draw("slot01", rect, color, 0.8f);
+            {
+                if (is_selected)
+                    Ressource.Draw("slot02", rect, new Rectangle(96, 0, 96, 96), color, 0.8f);
+                else
+                    Ressource.Draw("slot02", rect, new Rectangle(0, 0, 96, 96), color, 0.8f);
+            }
             else
             {
                 if (building != null)

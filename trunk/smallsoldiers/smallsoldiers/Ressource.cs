@@ -41,6 +41,7 @@ namespace smallsoldiers
             textures.Add("flag01", content.Load<Texture2D>("image/flag01"));
             textures.Add("flag02", content.Load<Texture2D>("image/flag02"));
             textures.Add("slot01", content.Load<Texture2D>("image/slot01"));
+            textures.Add("slot02", content.Load<Texture2D>("image/slot02"));
             textures.Add("homelands_nicolas", content.Load<Texture2D>("image/homelands_nicolas"));
             textures.Add("homelands_louis", content.Load<Texture2D>("image/homelands_louis"));
             textures.Add("flag_louis", content.Load<Texture2D>("image/flag_louis"));
