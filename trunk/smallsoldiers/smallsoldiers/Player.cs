@@ -31,8 +31,15 @@ namespace smallsoldiers
 
         public void Update(GameTime _gameTime, Hud _hud, Army _ennemy, int _mx, int _my, bool _mpressed, bool _rpressed)
         {
+            if (!player)
+                Update_IA(_gameTime, this);
+            else
+                home.Update(_gameTime, _mx, _my, _mpressed, _rpressed);
             army.Update(_gameTime, _ennemy);
-            home.Update(_gameTime, _mx, _my, _mpressed, _rpressed);
+        }
+        private void Update_IA(GameTime _gameTime, Player _p)
+        {
+            home.Update_IA(_gameTime, _p);
         }
 
         public void Draw()
