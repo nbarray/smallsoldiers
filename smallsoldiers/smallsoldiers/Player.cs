@@ -18,7 +18,6 @@ namespace smallsoldiers
         private Flag default_flag;
 
         public bool IsPlayer() { return player; }
-
         public Player(string _name, bool _player)
         {
             name = _name;
