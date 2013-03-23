@@ -22,7 +22,8 @@ namespace smallsoldiers
         public Player(string _name, bool _player)
         {
             name = _name;
-            home = new Homeland(_player);
+            home = new Homeland(_player, this);
+            home.InitializeSlots();
             player = _player;
             army = new Army();
             default_flag = new Flag("flag_louis");
@@ -31,7 +32,7 @@ namespace smallsoldiers
         public void Update(GameTime _gameTime, Hud _hud, Army _ennemy, int _mx, int _my, bool _mpressed, bool _rpressed)
         {
             army.Update(_gameTime, _ennemy);
-            home.Update(_gameTime, _mx, _my, _mpressed, _rpressed, this);
+            home.Update(_gameTime, _mx, _my, _mpressed, _rpressed);
         }
 
         public void Draw()
