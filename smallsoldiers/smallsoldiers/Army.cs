@@ -32,9 +32,12 @@ namespace smallsoldiers
 
         public void Update(GameTime _gameTime, Army _ennemy)
         {
-            foreach (Soldier item in soldiers)
+            for (int i = soldiers.Count-1; i >-1; i--)
             {
-                item.Update(_gameTime, this, _ennemy);
+                if (soldiers[i].isdead())
+                    soldiers.RemoveAt(i);
+                else
+                    soldiers[i].Update(_gameTime, this, _ennemy);
             }
         }
 

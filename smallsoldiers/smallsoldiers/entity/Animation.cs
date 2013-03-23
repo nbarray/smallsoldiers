@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace smallsoldiers.entity
 {
@@ -31,19 +32,26 @@ namespace smallsoldiers.entity
             depth = _depth;
         }
 
-        public void Update(GameTime _gameTime)
+        public bool Update(GameTime _gameTime)
         {
             elapsed += _gameTime.ElapsedGameTime.Milliseconds;
             if (elapsed > frame_time)
             {
                 elapsed -= frame_time;
                 source.X = offsetX * Cons.MAN_SIZE + (source.X + Cons.MAN_SIZE) % (frame_count * Cons.MAN_SIZE);
+                return true;
             }
+            else
+                return false;
         }
 
         public void Draw(Rectangle _rect)
         {
             Ressource.Draw(asset, _rect, source, Color.White, depth);
+        }
+        public void Draw(Rectangle _rect, SpriteEffects _se)
+        {
+            Ressource.Draw(asset, _rect, source, Color.White, depth, _se);
         }
     }
 }

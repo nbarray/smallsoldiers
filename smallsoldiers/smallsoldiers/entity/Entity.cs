@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace smallsoldiers.entity
 {
@@ -34,6 +35,11 @@ namespace smallsoldiers.entity
         public virtual void Draw()
         {
             Ressource.Draw(asset, rect, source, color, depth);
+        }
+
+        public virtual void Draw(SpriteEffects _se)
+        {
+            Ressource.Draw(asset, rect, source, color, depth, _se);
         }
     }
 }
