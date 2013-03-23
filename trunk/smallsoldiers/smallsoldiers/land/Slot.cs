@@ -89,6 +89,8 @@ namespace smallsoldiers.land
         }
         private void Update_when_selected(int _mx, int _my, bool _rpressed)
         {
+            if (building != null)
+            {
             if (right_click && _rpressed)
             {
                 right_click = false;
@@ -97,6 +99,8 @@ namespace smallsoldiers.land
             if (!_rpressed)
             {
                 right_click = true;
+            }
+
             }
         }
         public void Update_IA(GameTime _gameTime, Player _p)
