@@ -36,7 +36,6 @@ namespace smallsoldiers.entity
         {
             Ressource.Draw(asset, rect, source, color, depth);
         }
-
         public virtual void Draw(SpriteEffects _se)
         {
             Ressource.Draw(asset, rect, source, color, depth, _se);

@@ -4,30 +4,39 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using smallsoldiers.entity;
+using smallsoldiers.gui;
 
 namespace smallsoldiers.land
 {
     class Slot
     {
-        private Rectangle rect, choice_rect;
+        private Rectangle rect;
         private bool free, is_selected, een, right_click;
         private Color color;
         private Building building;
         private Player owner;
+        private SlotMenu menu;
 
+        public Point GetPosition() { return rect.Location; }
         public void SetOwner(Player _owner) { if (owner == null) owner = _owner; }
+        public Building GetBuilding() { return building; }
+        public void EreaseBuilding() { building = null; }
+        public void SetFree(bool _b) { free = _b; }
 
         public Slot(int _i, int _j)
         {
             rect = new Rectangle(_i, _j, Cons.BUILDING_SIZE, Cons.BUILDING_SIZE);
-            choice_rect = new Rectangle(_i + Cons.BUILDING_SIZE + 4, _j, 32, 32);
+
             color = Color.Red;
-            free = true;
+            
             een = false;
             is_selected = false;
 
             building = null;
+            free = true;
             owner = null;
+
+            menu = new SlotMenu(this, new Rectangle(_i + Cons.BUILDING_SIZE + 4, _j, 128, 64));
         }
 
         public void AddBuilding(Building _b)
@@ -39,13 +48,13 @@ namespace smallsoldiers.land
             }
         }
 
-        public void Update(GameTime _gameTime, int _mx, int _my, bool _mpressed, bool _rpressed, Player _p)
+        public void Update(GameTime _gameTime, int _mx, int _my, bool _mpressed, bool _rpressed)
         {
             if (is_selected)
-                update_when_selected(_mx, _my, _rpressed);
+                Update_when_selected(_mx, _my, _rpressed);
 
             #region mouse
-            if (rect.Contains(_mx, _my))
+            if (rect.Contains(_mx, _my) || (is_selected && menu.Update(_mx, _my, _mpressed)))
             {
                 if (!_mpressed)
                 {
@@ -54,11 +63,10 @@ namespace smallsoldiers.land
                 }
                 else
                 {
-                    if (!een && owner == _p)
+                    if (!een)
                     {
-                        is_selected = !is_selected;
-                        AddBuilding(new Building("building_nicolas"));
-                        building.SetPosition(new Point(rect.X, rect.Y));
+
+                        is_selected = true;
                         een = true;
                     }
                     color = Color.Purple;
@@ -66,17 +74,20 @@ namespace smallsoldiers.land
             }
             else
             {
-                if (_mpressed) { is_selected = false; }
+                if (_mpressed)
+                {
+                    is_selected = false;
+                }
                 color = Color.Red;
-            } 
+            }
             #endregion
 
             if (building != null)
             {
-                building.Update(_gameTime, _p.army);
+                building.Update(_gameTime, owner.army);
             }
         }
-        public void update_when_selected(int _mx, int _my, bool _rpressed)
+        private void Update_when_selected(int _mx, int _my, bool _rpressed)
         {
             if (right_click && _rpressed)
             {
@@ -105,18 +116,23 @@ namespace smallsoldiers.land
         public void Draw()
         {
             if (is_selected)
-            {
-                //Ressource.Draw("pixel", choice_rect, Color.White, Cons.DEPTH_HUD);
-            }
+                Draw_when_selected();
 
             if (free)
                 Ressource.Draw("slot01", rect, color, 0.8f);
             else
             {
-                building.Draw();
-                building.display_flag = is_selected;
-                building.Draw_flag();
+                if (building != null)
+                {
+                    building.Draw();
+                    building.display_flag = is_selected;
+                    building.Draw_flag();
+                }
             }
+        }
+        private void Draw_when_selected()
+        {
+            menu.Draw();
         }
     }
 }

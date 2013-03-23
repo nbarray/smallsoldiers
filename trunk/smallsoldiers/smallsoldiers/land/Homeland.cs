@@ -52,7 +52,7 @@ namespace smallsoldiers.land
             if(owner.IsPlayer())
             for (int i = 0; i < slots.Length; i++)
             {
-                slots[i].Update(_gameTime, _mx, _my, _mpressed, _rpressed, owner);
+                slots[i].Update(_gameTime, _mx, _my, _mpressed, _rpressed);
             }
         }
 
