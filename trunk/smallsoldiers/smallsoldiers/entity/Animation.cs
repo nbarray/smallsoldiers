@@ -37,7 +37,7 @@ namespace smallsoldiers.entity
             if (elapsed > frame_time)
             {
                 elapsed -= frame_time;
-                source.X = offsetX + (source.X + Cons.MAN_SIZE) % (frame_count * Cons.MAN_SIZE);
+                source.X = offsetX * Cons.MAN_SIZE + (source.X + Cons.MAN_SIZE) % (frame_count * Cons.MAN_SIZE);
             }
         }
 
