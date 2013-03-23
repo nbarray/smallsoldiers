@@ -17,6 +17,7 @@ namespace smallsoldiers.entity
         protected float pos_x, pos_y;
         private Flag fanion;
         private Random r;
+        private Soldier target;
 
         private Animation walk_anim, attack_anim;
 
@@ -37,6 +38,7 @@ namespace smallsoldiers.entity
             mode = act_mode.Move;
             fanion = _link;
             fanion.add_new_soldier(this);
+            target = null;
 
             walk_anim = new Animation(asset, new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE), 6, 0, depth, false);
             attack_anim = new Animation(asset, new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE), 6, 7, depth, false);
@@ -52,12 +54,13 @@ namespace smallsoldiers.entity
         {
             int s_x = ((r.Next(1000) % 100) + (r.Next(1000) % 100)) / 2 - 50;
             int s_y = ((r.Next(1000) % 100) + (r.Next(1000) % 100)) / 2 - 50;
-            move_to(fanion.get_X()+s_x, fanion.get_Y()+s_y);
+            move_to(fanion.get_X() + s_x, fanion.get_Y() + s_y);
         }
 
-        public void Update(GameTime _gameTime)
+        public void Update(GameTime _gameTime, Army _allies, Army _ennemies)
         {
             //move_to(Mouse.GetState().X, Mouse.GetState().Y);
+            int detect_ennemy = 32;
             switch (mode)
             {
                 case act_mode.Move:
@@ -70,17 +73,26 @@ namespace smallsoldiers.entity
                     rect.Y = (int)pos_y;
                     if (Math.Abs(rect.X - dest_x) < 2 && Math.Abs(rect.Y - dest_y) < 2)
                         mode = act_mode.Wait;
-                    break;
+                    goto default;
                 case act_mode.Attack:
-                    attack_anim.Update(_gameTime);
+                    if (target.dist_from_a_point(rect.X, rect.Y) < 40)
+                    {
+                        attack_anim.Update(_gameTime);
+                    }
                     break;
+                case act_mode.Wait:
+                    detect_ennemy = 96;
+                    goto default;
                 default:
+                    target = _allies.get_target(rect.X, rect.Y, detect_ennemy);
+                    if (target != null && target != this)
+                        set_attack_on(target);
                     break;
             }
-            depth = 0.5f + ((float)(rect.Y + 32))/10000f;
+            depth = 0.5f + ((float)(rect.Y + 32)) / 10000f;
         }
 
-        public override void  Draw()
+        public override void Draw()
         {
             switch (mode)
             {
@@ -96,6 +108,18 @@ namespace smallsoldiers.entity
                 default:
                     break;
             }
+        }
+
+        public double dist_from_a_point(int _x, int _y)
+        {
+            return Math.Sqrt((_x - rect.X) * (_x - rect.X)
+                + (_y - rect.Y) * (_y - rect.Y));
+        }
+
+        public void set_attack_on(Soldier _s)
+        {
+            mode = act_mode.Attack;
+            target = _s;
         }
     }
 }

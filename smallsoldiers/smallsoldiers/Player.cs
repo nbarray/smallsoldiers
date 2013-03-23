@@ -28,9 +28,9 @@ namespace smallsoldiers
             default_flag = new Flag("flag_louis");
         }
 
-        public void Update(GameTime _gameTime, Hud _hud, int _mx, int _my, bool _mpressed, bool _rpressed)
+        public void Update(GameTime _gameTime, Hud _hud, Army _ennemy, int _mx, int _my, bool _mpressed, bool _rpressed)
         {
-            army.Update(_gameTime);
+            army.Update(_gameTime, _ennemy);
             home.Update(_gameTime, _mx, _my, _mpressed, _rpressed, this);
         }
 
