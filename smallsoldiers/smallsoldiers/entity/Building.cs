@@ -52,7 +52,7 @@ namespace smallsoldiers.entity
                 time_since_last++;
                 if (time_since_last >= delay)
                 {
-                    if (_a.Add_soldier(new Soldier("ranger_louis", sold_type.Ranger, rect.X + 32, rect.Y + 64, fanion)))
+                    if (_a.Add_soldier(new Soldier("fighter_louis", sold_type.Fighter, rect.X + 32, rect.Y + 64, fanion)))
                         time_since_last = 0;
 
                 }
