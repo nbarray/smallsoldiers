@@ -183,6 +183,9 @@ namespace smallsoldiers.entity
 
         public override void Draw()
         {
+            Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 8, 32, 4), Color.LightGray, Cons.DEPTH_HUD);
+            Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 8, (int)(life * 32 / maxlife), 4), Color.Green, Cons.DEPTH_HUD + 0.01f);
+
             switch (mode)
             {
                 case act_mode.Move:
