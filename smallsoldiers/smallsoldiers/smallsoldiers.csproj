@@ -113,6 +113,7 @@
     <Compile Include="Army.cs" />
     <Compile Include="Cons.cs" />
     <Compile Include="entity\Animation.cs" />
+    <Compile Include="entity\Arrow.cs" />
     <Compile Include="entity\Building.cs" />
     <Compile Include="entity\Entity.cs" />
     <Compile Include="entity\Flag.cs" />
