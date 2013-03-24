@@ -22,17 +22,20 @@ namespace smallsoldiers.gui
             flag_rect01 = new Rectangle(10, 10, 64, 64);
             flag_rect02 = new Rectangle(Cons.WIDTH - 64 - 10, 10, 64, 64);
 
-            p1_income = "£";
-            p2_income = "$";
+            p1_income = "0 g";
+            p2_income = "0 g";
 
-            p1_pop = "0";
-            p2_pop = "0";
+            p1_pop = "0 pop";
+            p2_pop = "0 pop";
         }
 
         public void Update(Player p1, Player p2)
         {
-            p1_pop = p1.army.soldiers.Count.ToString();
-            p2_pop = p2.army.soldiers.Count.ToString();
+            p1_pop = p1.GetPopulation().ToString() + " pop";
+            p2_pop = p2.GetPopulation().ToString() + " pop";
+
+            p1_income = p1.GetIncome().ToString() + " g";
+            p2_income = p1.GetIncome().ToString() + " g";
         }
 
         public void Draw()

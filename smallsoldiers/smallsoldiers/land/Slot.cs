@@ -43,8 +43,12 @@ namespace smallsoldiers.land
         {
             if (free)
             {
-                building = _b;
-                free = false;
+                if (owner.GetIncome() >= 2)
+                {
+                    owner.RemoveFromIncome(2);
+                    building = _b;
+                    free = false;
+                }
             }
         }
 
@@ -83,6 +87,7 @@ namespace smallsoldiers.land
                 building.Update(_gameTime, owner.army);
             }
         }
+
         private void Update_when_selected(int _mx, int _my, bool _rpressed)
         {
             if (building != null)
@@ -108,8 +113,11 @@ namespace smallsoldiers.land
             else
             {
                 AddBuilding(new Building("building_nicolas"));
-                building.SetPosition(new Point(rect.X, rect.Y));
-                building.set_new_flag_pos(rect.X - 300, rect.Y + 48);
+                if (building != null)
+                {
+                    building.SetPosition(new Point(rect.X, rect.Y));
+                    building.set_new_flag_pos(rect.X - 300, rect.Y + 48);
+                }
             }
         }
 
