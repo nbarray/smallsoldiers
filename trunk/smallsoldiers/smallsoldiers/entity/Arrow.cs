@@ -10,7 +10,7 @@ namespace smallsoldiers.entity
     {
         private float start_x, start_y, dest_x, dest_y, z, d;
         private float damage;
-        private bool dead;
+        private bool dead, right;
         private int speed;
         public bool isdead()
         {
@@ -25,7 +25,8 @@ namespace smallsoldiers.entity
         {
             start_x = _x; start_y = _y;
             dest_x = _x2; dest_y = _y2;
-            d = (dest_x - start_x);
+            d = Math.Abs(dest_x - start_x);
+            right = dest_x > start_x;
             z = 0;
             speed = 2;
             dead = false;
@@ -34,10 +35,20 @@ namespace smallsoldiers.entity
 
         public void Update(GameTime _gameTime, Army _a)
         {
-            rect.X += speed;
-            z = (d / 2) * (1 - (1 - 2 * (rect.X - start_x) / d) * (1 - 2 * (rect.X - start_x) / d));
+            if (right)
+            {
+                rect.X += speed;
+                z = (d / 3) * (1 - (1 - 2 * (rect.X - start_x) / d) * (1 - 2 * (rect.X - start_x) / d));
 
-            rect.Y = (int)(start_y - z + (rect.X - start_x) * (dest_y - start_y)/d);
+                rect.Y = (int)(start_y - z + (rect.X - start_x) * (dest_y - start_y) / d);
+            }
+            else
+            {
+                rect.X -= speed;
+                z = (d / 3) * (1 - (1 - 2 * (start_x - rect.X) / d) * (1 - 2 * (start_x - rect.X) / d));
+
+                rect.Y = (int)(start_y - z + (start_x - rect.X) * (dest_y - start_y) / d);
+            }
 
             if (Math.Abs(rect.X - dest_x) < 3 && Math.Abs(rect.X - dest_x) < 3)
             {
