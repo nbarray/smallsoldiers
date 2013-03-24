@@ -23,7 +23,7 @@ namespace smallsoldiers.entity
         {
             fanion = new Flag("flag_louis");
             display_flag = false;
-            delay = 300;
+            delay = 60;
             time_since_last = 0;
             building_state = 0;
             elapsed = 0;
@@ -36,9 +36,9 @@ namespace smallsoldiers.entity
             if (building_state < 3)
             {
                 elapsed += _gameTime.ElapsedGameTime.Milliseconds;
-                if (elapsed > 2000)
+                if (elapsed > 500)
                 {
-                    elapsed -= 2000;
+                    elapsed -= 500;
                     building_state++;
                     source.X = Cons.BUILDING_SIZE * (3 + building_state);
                     if (building_state == 3)
@@ -52,7 +52,7 @@ namespace smallsoldiers.entity
                 time_since_last++;
                 if (time_since_last >= delay)
                 {
-                    if (_a.Add_soldier(new Soldier("fighter_louis", sold_type.Fighter, rect.X + 32, rect.Y + 64, fanion)))
+                    if (_a.Add_soldier(new Soldier("ranger_louis", sold_type.Ranger, rect.X + 32, rect.Y + 64, fanion)))
                         time_since_last = 0;
 
                 }
