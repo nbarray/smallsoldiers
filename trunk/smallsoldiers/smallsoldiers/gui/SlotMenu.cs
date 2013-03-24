@@ -34,7 +34,6 @@ namespace smallsoldiers.gui
                     if (button_yes.Contains(_mx,_my))
                     {
                         linked.AddBuilding(new Building("building_nicolas"));
-                        linked.SetFree(false);
                     }
                     else if (button_no.Contains(_mx, _my))
                     {
