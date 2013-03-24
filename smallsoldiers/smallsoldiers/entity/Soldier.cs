@@ -9,11 +9,12 @@ using Microsoft.Xna.Framework.Graphics;
 namespace smallsoldiers.entity
 {
     enum act_mode { Move, Attack, Wait }
+    enum sold_type { Fighter, Ranger, Healer }
 
     class Soldier : Entity
     {
-        private int dest_x, dest_y;
-        private float speed, life, armor;
+        private int dest_x, dest_y, range;
+        private float speed, life, maxlife, armor, damage;
         private act_mode mode;
         protected float pos_x, pos_y;
         private Flag fanion;
@@ -21,6 +22,7 @@ namespace smallsoldiers.entity
         private Soldier target;
         private SpriteEffects se;
         private bool dead;
+        private sold_type type;
 
         private Animation walk_anim, attack_anim;
         public int get_Y()
@@ -35,20 +37,52 @@ namespace smallsoldiers.entity
         {
             return dead;
         }
-        public void damage(float _d)
+        public void do_damage(float _d)
         {
-            life = (_d > armor) ? life - _d + armor : life;
+            if (_d < 0)
+                life = Math.Min(maxlife, life - _d);
+            else
+                life = (_d > armor) ? life - _d + armor : life;
             dead = life <= 0;
         }
+        public bool is_healable()
+        {
+            return life < maxlife;
+        }
 
-        public Soldier(string _asset, int _x, int _y, Flag _link)
+        public Soldier(string _asset, sold_type _t, int _x, int _y, Flag _link)
             : base(_asset,
                    new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE),
                    new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE),
                    Color.White, 0.6f)
         {
+            type = _t;
             r = new Random();
-            speed = 1.1f;
+            switch (type)
+            {
+                case sold_type.Ranger:
+                    speed = 1.3f;
+                    armor = 0;
+                    maxlife = 20;
+                    range = 320;
+                    damage = 1;
+                    break;
+                case sold_type.Healer:
+                    speed = 1.2f;
+                    armor = 0;
+                    maxlife = 20;
+                    range = 96;
+                    damage = -0.9f;
+                    break;
+                default:
+                    speed = 1.1f;
+                    armor = 0.5f;
+                    maxlife = 30;
+                    range = 32;
+                    damage = 1.1f;
+                    break;
+            }
+            life = maxlife;
             pos_x = _x;
             dest_x = _x;
             rect.X = _x;
@@ -60,8 +94,6 @@ namespace smallsoldiers.entity
             fanion.add_new_soldier(this);
             target = null;
             se = SpriteEffects.None;
-            armor = 0;
-            life = 20;
             dead = false;
 
             walk_anim = new Animation(asset, new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE), 6, 0, depth, false);
@@ -84,7 +116,7 @@ namespace smallsoldiers.entity
         public void Update(GameTime _gameTime, Army _allies, Army _ennemies)
         {
             //move_to(Mouse.GetState().X, Mouse.GetState().Y);
-            int detect_ennemy = 32;
+            int detect_ennemy = (type != sold_type.Ranger) ? (range * 3) / 2 : range / 2;
             switch (mode)
             {
                 case act_mode.Move:
@@ -106,11 +138,11 @@ namespace smallsoldiers.entity
                     #region Attack
                     if (target != null && !target.isdead())
                     {
-                        if (target.dist_from_a_point(rect.X, rect.Y) < 40)
+                        if (target.dist_from_a_point(rect.X, rect.Y) < range)
                         {
                             se = (rect.X < target.get_X()) ? SpriteEffects.None
                                 : SpriteEffects.FlipHorizontally;
-                            if (target.get_Y() < rect.Y)
+                            if (type == sold_type.Fighter && target.get_Y() < rect.Y)
                             {
                                 rect.Y--;
                                 pos_y--;
@@ -118,12 +150,13 @@ namespace smallsoldiers.entity
                             else
                             {
                                 if (attack_anim.Update(_gameTime))
-                                    target.damage(1.3f);
+                                    target.do_damage(damage);
                             }
                         }
                         else
                         {
-                            move_to(target.get_X(), target.get_Y());
+                            if (type != sold_type.Ranger)
+                                move_to(target.get_X(), target.get_Y());
                         }
                     }
                     else
@@ -134,10 +167,13 @@ namespace smallsoldiers.entity
                     #endregion
                     break;
                 case act_mode.Wait:
-                    detect_ennemy = 96;
+                    detect_ennemy = (type != sold_type.Ranger) ? range*3 : range;
                     goto default;
                 default:
-                    target = _ennemies.get_target(rect.X, rect.Y, detect_ennemy);
+                    if (type == sold_type.Healer)
+                        target = _allies.get_target_to_heal(rect.X, rect.Y, detect_ennemy);
+                    else
+                        target = _ennemies.get_target(rect.X, rect.Y, detect_ennemy);
                     if (target != null && target != this)
                         set_attack_on(target);
                     break;

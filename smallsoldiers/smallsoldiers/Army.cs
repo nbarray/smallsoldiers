@@ -63,5 +63,19 @@ namespace smallsoldiers
             }
             return target;
         }
+        public Soldier get_target_to_heal(int _x, int _y, int _dist)
+        {
+            Soldier target = null;
+            int min = _dist;
+            foreach (Soldier item in soldiers)
+            {
+                if (item.is_healable() && item.dist_from_a_point(_x, _y) < min && item.dist_from_a_point(_x, _y) > 1)
+                {
+                    target = item;
+                    min = (int)item.dist_from_a_point(_x, _y);
+                }
+            }
+            return target;
+        }
     }
 }
