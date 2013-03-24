@@ -48,6 +48,7 @@ namespace smallsoldiers.land
                     owner.RemoveFromIncome(2);
                     building = _b;
                     free = false;
+                    GetBuilding().SetPosition(GetPosition());
                 }
             }
         }
