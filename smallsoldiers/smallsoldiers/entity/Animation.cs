@@ -38,9 +38,9 @@ namespace smallsoldiers.entity
             elapsed += _gameTime.ElapsedGameTime.Milliseconds;
             if (elapsed > frame_time)
             {
-                elapsed -= frame_time;
-                indexX = offsetX + (indexX + 1) % frame_count;
-                source.X = indexX * source.Width;
+                elapsed = 0;
+                indexX =  ((indexX + 1) % frame_count);
+                source.X = (offsetX + indexX) * source.Width;
                 return (source.X == 12 * 32);
             }
             else
