@@ -14,7 +14,7 @@ namespace smallsoldiers.entity
         private float depth;
 
         private int frame_count;
-        private int offsetX;
+        private int offsetX, indexX;
 
         private float elapsed;
         private float frame_time;
@@ -28,6 +28,7 @@ namespace smallsoldiers.entity
             if (_isflag)
                 frame_time = Cons.FRAME_DURATION_FLAGS;
             offsetX = _offsetX;
+            indexX = 0;
             source = _source;
             depth = _depth;
         }
@@ -38,7 +39,8 @@ namespace smallsoldiers.entity
             if (elapsed > frame_time)
             {
                 elapsed -= frame_time;
-                source.X = offsetX * source.Width + (source.X + source.Width) % (frame_count * source.Width);
+                indexX = offsetX + (indexX + 1) % frame_count;
+                source.X = indexX * source.Width;
                 return true;
             }
             else
