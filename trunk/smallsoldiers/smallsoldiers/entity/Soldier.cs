@@ -56,6 +56,7 @@ namespace smallsoldiers.entity
                    new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE),
                    Color.White, 0.6f)
         {
+            #region Carac
             type = _t;
             r = new Random();
             switch (type)
@@ -65,24 +66,25 @@ namespace smallsoldiers.entity
                     armor = 0;
                     maxlife = 20;
                     range = 320;
-                    damage = 1;
+                    damage = 3;
                     break;
                 case sold_type.Healer:
                     speed = 1.2f;
                     armor = 0;
                     maxlife = 20;
                     range = 96;
-                    damage = -0.9f;
+                    damage = -3f;
                     break;
                 default:
                     speed = 1.1f;
                     armor = 0.5f;
                     maxlife = 30;
                     range = 32;
-                    damage = 1.1f;
+                    damage = 4f;
                     break;
             }
-            life = maxlife;
+            life = maxlife; 
+            #endregion
             pos_x = _x;
             dest_x = _x;
             rect.X = _x;
@@ -97,7 +99,7 @@ namespace smallsoldiers.entity
             dead = false;
 
             walk_anim = new Animation(asset, new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE), 6, 0, depth, false);
-            attack_anim = new Animation(asset, new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE), 6, 7, depth, false);
+            attack_anim = new Animation(asset, new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE), 7, 6, depth, false);
         }
 
         public void move_to(int _dest_x, int _dest_y)

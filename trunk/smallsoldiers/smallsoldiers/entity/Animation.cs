@@ -41,7 +41,7 @@ namespace smallsoldiers.entity
                 elapsed -= frame_time;
                 indexX = offsetX + (indexX + 1) % frame_count;
                 source.X = indexX * source.Width;
-                return true;
+                return (source.X == 12 * 32);
             }
             else
                 return false;
