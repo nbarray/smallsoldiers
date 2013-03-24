@@ -23,6 +23,7 @@ namespace smallsoldiers.entity
         private SpriteEffects se;
         private bool dead;
         private sold_type type;
+        private List<Arrow> arrows;
 
         private Animation walk_anim, attack_anim;
         public int get_Y()
@@ -83,7 +84,7 @@ namespace smallsoldiers.entity
                     damage = 4f;
                     break;
             }
-            life = maxlife; 
+            life = maxlife;
             #endregion
             pos_x = _x;
             dest_x = _x;
@@ -97,6 +98,7 @@ namespace smallsoldiers.entity
             target = null;
             se = SpriteEffects.None;
             dead = false;
+            arrows = new List<Arrow>();
 
             walk_anim = new Animation(asset, new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE), 6, 0, depth, false);
             attack_anim = new Animation(asset, new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE), 7, 6, depth, false);
@@ -118,7 +120,7 @@ namespace smallsoldiers.entity
         public void Update(GameTime _gameTime, Army _allies, Army _ennemies)
         {
             //move_to(Mouse.GetState().X, Mouse.GetState().Y);
-            int detect_ennemy = (type != sold_type.Ranger) ? (range * 3) / 2 : range / 2;
+            int detect_ennemy = (type != sold_type.Ranger) ? (range * 3) / 2 : range;
             switch (mode)
             {
                 case act_mode.Move:
@@ -152,7 +154,11 @@ namespace smallsoldiers.entity
                             else
                             {
                                 if (attack_anim.Update(_gameTime))
-                                    target.do_damage(damage);
+                                    if (type == sold_type.Ranger)
+                                        arrows.Add(new Arrow("arrow_louis", rect.X, rect.Y,
+                                            target.get_X(), target.get_Y(), damage));
+                                    else
+                                        target.do_damage(damage);
                             }
                         }
                         else
@@ -169,7 +175,7 @@ namespace smallsoldiers.entity
                     #endregion
                     break;
                 case act_mode.Wait:
-                    detect_ennemy = (type != sold_type.Ranger) ? range*3 : range;
+                    detect_ennemy = (type != sold_type.Ranger) ? range * 3 : range;
                     goto default;
                 default:
                     if (type == sold_type.Healer)
@@ -181,6 +187,14 @@ namespace smallsoldiers.entity
                     break;
             }
             depth = 0.5f + ((float)(rect.Y + 32)) / 10000f;
+
+            for (int i = arrows.Count - 1; i >= 0; i--)
+            {
+                if (arrows[i].isdead())
+                    arrows.RemoveAt(i);
+                else
+                    arrows[i].Update(_gameTime, _ennemies);
+            }
         }
 
         public override void Draw()
@@ -201,6 +215,11 @@ namespace smallsoldiers.entity
                     break;
                 default:
                     break;
+            }
+
+            foreach (Arrow item in arrows)
+            {
+                item.Draw();
             }
         }
 
