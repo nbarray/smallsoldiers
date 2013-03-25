@@ -1,1 +1,4 @@
-Update réussi
+-Anims de combat
+-Batiment principal
+-income et pop en fonction des régions
+-meilleur gestion des flèches

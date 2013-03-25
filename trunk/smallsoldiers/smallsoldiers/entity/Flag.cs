@@ -49,6 +49,7 @@ namespace smallsoldiers.entity
         {
             for (int i = soldiers_linked.Count - 1; i >= 0; i--)
             {
+                soldiers_linked[i].set_flag(_next);
                 _next.add_new_soldier(soldiers_linked[i]);
                 soldiers_linked.RemoveAt(i);
             }

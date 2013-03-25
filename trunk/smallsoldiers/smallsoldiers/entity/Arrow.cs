@@ -41,6 +41,7 @@ namespace smallsoldiers.entity
         {
             if (!sleep)
             {
+                #region Movement
                 if (right)
                 {
                     rect.X += (int)speed;
@@ -71,13 +72,13 @@ namespace smallsoldiers.entity
                     {
                         angle = (float)(Math.Asin((8f / 6f) * (rect.X - dest_x) / d - 2f / 3f/*+(dest_y - start_y) / d*/));
                     }
-                }
+                } 
+                #endregion
 
-
-                if (Math.Abs(rect.X - dest_x) < 3 && Math.Abs(rect.Y - dest_y) < 3)
+                if (Math.Abs(rect.X - dest_x) < 4 && Math.Abs(rect.Y - dest_y) < 4)
                 {
                     sleep = true;
-                    Soldier hit = _a.get_target(rect.X, rect.Y, Cons.MAN_SIZE / 3);
+                    Soldier hit = _a.get_target(rect.X, rect.Y, Cons.MAN_SIZE / 2);
                     if (hit != null)
                     {
                         hit.do_damage(damage);

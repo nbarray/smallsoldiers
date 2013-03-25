@@ -29,7 +29,7 @@ namespace smallsoldiers.land
         public Building GetBuilding() { return building; }
         public void EreaseBuilding() { building = null; }
         public void SetFree(bool _b) { free = _b; }
-        
+
         public Slot(int _i, int _j)
         {
             rect = new Rectangle(_i, _j, Cons.BUILDING_SIZE, Cons.BUILDING_SIZE);
@@ -43,11 +43,11 @@ namespace smallsoldiers.land
             building = null;
             free = true;
             owner = null;
-            
-            if(_i > Cons.WIDTH / 2)
+
+            if (_i > Cons.WIDTH / 2)
                 menu = new SlotMenu(this, new Rectangle(_i - 128 - 4, _j + 16, 128, 42));
             else
-            menu = new SlotMenu(this, new Rectangle(_i + Cons.BUILDING_SIZE + 4, _j + 16, 128, 42));
+                menu = new SlotMenu(this, new Rectangle(_i + Cons.BUILDING_SIZE + 4, _j + 16, 128, 42));
         }
 
         public void AddBuilding(Building _b)
@@ -93,7 +93,7 @@ namespace smallsoldiers.land
                 }
             }
             #endregion
-            
+
             if (building != null)
             {
                 building.Update(_gameTime, owner.army, owner, menu.GetProductionState(), _default_flag);
@@ -133,16 +133,16 @@ namespace smallsoldiers.land
                     if (!ai_wait_to_create)
                     {
                         ai_wait_to_create = true;
-                        int i = r.Next(3);
-                        if (i == 0)
+                        int i = Cons.r.Next(7);
+                        if (i < 3)
                         {
                             AddBuilding(new Building("building_nicolas", "fighter_louis", sold_type.Fighter, GetPosition()));
                         }
-                        else if (i == 1)
+                        else if (i > 3)
                         {
                             AddBuilding(new Building("building_nicolas", "ranger_louis", sold_type.Ranger, GetPosition()));
                         }
-                        else if (i == 2)
+                        else
                         {
                             AddBuilding(new Building("building_nicolas", "healer_louis", sold_type.Healer, GetPosition()));
                         }
