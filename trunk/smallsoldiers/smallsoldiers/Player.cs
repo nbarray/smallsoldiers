@@ -6,6 +6,7 @@ using smallsoldiers.gui;
 using smallsoldiers.land;
 using smallsoldiers.entity;
 using Microsoft.Xna.Framework;
+using smallsoldiers.son;
 
 namespace smallsoldiers
 {
@@ -41,7 +42,7 @@ namespace smallsoldiers
             benefice = 1;
         }
 
-        public void Update(GameTime _gameTime, Army _ennemy, int _mx, int _my, bool _mpressed, bool _rpressed)
+        public void Update(GameTime _gameTime, Army _ennemy, int _mx, int _my, bool _mpressed, bool _rpressed, Music _soundeffect)
         {
             army_population = army.soldiers.Count;
             Update_income(_gameTime);
@@ -51,7 +52,7 @@ namespace smallsoldiers
             else
                 home.Update(_gameTime, _mx, _my, _mpressed, _rpressed);
             
-            army.Update(_gameTime, _ennemy, IsPlayer());
+            army.Update(_gameTime, _ennemy, IsPlayer(), _soundeffect);
         }
         private void Update_IA(GameTime _gameTime, Player _p)
         {
