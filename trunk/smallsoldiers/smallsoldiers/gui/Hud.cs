@@ -19,8 +19,8 @@ namespace smallsoldiers.gui
         public Hud()
         {
             top_rect = new Rectangle(0, 0, Cons.WIDTH, 64);
-            flag_rect01 = new Rectangle(10, 10, 64, 64);
-            flag_rect02 = new Rectangle(Cons.WIDTH - 64 - 10, 10, 64, 64);
+            flag_rect01 = new Rectangle(10, -2, 64, 64);
+            flag_rect02 = new Rectangle(Cons.WIDTH - 64 - 10, -2, 64, 64);
 
             p1_income = "0 g";
             p2_income = "0 g";

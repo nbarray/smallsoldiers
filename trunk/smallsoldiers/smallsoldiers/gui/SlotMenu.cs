@@ -16,7 +16,7 @@ namespace smallsoldiers.gui
         private Rectangle button_yes, button_no, button_warrior, button_archer, button_healer;
 
         public SlotMenu(Slot _linked, Rectangle _rect)
-            : base("slotmenu_bg", _rect, Color.Gray, Cons.DEPTH_HUD)
+            : base("slotmenu_bg", _rect, Color.Gray, Cons.DEPTH_HUD + 0.02f)
         {
             linked = _linked;
             button_yes = new Rectangle(rect.X + 65, rect.Y + rect.Height - 16, 32, 32);
@@ -69,11 +69,11 @@ namespace smallsoldiers.gui
         public override void Draw()
         {
             base.Draw();
-            Ressource.Draw("hud02", button_yes, new Rectangle(0, 0, 32, 32), Color.White, Cons.DEPTH_HUD + 0.01f);
-            Ressource.Draw("hud02", button_no, new Rectangle(32, 0, 32, 32), Color.White, Cons.DEPTH_HUD + 0.01f);
-            Ressource.Draw("building_icone", button_warrior, new Rectangle(0, 0, 32, 32), Color.White, Cons.DEPTH_HUD + 0.01f);
-            Ressource.Draw("building_icone", button_archer, new Rectangle(32, 0, 32, 32), Color.White, Cons.DEPTH_HUD + 0.01f);
-            Ressource.Draw("building_icone", button_healer, new Rectangle(64, 0, 32, 32), Color.White, Cons.DEPTH_HUD + 0.01f);
+            Ressource.Draw("hud02", button_yes, new Rectangle(0, 0, 32, 32), Color.White, Cons.DEPTH_HUD + 0.03f);
+            Ressource.Draw("hud02", button_no, new Rectangle(32, 0, 32, 32), Color.White, Cons.DEPTH_HUD + 0.03f);
+            Ressource.Draw("building_icone", button_warrior, new Rectangle(0, 0, 32, 32), Color.White, Cons.DEPTH_HUD + 0.03f);
+            Ressource.Draw("building_icone", button_archer, new Rectangle(32, 0, 32, 32), Color.White, Cons.DEPTH_HUD + 0.03f);
+            Ressource.Draw("building_icone", button_healer, new Rectangle(64, 0, 32, 32), Color.White, Cons.DEPTH_HUD + 0.03f);
         }
     }
 }
