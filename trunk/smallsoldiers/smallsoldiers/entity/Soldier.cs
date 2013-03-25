@@ -173,7 +173,9 @@ namespace smallsoldiers.entity
                                     {
                                         target.do_damage(damage);
                                         if(type == sold_type.Fighter)
-                                        _soundengine.Play("epee");
+                                            _soundengine.Play("epee");
+                                        if (type == sold_type.Healer)
+                                            _soundengine.Play("wololo");
                                     }
                             }
                         }

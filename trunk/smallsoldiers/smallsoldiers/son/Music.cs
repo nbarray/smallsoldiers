@@ -10,21 +10,27 @@ namespace smallsoldiers.son
     class Music
     {
         private SoundEffectInstance soundengine;
-
+        static bool isPlaying;
         public Music()
         {
             soundengine = null;
             Ressource.PlayTheme("theme01");
             MediaPlayer.IsRepeating = true;
+            isPlaying = false;
         }
 
         public void Play(string _asset)
         {
-            soundengine = Ressource.GetFX(_asset).CreateInstance();
-            soundengine.IsLooped = false;
-            soundengine.Volume = 0.1f;
-            if (soundengine.State == SoundState.Stopped) soundengine.Play();
-            else soundengine.Resume();
+            if (!isPlaying)
+            {
+                isPlaying = true;
+                soundengine = Ressource.GetFX(_asset).CreateInstance();
+                soundengine.IsLooped = false;
+                soundengine.Volume = 0.1f;
+                if (soundengine.State == SoundState.Stopped) 
+                    soundengine.Play();
+                isPlaying = false;
+            }
         }
 
         public void UnloadInstance()
