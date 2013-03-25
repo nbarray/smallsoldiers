@@ -9,7 +9,7 @@ namespace smallsoldiers.gui
     class Hud
     {
         Rectangle top_rect;
-        Rectangle flag_rect01, flag_rect02;
+        Rectangle flag_rect01, flag_rect02, cursor_j1, cursor_j2;
 
         string p1_income;
         string p2_income;
@@ -27,10 +27,22 @@ namespace smallsoldiers.gui
 
             p1_pop = "0 pop";
             p2_pop = "0 pop";
+
+            cursor_j1 = new Rectangle(0, 0, 16, 16);
+            cursor_j2 = new Rectangle(Cons.WIDTH, 0, 16, 16);
         }
 
         public void Update(Player _p1, Player _p2)
         {
+            if (Cons.mode == e_GameMode.multi)
+            {
+                cursor_j1.X = _p1.GetGPX();
+                cursor_j1.Y = _p1.GetGPY();
+
+                cursor_j2.X = _p2.GetGPX();
+                cursor_j2.Y = _p2.GetGPY();
+            }
+
             p1_pop = _p1.GetPopulation().ToString() + " pop";
             p2_pop = _p2.GetPopulation().ToString() + " pop";
 
@@ -40,6 +52,12 @@ namespace smallsoldiers.gui
 
         public void Draw()
         {
+            if (Cons.mode == e_GameMode.multi)
+            {
+                Ressource.Draw("pixel", cursor_j1, Color.Blue, Cons.DEPTH_HUD + 0.1f);
+                Ressource.Draw("pixel", cursor_j2, Color.DarkRed, Cons.DEPTH_HUD + 0.1f);
+            }
+
             Ressource.Draw("hud01", top_rect, Color.White, Cons.DEPTH_HUD);
             Ressource.Draw("flag01", flag_rect01, Color.White, Cons.DEPTH_HUD + 0.01f);
             Ressource.Draw("flag02", flag_rect02, Color.White, Cons.DEPTH_HUD + 0.01f);

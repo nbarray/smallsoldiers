@@ -22,15 +22,16 @@ namespace smallsoldiers.land
             isPlayer = _isPlayer;
             owner = _p;
 
-            slots = new Slot[6];
+            slots = new Slot[4];
             for (int i = 0; i < slots.Length; i++)
             {
                 int padding = 32;
                 int y = Cons.BUILDING_SIZE * i + i * padding / 2 + padding * 3;
+                
                 if (isPlayer)
-                    slots[i] = new Slot(padding, y);
+                    slots[i] = new Slot(padding, y + (i > 1 ? 96 : 0));
                 else
-                    slots[i] = new Slot(Cons.WIDTH - Cons.BUILDING_SIZE - padding, y);
+                    slots[i] = new Slot(Cons.WIDTH - Cons.BUILDING_SIZE - padding, y + (i > 1 ? 96 : 0));
             }
 
             if (isPlayer)
@@ -49,11 +50,12 @@ namespace smallsoldiers.land
 
         public void Update(GameTime _gameTime, int _mx, int _my, bool _mpressed, bool _rpressed)
         {
-            if(owner.IsPlayer())
-            for (int i = 0; i < slots.Length; i++)
-            {
-                slots[i].Update(_gameTime, _mx, _my, _mpressed, _rpressed);
-            }
+
+            if (owner.IsPlayer() || Cons.mode == e_GameMode.multi)
+                for (int i = 0; i < slots.Length; i++)
+                {
+                    slots[i].Update(_gameTime, _mx, _my, _mpressed, _rpressed);
+                }
         }
 
         public void Update_IA(GameTime _gameTime, Player _p)

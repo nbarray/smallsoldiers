@@ -42,8 +42,11 @@ namespace smallsoldiers.land
             building = null;
             free = true;
             owner = null;
-
-            menu = new SlotMenu(this, new Rectangle(_i + Cons.BUILDING_SIZE + 4, _j + 32, 128, 42));
+            
+            if(_i > Cons.WIDTH / 2)
+                menu = new SlotMenu(this, new Rectangle(_i - 128 - 4, _j + 16, 128, 42));
+            else
+            menu = new SlotMenu(this, new Rectangle(_i + Cons.BUILDING_SIZE + 4, _j + 16, 128, 42));
         }
 
         public void AddBuilding(Building _b)

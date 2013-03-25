@@ -58,7 +58,7 @@ namespace smallsoldiers.gui
                         {
                             linked.EreaseBuilding();
                             linked.SetFree(true);
-                            linked.GetOwner().AddToIncome(1);
+                            linked.GetOwner().AddToIncome(50);
                         }
                     }
                     else if (button_produce.Contains(_mx, _my))
