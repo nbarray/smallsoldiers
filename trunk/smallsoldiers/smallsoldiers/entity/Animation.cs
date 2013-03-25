@@ -65,6 +65,10 @@ namespace smallsoldiers.entity
         {
             Ressource.Draw(asset, _rect, source, Color.White, depth);
         }
+        public void Draw(Rectangle _rect, Color _c)
+        {
+            Ressource.Draw(asset, _rect, source, _c, depth);
+        }
         public void Draw(Rectangle _rect, SpriteEffects _se)
         {
             Ressource.Draw(asset, _rect, source, Color.White, depth, _se);

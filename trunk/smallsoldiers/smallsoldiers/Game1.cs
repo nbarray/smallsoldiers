@@ -77,7 +77,7 @@ namespace smallsoldiers
             p1.Update(gameTime, p2.army, mx, my, mpressed, rpressed, music);
             p2.Update(gameTime, p1.army, mx, my, mpressed, rpressed, music);
 
-            call_of_duty.Update(p1, p2);
+            call_of_duty.Update(gameTime, p1, p2);
 
             base.Update(gameTime);
         }

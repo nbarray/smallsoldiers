@@ -59,7 +59,11 @@ namespace smallsoldiers
             textures.Add("slotmenu_bg", content.Load<Texture2D>("image/slotmenu_bg"));
             textures.Add("produce", content.Load<Texture2D>("image/produce_or_not"));
             textures.Add("region_village", content.Load<Texture2D>("image/region_village"));
-
+            textures.Add("ble", content.Load<Texture2D>("image/ble"));
+            textures.Add("buisson", content.Load<Texture2D>("image/buisson"));
+            textures.Add("ore", content.Load<Texture2D>("image/ore"));
+            textures.Add("flag_staff", content.Load<Texture2D>("image/flag_staff"));
+            textures.Add("flag_region", content.Load<Texture2D>("image/flag_region"));
 
             fonts.Add("medium", content.Load<SpriteFont>("font/medium"));
 

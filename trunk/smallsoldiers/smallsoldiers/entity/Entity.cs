@@ -19,7 +19,7 @@ namespace smallsoldiers.entity
         {
             asset = _asset;
             rect = _rect;
-            source = Ressource.Get(asset).Bounds;
+            source = asset != "null" ? Ressource.Get(asset).Bounds : new Rectangle(0,0,0,0);
             color = _color;
             depth = _depth;
         }
@@ -34,10 +34,12 @@ namespace smallsoldiers.entity
 
         public virtual void Draw()
         {
+            if(asset != "null")
             Ressource.Draw(asset, rect, source, color, depth);
         }
         public virtual void Draw(SpriteEffects _se)
         {
+            if (asset != "null")
             Ressource.Draw(asset, rect, source, color, depth, _se);
         }
     }
