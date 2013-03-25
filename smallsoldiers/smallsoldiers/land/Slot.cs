@@ -18,6 +18,9 @@ namespace smallsoldiers.land
         private SlotMenu menu;
 
         private Random r;
+        private float elapsed_time = 0f;
+        private bool ai_wait_to_create;
+
 
         public Point GetPosition() { return rect.Location; }
         public void SetOwner(Player _owner) { if (owner == null) owner = _owner; }
@@ -25,7 +28,7 @@ namespace smallsoldiers.land
         public Building GetBuilding() { return building; }
         public void EreaseBuilding() { building = null; }
         public void SetFree(bool _b) { free = _b; }
-
+        
         public Slot(int _i, int _j)
         {
             rect = new Rectangle(_i, _j, Cons.BUILDING_SIZE, Cons.BUILDING_SIZE);
@@ -33,6 +36,7 @@ namespace smallsoldiers.land
             color = Color.White;
 
             een = false;
+            ai_wait_to_create = false;
             is_selected = false;
 
             building = null;
@@ -50,6 +54,7 @@ namespace smallsoldiers.land
                 {
                     owner.RemoveFromIncome(2);
                     building = _b;
+                    building.set_new_flag_pos(rect.X - 300, rect.Y + 48);
                     free = false;
                 }
             }
@@ -107,6 +112,8 @@ namespace smallsoldiers.land
 
             }
         }
+
+
         public void Update_IA(GameTime _gameTime, Player _p)
         {
             if (building != null)
@@ -115,26 +122,29 @@ namespace smallsoldiers.land
             }
             else
             {
-                int i = r.Next(r.Next()) % 25;
-                switch (i)
+                elapsed_time += _gameTime.ElapsedGameTime.Milliseconds;
+                if (elapsed_time < 1000)
+                    ai_wait_to_create = false;
+                if (elapsed_time > 4000)
                 {
-                    case 0:
-                        AddBuilding(new Building("building_nicolas", "fighter_louis", sold_type.Fighter, GetPosition()));
-                        break;
-                    case 12:
-                        AddBuilding(new Building("building_nicolas", "ranger_louis", sold_type.Ranger, GetPosition()));
-                        break;
-                    case 18:
-                        AddBuilding(new Building("building_nicolas", "healer_louis", sold_type.Healer, GetPosition()));
-                        break;
-                    default:
-                        AddBuilding(new Building("building_nicolas", "fighter_louis", sold_type.Fighter, GetPosition()));
-                        break;
-                }
-                if (building != null)
-                {
-                    building.SetPosition(new Point(rect.X, rect.Y));
-                    building.set_new_flag_pos(rect.X - 300, rect.Y + 48);
+                    elapsed_time -= elapsed_time;
+                    if (!ai_wait_to_create)
+                    {
+                        ai_wait_to_create = true;
+                        int i = r.Next(3);
+                        if (i == 0)
+                        {
+                            AddBuilding(new Building("building_nicolas", "fighter_louis", sold_type.Fighter, GetPosition()));
+                        }
+                        else if (i == 1)
+                        {
+                            AddBuilding(new Building("building_nicolas", "ranger_louis", sold_type.Ranger, GetPosition()));
+                        }
+                        else if (i == 2)
+                        {
+                            AddBuilding(new Building("building_nicolas", "healer_louis", sold_type.Healer, GetPosition()));
+                        }
+                    }
                 }
             }
         }
