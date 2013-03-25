@@ -12,7 +12,7 @@ namespace smallsoldiers.entity
         private float start_x, start_y, dest_x, dest_y, z, d;
         private float damage, angle;
         private bool dead, right, sleep;
-        private int speed;
+        private float speed;
         public bool isdead()
         {
             return dead;
@@ -28,8 +28,8 @@ namespace smallsoldiers.entity
             dest_x = _x2; dest_y = _y2;
             d = Math.Abs(dest_x - start_x);
             right = dest_x > start_x;
-            z = 0;
-            speed = 2;
+            z = (d / 3) * (1 - (1 - 2 * (rect.X - start_x) / d) * (1 - 2 * (rect.X - start_x) / d)); ;
+            speed = 4 * (float)(d / Math.Sqrt(d * d + (start_y - dest_y) * (start_y - dest_y)));
             dead = false;
             damage = _damage;
             angle = 0;
@@ -41,7 +41,7 @@ namespace smallsoldiers.entity
             {
                 if (right)
                 {
-                    rect.X += speed;
+                    rect.X += (int)speed;
                     z = (d / 3) * (1 - (1 - 2 * (rect.X - start_x) / d) * (1 - 2 * (rect.X - start_x) / d));
 
                     rect.Y = (int)(start_y - z + (rect.X - start_x) * (dest_y - start_y) / d);
@@ -57,7 +57,7 @@ namespace smallsoldiers.entity
                 }
                 else
                 {
-                    rect.X -= speed;
+                    rect.X -= (int)speed;
                     z = (d / 3) * (1 - (1 - 2 * (start_x - rect.X) / d) * (1 - 2 * (start_x - rect.X) / d));
 
                     rect.Y = (int)(start_y - z + (start_x - rect.X) * (dest_y - start_y) / d);
@@ -75,7 +75,7 @@ namespace smallsoldiers.entity
                 if (Math.Abs(rect.X - dest_x) < 3 && Math.Abs(rect.Y - dest_y) < 3)
                 {
                     sleep = true;
-                    Soldier hit = _a.get_target(rect.X, rect.Y, Cons.MAN_SIZE / 4);
+                    Soldier hit = _a.get_target(rect.X, rect.Y, Cons.MAN_SIZE / 3);
                     if (hit != null)
                     {
                         hit.do_damage(damage);
@@ -88,7 +88,7 @@ namespace smallsoldiers.entity
             else
             {
                 d += _gameTime.ElapsedGameTime.Milliseconds;
-                if (d > 3000)
+                if (d > 7000)
                 {
                     dead = true;
                 }

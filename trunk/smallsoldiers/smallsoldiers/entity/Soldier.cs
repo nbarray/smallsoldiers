@@ -168,15 +168,18 @@ namespace smallsoldiers.entity
                                 if (attack_anim.Update(_gameTime))
                                     if (type == sold_type.Ranger)
                                     {
+                                        Random r = new Random();
                                         arrows.Add(new Arrow("arrow_louis",
-                                            rect.X + Cons.MAN_SIZE/2, rect.Y - Cons.MAN_SIZE / 4,
-                                            target.get_X(), target.get_Y(), damage));
+                                            rect.X + Cons.MAN_SIZE / 2, rect.Y - Cons.MAN_SIZE / 4,
+                                            target.get_X() + r.Next(100) % 30 - 15,
+                                            target.get_Y() + r.Next(100) % 30 - 15,
+                                            damage));
                                         _soundengine.Play("fleche");
                                     }
                                     else
                                     {
                                         target.do_damage(damage);
-                                        if(type == sold_type.Fighter)
+                                        if (type == sold_type.Fighter)
                                             _soundengine.Play("epee");
                                         if (type == sold_type.Healer)
                                             _soundengine.Play("wololo");
@@ -200,10 +203,20 @@ namespace smallsoldiers.entity
                     detect_ennemy = (type != sold_type.Ranger) ? range * 3 : range;
                     goto default;
                 default:
-                    if (type == sold_type.Healer)
-                        target = _allies.get_target_to_heal(rect.X, rect.Y, detect_ennemy);
-                    else
+                    switch (type)
+                    {
+                        case sold_type.Fighter:
                         target = _ennemies.get_target(rect.X, rect.Y, detect_ennemy);
+                            break;
+                        case sold_type.Ranger:
+                        target = _ennemies.get_target(rect.X, rect.Y, detect_ennemy, 64);
+                            break;
+                        case sold_type.Healer:
+                        target = _allies.get_target_to_heal(rect.X, rect.Y, detect_ennemy);
+                            break;
+                        default:
+                            break;
+                    }
                     if (target != null && target != this)
                         set_attack_on(target);
                     break;
