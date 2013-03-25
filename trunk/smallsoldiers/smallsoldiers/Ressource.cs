@@ -63,6 +63,7 @@ namespace smallsoldiers
             songs.Add("theme01", content.Load<Song>("son/cool"));
 
             effects.Add("fleche", content.Load<SoundEffect>("son/fleche"));
+            effects.Add("epee", content.Load<SoundEffect>("son/epee"));
         }
 
         public static void PlayTheme(string _asset)
@@ -70,6 +71,7 @@ namespace smallsoldiers
             if (MediaPlayer.State != MediaState.Playing)
             {
                 MediaPlayer.Play(songs[_asset]);
+                MediaPlayer.Volume = 0.5f;
             }
         }
         public static void Stop()

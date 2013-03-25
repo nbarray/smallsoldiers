@@ -49,6 +49,12 @@ namespace smallsoldiers
             base.Initialize();
         }
 
+        protected override void UnloadContent()
+        {
+            music.UnloadInstance();
+            base.UnloadContent();
+        }
+
         protected override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
