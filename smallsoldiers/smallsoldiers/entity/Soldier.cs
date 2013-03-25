@@ -108,7 +108,7 @@ namespace smallsoldiers.entity
             arrows = new List<Arrow>();
 
             walk_anim = new Animation(asset, new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE), 6, 0, depth, false);
-            attack_anim = new Animation(asset, new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE), 7, 6, depth, 
+            attack_anim = new Animation(asset, new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE), 7, 6, depth,
                 false, (type == sold_type.Ranger));
         }
 
@@ -164,7 +164,9 @@ namespace smallsoldiers.entity
                                 if (attack_anim.Update(_gameTime))
                                     if (type == sold_type.Ranger)
                                     {
-                                        arrows.Add(new Arrow("arrow_louis", rect.X, rect.Y, target.get_X(), target.get_Y(), damage));
+                                        arrows.Add(new Arrow("arrow_louis",
+                                            rect.X + Cons.MAN_SIZE/2, rect.Y - Cons.MAN_SIZE / 4,
+                                            target.get_X(), target.get_Y(), damage));
                                         _soundengine.Play("fleche");
                                     }
                                     else
@@ -245,6 +247,5 @@ namespace smallsoldiers.entity
             mode = act_mode.Attack;
             target = _s;
         }
-
     }
 }
