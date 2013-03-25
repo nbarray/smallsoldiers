@@ -12,13 +12,11 @@ namespace smallsoldiers
     class Army
     {
         public List<Soldier> soldiers;
-        private Player owner;
         private bool isPlayer;
 
         public Army(bool _isplayer)
         {
             soldiers = new List<Soldier>();
-            
             isPlayer = _isplayer;
         }
 

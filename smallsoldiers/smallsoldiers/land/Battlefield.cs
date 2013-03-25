@@ -26,20 +26,19 @@ namespace smallsoldiers.land
             {
                 for (int j = 0; j < regions.GetLength(1); j++)
                 {
-                    regions[i, j] = new Region("region_village",
-                                               Cons.HOMELAND_SIZE + i * region_width + i * 8,
+                    regions[i, j] = new Region(Cons.HOMELAND_SIZE + i * region_width + i * 8,
                                                j * region_height + j * 8 + 32 * 2, region_width, region_height);
                 }
             }
         }
 
-        public void Update(Player _p1, Player _p2)
+        public void Update(GameTime _gameTime, Player _p1, Player _p2)
         {
             for (int i = 0; i < regions.GetLength(0); i++)
             {
                 for (int j = 0; j < regions.GetLength(1); j++)
                 {
-                    regions[i, j].Update(_p1.army, _p2.army);
+                    regions[i, j].Update(_gameTime, _p1.army, _p2.army);
                 }
             }
         }
