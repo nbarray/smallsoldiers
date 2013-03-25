@@ -48,11 +48,11 @@ namespace smallsoldiers.entity
                     angle = (float)Math.Asin(4 * (rect.X - start_x) / d - 1) / 2;
                     if ((rect.X - start_x) < d / 2)
                     {
-                        angle = (float)(/*Math.PI / 2 - */Math.Asin((8f / 6f) * (rect.X - start_x) / d - 2f / 3f));
+                        angle = (float)(Math.Asin((8f / 6f) * (rect.X - start_x) / d - 2f / 3f /*+ (dest_y - start_y) / d*/));
                     }
                     else
                     {
-                        angle = (float)(- Math.Asin((8f / 6f) * (dest_x - rect.X) / d - 2f / 3f));
+                        angle = (float)(-Math.Asin((8f / 6f) * (dest_x - rect.X) / d - 2f / 3f /*+ (dest_y - start_y) / d*/));
                     }
                 }
                 else
@@ -63,11 +63,11 @@ namespace smallsoldiers.entity
                     rect.Y = (int)(start_y - z + (start_x - rect.X) * (dest_y - start_y) / d);
                     if ((start_x - rect.X) < d / 2)
                     {
-                        angle = (float)(/*Math.PI / 2 - */-Math.Asin((8f / 6f) * (start_x - rect.X) / d - 2f / 3f));
+                        angle = (float)(-Math.Asin((8f / 6f) * (start_x - rect.X) / d - 2f / 3f/*+(dest_y - start_y) / d*/));
                     }
                     else
                     {
-                        angle = (float)(Math.Asin((8f / 6f) * (rect.X - dest_x) / d - 2f / 3f));
+                        angle = (float)(Math.Asin((8f / 6f) * (rect.X - dest_x) / d - 2f / 3f/*+(dest_y - start_y) / d*/));
                     }
                 }
 

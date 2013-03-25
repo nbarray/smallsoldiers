@@ -20,12 +20,12 @@ namespace smallsoldiers
             isPlayer = _isplayer;
         }
 
-        public bool Add_soldier(Soldier _s)
+        public bool Add_soldier(Soldier _s, bool _blindness)
         {
             if (soldiers.Count < Cons.test_max_pop)
             {
                 soldiers.Add(_s);
-                soldiers[soldiers.Count - 1].go_to_flag();
+                soldiers[soldiers.Count - 1].go_to_flag(_blindness);
                 return true;
             }
             else

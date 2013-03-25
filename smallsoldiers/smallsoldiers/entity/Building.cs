@@ -9,7 +9,7 @@ namespace smallsoldiers.entity
     class Building : Entity
     {
         private Flag fanion;
-        public bool display_flag;
+        public bool display_flag, blind_flag;
         private int delay, time_since_last, building_state, elapsed;
         private Animation working_anim;
 
@@ -29,6 +29,7 @@ namespace smallsoldiers.entity
             time_since_last = 0;
             building_state = 0;
             elapsed = 0;
+            blind_flag = false;
 
             product = new Soldier(_soldierAsset, _soldierType, rect.X + 32, rect.Y + 64, fanion);
 
@@ -62,7 +63,8 @@ namespace smallsoldiers.entity
                     {
                         if (_owner.GetIncome() > 0)
                         {
-                            if (_a.Add_soldier(new Soldier(product.GetAsset(), product.GetSoldierType(), rect.X + 32, rect.Y + 64, fanion)))
+                            if (_a.Add_soldier(new Soldier(product.GetAsset(),
+                                product.GetSoldierType(), rect.X + 32, rect.Y + 64, fanion), blind_flag))
                             {
                                 _owner.RemoveFromIncome(1);
                                 time_since_last = 0;
@@ -92,9 +94,10 @@ namespace smallsoldiers.entity
             if (display_flag)
                 fanion.Draw();
         }
-        public void set_new_flag_pos(int _x, int _y)
+        public void set_new_flag_pos(int _x, int _y, bool _blindness)
         {
-            fanion.set_new_pos(_x, _y);
+            blind_flag = _blindness;
+            fanion.set_new_pos(_x, _y, _blindness);
         }
 
         public override void Draw()
