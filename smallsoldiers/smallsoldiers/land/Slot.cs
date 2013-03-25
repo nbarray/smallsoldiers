@@ -115,19 +115,20 @@ namespace smallsoldiers.land
             }
             else
             {
-                int i = r.Next(100) % 3;
+                int i = r.Next(r.Next()) % 25;
                 switch (i)
                 {
                     case 0:
                         AddBuilding(new Building("building_nicolas", "fighter_louis", sold_type.Fighter, GetPosition()));
                         break;
-                    case 1:
+                    case 12:
                         AddBuilding(new Building("building_nicolas", "ranger_louis", sold_type.Ranger, GetPosition()));
                         break;
-                    case 2:
+                    case 18:
                         AddBuilding(new Building("building_nicolas", "healer_louis", sold_type.Healer, GetPosition()));
                         break;
                     default:
+                        AddBuilding(new Building("building_nicolas", "fighter_louis", sold_type.Fighter, GetPosition()));
                         break;
                 }
                 if (building != null)

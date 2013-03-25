@@ -170,7 +170,11 @@ namespace smallsoldiers.entity
                                         _soundengine.Play("fleche");
                                     }
                                     else
+                                    {
                                         target.do_damage(damage);
+                                        if(type == sold_type.Fighter)
+                                        _soundengine.Play("epee");
+                                    }
                             }
                         }
                         else
