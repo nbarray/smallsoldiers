@@ -75,7 +75,7 @@ namespace smallsoldiers.entity
                 if (Math.Abs(rect.X - dest_x) < 3 && Math.Abs(rect.Y - dest_y) < 3)
                 {
                     sleep = true;
-                    Soldier hit = _a.get_target(rect.X, rect.Y - Cons.MAN_SIZE / 4, Cons.MAN_SIZE / 4);
+                    Soldier hit = _a.get_target(rect.X, rect.Y, Cons.MAN_SIZE / 4);
                     if (hit != null)
                     {
                         hit.do_damage(damage);
