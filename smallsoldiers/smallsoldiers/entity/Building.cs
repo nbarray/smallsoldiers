@@ -13,11 +13,13 @@ namespace smallsoldiers.entity
         private int delay, time_since_last, building_state, elapsed;
         private Animation working_anim;
 
+        private Soldier production;
+
         public void SetPosition(Point _p) { rect.X = _p.X; rect.Y = _p.Y; }
 
-        public Building(string _asset)
+        public Building(string _asset, string _soldierAsset, sold_type _soldierType, Point _p)
             : base(_asset,
-                   new Rectangle(0, 0, Cons.BUILDING_SIZE, Cons.BUILDING_SIZE),
+                   new Rectangle(_p.X, _p.Y, Cons.BUILDING_SIZE, Cons.BUILDING_SIZE),
                    new Rectangle(3 * Cons.BUILDING_SIZE, 0, Cons.BUILDING_SIZE, Cons.BUILDING_SIZE),
                    Color.White, 0.3f)
         {
@@ -27,10 +29,14 @@ namespace smallsoldiers.entity
             time_since_last = 0;
             building_state = 0;
             elapsed = 0;
-            working_anim = new Animation("building_nicolas", new Rectangle(0, 0, 96, 96), 3, 0, depth, false);
+
+            production = new Soldier(_soldierAsset, _soldierType, rect.X + 32, rect.Y + 64, fanion);
+
+            working_anim = new Animation(_asset, new Rectangle(0, 0, 96, 96), 3, 0, depth, false);
             //model = new Soldier("fighter_louis", 50, 75, fanion);
             //model.move_to(Cons.WIDTH / 2, Cons.HEIGHT / 2);
         }
+
         public void Update(GameTime _gameTime, Army _a)
         {
             if (building_state < 3)
@@ -52,7 +58,7 @@ namespace smallsoldiers.entity
                 time_since_last++;
                 if (time_since_last >= delay)
                 {
-                    if (_a.Add_soldier(new Soldier("ranger_louis", sold_type.Ranger, rect.X + 32, rect.Y + 64, fanion)))
+                    if (_a.Add_soldier(new Soldier(production.GetAsset(), production.GetSoldierType(), rect.X + 32, rect.Y + 64, fanion)))
                         time_since_last = 0;
 
                 }
@@ -68,12 +74,12 @@ namespace smallsoldiers.entity
             }
             //model.Update();
         }
+
         public void Draw_flag()//or_not
         {
             if (display_flag)
                 fanion.Draw();
         }
-
         public void set_new_flag_pos(int _x, int _y)
         {
             fanion.set_new_pos(_x, _y);

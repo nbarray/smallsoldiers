@@ -17,8 +17,11 @@ namespace smallsoldiers.land
         private Player owner;
         private SlotMenu menu;
 
+        private Random r;
+
         public Point GetPosition() { return rect.Location; }
         public void SetOwner(Player _owner) { if (owner == null) owner = _owner; }
+        public Player GetOwner() { return owner; }
         public Building GetBuilding() { return building; }
         public void EreaseBuilding() { building = null; }
         public void SetFree(bool _b) { free = _b; }
@@ -26,7 +29,7 @@ namespace smallsoldiers.land
         public Slot(int _i, int _j)
         {
             rect = new Rectangle(_i, _j, Cons.BUILDING_SIZE, Cons.BUILDING_SIZE);
-
+            r = new Random();
             color = Color.White;
 
             een = false;
@@ -36,7 +39,7 @@ namespace smallsoldiers.land
             free = true;
             owner = null;
 
-            menu = new SlotMenu(this, new Rectangle(_i + Cons.BUILDING_SIZE + 4, _j, 128, 64));
+            menu = new SlotMenu(this, new Rectangle(_i + Cons.BUILDING_SIZE + 4, _j, 128, 96));
         }
 
         public void AddBuilding(Building _b)
@@ -48,7 +51,6 @@ namespace smallsoldiers.land
                     owner.RemoveFromIncome(2);
                     building = _b;
                     free = false;
-                    GetBuilding().SetPosition(GetPosition());
                 }
             }
         }
@@ -113,7 +115,21 @@ namespace smallsoldiers.land
             }
             else
             {
-                AddBuilding(new Building("building_nicolas"));
+                int i = r.Next(100) % 3;
+                switch (i)
+                {
+                    case 0:
+                        AddBuilding(new Building("building_nicolas", "fighter_louis", sold_type.Fighter, GetPosition()));
+                        break;
+                    case 1:
+                        AddBuilding(new Building("building_nicolas", "ranger_louis", sold_type.Ranger, GetPosition()));
+                        break;
+                    case 2:
+                        AddBuilding(new Building("building_nicolas", "healer_louis", sold_type.Healer, GetPosition()));
+                        break;
+                    default:
+                        break;
+                }
                 if (building != null)
                 {
                     building.SetPosition(new Point(rect.X, rect.Y));
