@@ -24,12 +24,12 @@ namespace smallsoldiers.entity
                    new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE),
                    Color.White, 0.7f)
         {
-            start_x = _x; start_y = _y + Cons.MAN_SIZE / 2;
-            dest_x = _x2; dest_y = _y2 + Cons.MAN_SIZE;
+            start_x = _x; start_y = _y;
+            dest_x = _x2; dest_y = _y2;
             d = Math.Abs(dest_x - start_x);
             right = dest_x > start_x;
             z = 0;
-            speed = 1;
+            speed = 2;
             dead = false;
             damage = _damage;
             angle = 0;
@@ -52,7 +52,7 @@ namespace smallsoldiers.entity
                     }
                     else
                     {
-                        angle = (float)(/*Math.PI / 2 - */Math.Asin((8f / 6f) * (start_x - rect.X) / d - 2f / 3f));
+                        angle = (float)(- Math.Asin((8f / 6f) * (dest_x - rect.X) / d - 2f / 3f));
                     }
                 }
                 else
@@ -61,15 +61,26 @@ namespace smallsoldiers.entity
                     z = (d / 3) * (1 - (1 - 2 * (start_x - rect.X) / d) * (1 - 2 * (start_x - rect.X) / d));
 
                     rect.Y = (int)(start_y - z + (start_x - rect.X) * (dest_y - start_y) / d);
+                    if ((start_x - rect.X) < d / 2)
+                    {
+                        angle = (float)(/*Math.PI / 2 - */-Math.Asin((8f / 6f) * (start_x - rect.X) / d - 2f / 3f));
+                    }
+                    else
+                    {
+                        angle = (float)(Math.Asin((8f / 6f) * (rect.X - dest_x) / d - 2f / 3f));
+                    }
                 }
 
 
                 if (Math.Abs(rect.X - dest_x) < 3 && Math.Abs(rect.Y - dest_y) < 3)
                 {
                     sleep = true;
-                    Soldier hit = _a.get_target(rect.X, rect.Y - Cons.MAN_SIZE / 2, Cons.MAN_SIZE / 2);
+                    Soldier hit = _a.get_target(rect.X, rect.Y - Cons.MAN_SIZE / 4, Cons.MAN_SIZE / 4);
                     if (hit != null)
+                    {
                         hit.do_damage(damage);
+                        dead = true;
+                    }
                     d = 0;
                     depth = 0.5f + ((float)(rect.Y + 32)) / 10000f;
                 }
@@ -91,8 +102,8 @@ namespace smallsoldiers.entity
                 Ressource.Draw(asset, rect, source, Color.White, depth, SpriteEffects.None, angle);
                 //Ressource.Draw(asset, rect, source, Color.White, depth, SpriteEffects.None);
             }
-            //else
-            //    Ressource.Draw(asset, rect, source, Color.White, depth, SpriteEffects.FlipHorizontally, angle);
+            else
+                Ressource.Draw(asset, rect, source, Color.White, depth, SpriteEffects.FlipHorizontally, angle);
         }
     }
 }

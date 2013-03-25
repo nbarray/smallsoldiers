@@ -38,7 +38,7 @@ namespace smallsoldiers.entity
             asset = _asset;
             elapsed = 0;
             frame_count = _frame_count;
-            frame_time = Cons.FRAME_DURATION_SOLDIERS;
+            frame_time = (_isranger)? Cons.FRAME_DURATION_RANGERS : Cons.FRAME_DURATION_SOLDIERS;
             if (_isflag)
                 frame_time = Cons.FRAME_DURATION_FLAGS;
             offsetX = _offsetX;
