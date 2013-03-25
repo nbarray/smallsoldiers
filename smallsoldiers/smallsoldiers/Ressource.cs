@@ -22,6 +22,7 @@ namespace smallsoldiers
 
         public static Texture2D Get(string _name) { return textures[_name]; }
         public static SpriteFont GetFont(string _name) { return fonts[_name]; }
+        public static SoundEffect GetFX(string _asset) { return effects[_asset]; }
 
         public static void Initialize(GraphicsDevice _device, ContentManager _content)
         {
@@ -59,7 +60,9 @@ namespace smallsoldiers
 
             fonts.Add("medium", content.Load<SpriteFont>("font/medium"));
 
-           // songs.Add("theme01", content.Load<Song>("son/theme01"));
+            songs.Add("theme01", content.Load<Song>("son/cool"));
+
+            effects.Add("fleche", content.Load<SoundEffect>("son/fleche"));
         }
 
         public static void PlayTheme(string _asset)

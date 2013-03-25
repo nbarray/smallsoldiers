@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
+using smallsoldiers.son;
 
 namespace smallsoldiers.entity
 {
@@ -26,8 +27,8 @@ namespace smallsoldiers.entity
         private List<Arrow> arrows;
 
         private Animation walk_anim, attack_anim;
-        
-        
+
+
         public int get_Y()
         {
             return rect.Y;
@@ -123,7 +124,7 @@ namespace smallsoldiers.entity
             move_to(fanion.get_X() + s_x, fanion.get_Y() + s_y);
         }
 
-        public void Update(GameTime _gameTime, Army _allies, Army _ennemies)
+        public void Update(GameTime _gameTime, Army _allies, Army _ennemies, Music _soundengine)
         {
             //move_to(Mouse.GetState().X, Mouse.GetState().Y);
             int detect_ennemy = (type != sold_type.Ranger) ? (range * 3) / 2 : range;
@@ -161,8 +162,10 @@ namespace smallsoldiers.entity
                             {
                                 if (attack_anim.Update(_gameTime))
                                     if (type == sold_type.Ranger)
-                                        arrows.Add(new Arrow("arrow_louis", rect.X, rect.Y,
-                                            target.get_X(), target.get_Y(), damage));
+                                    {
+                                        arrows.Add(new Arrow("arrow_louis", rect.X, rect.Y, target.get_X(), target.get_Y(), damage));
+                                        _soundengine.Play("fleche");
+                                    }
                                     else
                                         target.do_damage(damage);
                             }

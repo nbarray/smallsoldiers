@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using smallsoldiers.entity;
 using Microsoft.Xna.Framework;
+using smallsoldiers.son;
 
 namespace smallsoldiers
 {
@@ -30,14 +31,14 @@ namespace smallsoldiers
             }
         }
 
-        public void Update(GameTime _gameTime, Army _ennemy)
+        public void Update(GameTime _gameTime, Army _ennemy, Music _soundengine)
         {
             for (int i = soldiers.Count-1; i > -1; i--)
             {
                 if (soldiers[i].isdead())
                     soldiers.RemoveAt(i);
                 else
-                    soldiers[i].Update(_gameTime, this, _ennemy);
+                    soldiers[i].Update(_gameTime, this, _ennemy, _soundengine);
             }
         }
 
