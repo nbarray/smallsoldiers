@@ -125,7 +125,7 @@ namespace smallsoldiers.entity
             move_to(fanion.get_X() + s_x, fanion.get_Y() + s_y);
         }
 
-        public void Update(GameTime _gameTime, Army _allies, Army _ennemies, bool write)
+        public void Update(GameTime _gameTime, Army _allies, Army _ennemies, bool write, Music _soundengine)
         {
             //move_to(Mouse.GetState().X, Mouse.GetState().Y);
             int detect_ennemy = (type != sold_type.Ranger) ? (range * 3) / 2 : range;
