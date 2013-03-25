@@ -35,12 +35,17 @@ namespace smallsoldiers.entity
         public virtual void Draw()
         {
             if(asset != "null")
-            Ressource.Draw(asset, rect, source, color, depth);
+                Ressource.Draw(asset, rect, source, color, 0.5f + ((float)(rect.Y + rect.Height)) / 1000f);
         }
         public virtual void Draw(SpriteEffects _se)
         {
             if (asset != "null")
-            Ressource.Draw(asset, rect, source, color, depth, _se);
+                Ressource.Draw(asset, rect, source, color, 0.5f + ((float)(rect.Y + rect.Height)) / 1000f, _se);
+        }
+        public virtual void Draw(SpriteEffects _se, int _alt, float _angle)
+        {
+            if (asset != "null")
+                Ressource.Draw(asset, rect, source, color, 0.5f + ((float)(rect.Y + rect.Height+_alt)) / 1000f, _se, _angle);
         }
     }
 }

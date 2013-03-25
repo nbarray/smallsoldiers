@@ -221,7 +221,6 @@ namespace smallsoldiers.entity
                         set_attack_on(target);
                     break;
             }
-            depth = 0.5f + ((float)(rect.Y + 32)) / 10000f;
 
             for (int i = arrows.Count - 1; i >= 0; i--)
             {

@@ -45,6 +45,14 @@ namespace smallsoldiers.entity
                 soldiers_linked[i].go_to_flag(_blindness);
             }
         }
+        public void pass_the_flag(Flag _next)
+        {
+            for (int i = soldiers_linked.Count - 1; i >= 0; i--)
+            {
+                _next.add_new_soldier(soldiers_linked[i]);
+                soldiers_linked.RemoveAt(i);
+            }
+        }
 
         public void Update(GameTime _gameTime)
         {

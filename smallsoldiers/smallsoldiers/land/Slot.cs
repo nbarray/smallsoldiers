@@ -64,7 +64,7 @@ namespace smallsoldiers.land
             }
         }
 
-        public void Update(GameTime _gameTime, int _mx, int _my, bool _mpressed, bool _rpressed)
+        public void Update(GameTime _gameTime, int _mx, int _my, bool _mpressed, bool _rpressed, Flag _default_flag)
         {
             if (is_selected)
                 Update_when_selected(_mx, _my, _rpressed);
@@ -96,7 +96,7 @@ namespace smallsoldiers.land
             
             if (building != null)
             {
-                building.Update(_gameTime, owner.army, owner, menu.GetProductionState());
+                building.Update(_gameTime, owner.army, owner, menu.GetProductionState(), _default_flag);
             }
         }
 
@@ -116,11 +116,11 @@ namespace smallsoldiers.land
 
             }
         }
-        public void Update_IA(GameTime _gameTime, Player _p)
+        public void Update_IA(GameTime _gameTime, Player _p, Flag _default_flag)
         {
             if (building != null)
             {
-                building.Update(_gameTime, _p.army, _p, menu.GetProductionState());
+                building.Update(_gameTime, _p.army, _p, menu.GetProductionState(), _default_flag);
             }
             else
             {
