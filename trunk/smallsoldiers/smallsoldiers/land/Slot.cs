@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using smallsoldiers.entity;
 using smallsoldiers.gui;
+using Microsoft.Xna.Framework.Input;
 
 namespace smallsoldiers.land
 {
@@ -57,7 +58,7 @@ namespace smallsoldiers.land
                 {
                     owner.RemoveFromIncome(2);
                     building = _b;
-                    building.set_new_flag_pos(Cons.WIDTH / 2, Cons.HEIGHT / 2);
+                    building.set_new_flag_pos(Cons.WIDTH / 2, Cons.HEIGHT / 2, false);
                     free = false;
                 }
             }
@@ -106,7 +107,7 @@ namespace smallsoldiers.land
                 if (right_click && _rpressed)
                 {
                     right_click = false;
-                    building.set_new_flag_pos(_mx, _my);
+                    building.set_new_flag_pos(_mx, _my, Keyboard.GetState().IsKeyDown(Keys.LeftControl));
                 }
                 if (!_rpressed)
                 {

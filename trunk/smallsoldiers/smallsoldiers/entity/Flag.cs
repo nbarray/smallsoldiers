@@ -35,14 +35,14 @@ namespace smallsoldiers.entity
         {
             soldiers_linked.Add(_s);
         }
-        public void set_new_pos(int _x, int _y)
+        public void set_new_pos(int _x, int _y, bool _blindness)
         {
             rect.X = _x;
             rect.Y = _y;
             depth = 0.5f + ((float)(rect.Y + 32)) / 10000f;
             for (int i = 0; i < soldiers_linked.Count; i++)
 			{
-                soldiers_linked[i].go_to_flag();
+                soldiers_linked[i].go_to_flag(_blindness);
             }
         }
 
