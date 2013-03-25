@@ -57,6 +57,7 @@ namespace smallsoldiers
             textures.Add("test", content.Load<Texture2D>("image/grid_perso_test"));
             textures.Add("building_icone", content.Load<Texture2D>("image/building_icone"));
             textures.Add("slotmenu_bg", content.Load<Texture2D>("image/slotmenu_bg"));
+            textures.Add("produce", content.Load<Texture2D>("image/produce_or_not"));
 
             fonts.Add("medium", content.Load<SpriteFont>("font/medium"));
 
@@ -64,6 +65,7 @@ namespace smallsoldiers
 
             effects.Add("fleche", content.Load<SoundEffect>("son/fleche"));
             effects.Add("epee", content.Load<SoundEffect>("son/epee"));
+            effects.Add("wololo", content.Load<SoundEffect>("son/wololo"));
         }
 
         public static void PlayTheme(string _asset)

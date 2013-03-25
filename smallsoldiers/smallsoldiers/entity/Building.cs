@@ -13,7 +13,7 @@ namespace smallsoldiers.entity
         private int delay, time_since_last, building_state, elapsed;
         private Animation working_anim;
 
-        private Soldier production;
+        private Soldier product;
 
         public void SetPosition(Point _p) { rect.X = _p.X; rect.Y = _p.Y; }
 
@@ -30,21 +30,21 @@ namespace smallsoldiers.entity
             building_state = 0;
             elapsed = 0;
 
-            production = new Soldier(_soldierAsset, _soldierType, rect.X + 32, rect.Y + 64, fanion);
+            product = new Soldier(_soldierAsset, _soldierType, rect.X + 32, rect.Y + 64, fanion);
 
             working_anim = new Animation(_asset, new Rectangle(0, 0, 96, 96), 3, 0, depth, false);
             //model = new Soldier("fighter_louis", 50, 75, fanion);
             //model.move_to(Cons.WIDTH / 2, Cons.HEIGHT / 2);
         }
 
-        public void Update(GameTime _gameTime, Army _a)
+        public void Update(GameTime _gameTime, Army _a, Player _owner, bool _producing)
         {
             if (building_state < 3)
             {
                 elapsed += _gameTime.ElapsedGameTime.Milliseconds;
-                if (elapsed > 500)
+                if (elapsed > 1000)
                 {
-                    elapsed -= 500;
+                    elapsed -= 1000;
                     building_state++;
                     source.X = Cons.BUILDING_SIZE * (3 + building_state);
                     if (building_state == 3)
@@ -55,16 +55,28 @@ namespace smallsoldiers.entity
             }
             else
             {
-                time_since_last++;
-                if (time_since_last >= delay)
+                if (_producing)
                 {
-                    if (_a.Add_soldier(new Soldier(production.GetAsset(), production.GetSoldierType(), rect.X + 32, rect.Y + 64, fanion)))
-                        time_since_last = 0;
-
+                    time_since_last++;
+                    if (time_since_last >= delay)
+                    {
+                        if (_owner.GetIncome() > 0)
+                        {
+                            if (_a.Add_soldier(new Soldier(product.GetAsset(), product.GetSoldierType(), rect.X + 32, rect.Y + 64, fanion)))
+                            {
+                                _owner.RemoveFromIncome(1);
+                                time_since_last = 0;
+                            }
+                        }
+                    }
+                    if (time_since_last <= delay)
+                    {
+                        working_anim.Update(_gameTime);
+                    }
                 }
-                if (time_since_last <= delay)
+                else
                 {
-                    working_anim.Update(_gameTime);
+                    time_since_last = 0;
                 }
             }
 

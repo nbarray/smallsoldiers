@@ -43,7 +43,7 @@ namespace smallsoldiers.land
             free = true;
             owner = null;
 
-            menu = new SlotMenu(this, new Rectangle(_i + Cons.BUILDING_SIZE + 4, _j, 128, 96));
+            menu = new SlotMenu(this, new Rectangle(_i + Cons.BUILDING_SIZE + 4, _j + 32, 128, 42));
         }
 
         public void AddBuilding(Building _b)
@@ -54,7 +54,7 @@ namespace smallsoldiers.land
                 {
                     owner.RemoveFromIncome(2);
                     building = _b;
-                    building.set_new_flag_pos(rect.X - 300, rect.Y + 48);
+                    building.set_new_flag_pos(Cons.WIDTH / 2, Cons.HEIGHT / 2);
                     free = false;
                 }
             }
@@ -89,10 +89,10 @@ namespace smallsoldiers.land
                 }
             }
             #endregion
-
+            
             if (building != null)
             {
-                building.Update(_gameTime, owner.army);
+                building.Update(_gameTime, owner.army, owner, menu.GetProductionState());
             }
         }
 
@@ -112,13 +112,11 @@ namespace smallsoldiers.land
 
             }
         }
-
-
         public void Update_IA(GameTime _gameTime, Player _p)
         {
             if (building != null)
             {
-                building.Update(_gameTime, _p.army);
+                building.Update(_gameTime, _p.army, _p, menu.GetProductionState());
             }
             else
             {

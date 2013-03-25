@@ -16,8 +16,8 @@ namespace smallsoldiers
 
         public const float DEPTH_HUD = 0.8f;
         public const float FRAME_DURATION_SOLDIERS = 90; // Milliseconds
-        public const float FRAME_DURATION_HIT = 180; // Milliseconds
-        public const float FRAME_DURATION_SHOOT = 700; // Milliseconds
+        public const float FRAME_DURATION_HIT = 150; // Milliseconds
+        public const float FRAME_DURATION_SHOOT = 600; // Milliseconds
         public const float FRAME_DURATION_FLAGS = 150f; // Milliseconds
         public const float INCOME_DURATION = 5000f; // Milliseconds
     }
