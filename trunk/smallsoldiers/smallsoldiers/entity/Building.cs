@@ -9,9 +9,13 @@ namespace smallsoldiers.entity
     class Building : Entity
     {
         private Flag fanion;
-        public bool display_flag, blind_flag;
-        private int delay, time_since_last, building_state, elapsed;
+        public bool display_flag, blind_flag, dead;
+        private int delay, time_since_last, building_state, elapsed, life, life_max;
         private Animation working_anim;
+        public bool is_dead()
+        {
+            return dead;
+        }
 
         private Soldier product;
 
@@ -30,6 +34,8 @@ namespace smallsoldiers.entity
             building_state = 0;
             elapsed = 0;
             blind_flag = false;
+            life_max = 100;
+            life = life_max;
 
             product = new Soldier(_soldierAsset, _soldierType, rect.X + 32, rect.Y + 64, fanion);
 
@@ -38,10 +44,11 @@ namespace smallsoldiers.entity
             //model.move_to(Cons.WIDTH / 2, Cons.HEIGHT / 2);
         }
 
-        public void Update(GameTime _gameTime, Army _a, Player _owner, bool _producing)
+        public void Update(GameTime _gameTime, Army _a, Player _owner, bool _producing, Flag _default_flag)
         {
             if (building_state < 3)
             {
+                #region Build
                 elapsed += _gameTime.ElapsedGameTime.Milliseconds;
                 if (elapsed > 1000)
                 {
@@ -52,12 +59,14 @@ namespace smallsoldiers.entity
                     {
                         source.X = 0;
                     }
-                }
+                } 
+                #endregion
             }
             else
             {
                 if (_producing)
                 {
+                    #region Production
                     time_since_last++;
                     if (time_since_last >= delay)
                     {
@@ -74,7 +83,8 @@ namespace smallsoldiers.entity
                     if (time_since_last <= delay)
                     {
                         working_anim.Update(_gameTime);
-                    }
+                    } 
+                    #endregion
                 }
                 else
                 {
@@ -85,6 +95,12 @@ namespace smallsoldiers.entity
             if (display_flag)
             {
                 fanion.Update(_gameTime);
+            }
+
+            if (life<0)
+            {
+                dead = true;
+                fanion.pass_the_flag(_default_flag);
             }
             //model.Update();
         }

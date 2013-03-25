@@ -17,7 +17,7 @@ namespace smallsoldiers
         private Homeland home;
         private bool player;
         public Army army;
-        private Flag default_flag;
+        public Flag default_flag;
         private float elapsedTime;
 
         private int army_population;

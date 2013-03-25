@@ -13,6 +13,7 @@ namespace smallsoldiers.entity
         private float damage, angle;
         private bool dead, right, sleep;
         private float speed;
+        private SpriteEffects se;
         public bool isdead()
         {
             return dead;
@@ -33,6 +34,7 @@ namespace smallsoldiers.entity
             dead = false;
             damage = _damage;
             angle = 0;
+            se = (right) ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         }
 
         public void Update(GameTime _gameTime, Army _a)
@@ -97,13 +99,7 @@ namespace smallsoldiers.entity
 
         public override void Draw()
         {
-            if (right)
-            {
-                Ressource.Draw(asset, rect, source, Color.White, depth, SpriteEffects.None, angle);
-                //Ressource.Draw(asset, rect, source, Color.White, depth, SpriteEffects.None);
-            }
-            else
-                Ressource.Draw(asset, rect, source, Color.White, depth, SpriteEffects.FlipHorizontally, angle);
+            base.Draw(se, (int)z, angle);
         }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using smallsoldiers;
 using Microsoft.Xna.Framework.Graphics;
+using smallsoldiers.entity;
 
 namespace smallsoldiers.land
 {
@@ -50,11 +51,10 @@ namespace smallsoldiers.land
 
         public void Update(GameTime _gameTime, int _mx, int _my, bool _mpressed, bool _rpressed)
         {
-
             if (owner.IsPlayer() || Cons.mode == e_GameMode.multi)
                 for (int i = 0; i < slots.Length; i++)
                 {
-                    slots[i].Update(_gameTime, _mx, _my, _mpressed, _rpressed);
+                    slots[i].Update(_gameTime, _mx, _my, _mpressed, _rpressed, owner.default_flag);
                 }
         }
 
@@ -62,7 +62,7 @@ namespace smallsoldiers.land
         {
             for (int i = 0; i < slots.Length; i++)
             {
-                slots[i].Update_IA(_gameTime, _p);
+                slots[i].Update_IA(_gameTime, _p, _p.default_flag);
             }
         }
 
