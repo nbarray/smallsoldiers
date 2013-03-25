@@ -7,6 +7,7 @@ using smallsoldiers.land;
 using smallsoldiers.entity;
 using Microsoft.Xna.Framework;
 using smallsoldiers.son;
+using Microsoft.Xna.Framework.Input;
 
 namespace smallsoldiers
 {
@@ -34,31 +35,52 @@ namespace smallsoldiers
             home = new Homeland(_player, this);
             home.InitializeSlots();
             player = _player;
-            army = new Army();
+            army = new Army(_player);
             default_flag = new Flag("flag_louis");
             elapsedTime = 0f;
             army_population = 0;
-            income = 4;
-            benefice = 1;
+            income = 200;
+            benefice = 15;
         }
 
         public void Update(GameTime _gameTime, Army _ennemy, int _mx, int _my, bool _mpressed, bool _rpressed, Music _soundeffect)
         {
             army_population = army.soldiers.Count;
             Update_income(_gameTime);
-            
-            if (!player)
-                Update_IA(_gameTime, this);
+
+            if (!player) // joueur 2
+            {
+                if (Cons.mode == e_GameMode.solo)
+                    Update_IA(_gameTime);
+                else
+                    Update_Joueur(PlayerIndex.Two, _gameTime);
+            }
             else
-                home.Update(_gameTime, _mx, _my, _mpressed, _rpressed);
-            
-            army.Update(_gameTime, _ennemy, IsPlayer(), _soundeffect);
-        }
-        private void Update_IA(GameTime _gameTime, Player _p)
-        {
-            home.Update_IA(_gameTime, _p);
+            {
+                if (Cons.mode == e_GameMode.solo)
+                    home.Update(_gameTime, _mx, _my, _mpressed, _rpressed);
+                else
+                    Update_Joueur(PlayerIndex.One, _gameTime);
+            }
+            army.Update(_gameTime, _ennemy, _soundeffect);
         }
 
+        private void Update_IA(GameTime _gameTime)
+        {
+            home.Update_IA(_gameTime, this);
+        }
+
+        float gpx = 0;
+        float gpy = 0;
+        public int GetGPY() { return (int)gpy; }
+        public int GetGPX() { return (int)gpx; }
+        private void Update_Joueur(PlayerIndex _index, GameTime _gameTime)
+        {
+            GamePadState gp = GamePad.GetState(_index);
+            gpx += gp.ThumbSticks.Right.X * 20 + gp.ThumbSticks.Left.X * 5;
+            gpy -= gp.ThumbSticks.Right.Y * 20 + gp.ThumbSticks.Left.Y * 5;
+            home.Update(_gameTime, (int)gpx, (int)gpy, gp.Buttons.A == ButtonState.Pressed, gp.Buttons.B == ButtonState.Pressed);
+        }
         private void Update_income(GameTime _gameTime)
         {
             elapsedTime += _gameTime.ElapsedGameTime.Milliseconds;

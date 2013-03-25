@@ -74,7 +74,7 @@ namespace smallsoldiers.entity
                     armor = 0;
                     maxlife = 20;
                     range = 320;
-                    damage = 3;
+                    damage = 8;
                     break;
                 case sold_type.Healer:
                     speed = 1.2f;
@@ -125,7 +125,7 @@ namespace smallsoldiers.entity
             move_to(fanion.get_X() + s_x, fanion.get_Y() + s_y);
         }
 
-        public void Update(GameTime _gameTime, Army _allies, Army _ennemies, bool write, Music _soundengine)
+        public void Update(GameTime _gameTime, Army _allies, Army _ennemies, Music _soundengine)
         {
             //move_to(Mouse.GetState().X, Mouse.GetState().Y);
             int detect_ennemy = (type != sold_type.Ranger) ? (range * 3) / 2 : range;
@@ -211,7 +211,7 @@ namespace smallsoldiers.entity
                 if (arrows[i].isdead())
                     arrows.RemoveAt(i);
                 else
-                    arrows[i].Update(_gameTime, _ennemies, write);
+                    arrows[i].Update(_gameTime, _ennemies);
             }
         }
 

@@ -10,6 +10,7 @@ namespace smallsoldiers.land
     {
         private Rectangle rect;
         private Region[,] regions;
+
         public Battlefield()
         {
             rect = new Rectangle(Cons.HOMELAND_SIZE - 32, 0, Cons.BATTLEFIELD_SIZE + 64, Cons.HEIGHT);
@@ -25,20 +26,20 @@ namespace smallsoldiers.land
             {
                 for (int j = 0; j < regions.GetLength(1); j++)
                 {
-                    regions[i, j] = new Region("slot01",
+                    regions[i, j] = new Region("region_village",
                                                Cons.HOMELAND_SIZE + i * region_width + i * 8,
                                                j * region_height + j * 8 + 32 * 2, region_width, region_height);
                 }
             }
         }
 
-        public void Update(int _mx, int _my, bool _mpressed)
+        public void Update(Player _p1, Player _p2)
         {
             for (int i = 0; i < regions.GetLength(0); i++)
             {
                 for (int j = 0; j < regions.GetLength(1); j++)
                 {
-                    regions[i, j].Update(_mx, _my, _mpressed);
+                    regions[i, j].Update(_p1.army, _p2.army);
                 }
             }
         }
@@ -46,13 +47,13 @@ namespace smallsoldiers.land
         public void Draw()
         {
             Ressource.Draw("bg01", rect, Color.White, 0f);
-            //for (int i = 0; i < regions.GetLength(0); i++)
-            //{
-            //    for (int j = 0; j < regions.GetLength(1); j++)
-            //    {
-            //        regions[i, j].Draw();
-            //    }
-            //}
+            for (int i = 0; i < regions.GetLength(0); i++)
+            {
+                for (int j = 0; j < regions.GetLength(1); j++)
+                {
+                    regions[i, j].Draw();
+                }
+            }
         }
     }
 }

@@ -31,6 +31,7 @@ namespace smallsoldiers
             graphics.PreferredBackBufferWidth = 1366;
             graphics.PreferredBackBufferHeight = 768;
             IsMouseVisible = true;
+            //graphics.IsFullScreen = true;
         }
 
         protected override void Initialize()
@@ -60,6 +61,9 @@ namespace smallsoldiers
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
 
+            if (Keyboard.GetState().IsKeyDown(Keys.M)) Cons.mode = e_GameMode.multi;
+            if (Keyboard.GetState().IsKeyDown(Keys.L)) Cons.mode = e_GameMode.solo;
+
             MouseState mstate = Mouse.GetState();
             int mx = mstate.X;
             int my = mstate.Y;
@@ -73,7 +77,7 @@ namespace smallsoldiers
             p1.Update(gameTime, p2.army, mx, my, mpressed, rpressed, music);
             p2.Update(gameTime, p1.army, mx, my, mpressed, rpressed, music);
 
-            //call_of_duty.Update(mx, my, mpressed);
+            call_of_duty.Update(p1, p2);
 
             base.Update(gameTime);
         }

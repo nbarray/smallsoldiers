@@ -35,7 +35,7 @@ namespace smallsoldiers.entity
             angle = 0;
         }
 
-        public void Update(GameTime _gameTime, Army _a, bool write)
+        public void Update(GameTime _gameTime, Army _a)
         {
             if (!sleep)
             {
