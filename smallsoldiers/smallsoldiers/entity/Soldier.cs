@@ -14,7 +14,7 @@ namespace smallsoldiers.entity
 
     class Soldier : Entity
     {
-        private int dest_x, dest_y, range;
+        private int dest_x, dest_y, range, accuracy;
         private float speed, life, maxlife, armor, damage;
         private act_mode mode;
         protected float pos_x, pos_y;
@@ -53,6 +53,10 @@ namespace smallsoldiers.entity
         {
             return life < maxlife;
         }
+        public void set_flag(Flag _new)
+        {
+            fanion = _new;
+        }
 
         public string GetAsset() { return base.asset; }
         public sold_type GetSoldierType() { return type; }
@@ -74,7 +78,7 @@ namespace smallsoldiers.entity
                     armor = 0;
                     maxlife = 20;
                     range = 320;
-                    damage = 8;
+                    damage = 10;
                     break;
                 case sold_type.Healer:
                     speed = 1.2f;
@@ -92,6 +96,7 @@ namespace smallsoldiers.entity
                     break;
             }
             life = maxlife;
+            accuracy = 10;
             #endregion
             pos_x = _x;
             dest_x = _x;
@@ -168,11 +173,12 @@ namespace smallsoldiers.entity
                                 if (attack_anim.Update(_gameTime))
                                     if (type == sold_type.Ranger)
                                     {
+                                        int a = 40-accuracy;
                                         Random r = new Random();
                                         arrows.Add(new Arrow("arrow_louis",
                                             rect.X + Cons.MAN_SIZE / 2, rect.Y - Cons.MAN_SIZE / 4,
-                                            target.get_X() + r.Next(100) % 30 - 15,
-                                            target.get_Y() + r.Next(100) % 30 - 15,
+                                            target.get_X() + r.Next(100) % a - a/2,
+                                            target.get_Y() + r.Next(100) % a - a/2,
                                             damage));
                                         _soundengine.Play("fleche");
                                     }

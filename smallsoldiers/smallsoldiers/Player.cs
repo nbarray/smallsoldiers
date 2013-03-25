@@ -37,6 +37,7 @@ namespace smallsoldiers
             player = _player;
             army = new Army(_player);
             default_flag = new Flag("flag_louis");
+            default_flag.set_new_pos(Cons.BATTLEFIELD_SIZE / 2, Cons.HEIGHT / 2, false);
             elapsedTime = 0f;
             army_population = 0;
             income = 200;

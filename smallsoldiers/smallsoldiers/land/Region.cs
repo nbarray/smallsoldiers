@@ -118,7 +118,9 @@ namespace smallsoldiers.land
                     {
                         for (int j = 0; j < brush_pos.GetLength(1); j++)
                         {
-                            Ressource.Draw("buisson", new Rectangle(brush_pos[i, j].X, brush_pos[i, j].Y, 16, 16), Color.Wheat, 0.6f);
+                            Ressource.Draw("buisson", new Rectangle(brush_pos[i, j].X,
+                                brush_pos[i, j].Y, 16, 16), Color.Wheat, 
+                                0.5f + ((float)(brush_pos[i, j].Y + rect.Height)) / 100000f);
                         }
                     }
                     break;
@@ -127,7 +129,8 @@ namespace smallsoldiers.land
                     {
                         for (int j = 0; j < brush_pos.GetLength(1); j++)
                         {
-                            Ressource.Draw("ore", new Rectangle(brush_pos[i, j].X, brush_pos[i, j].Y, 16, 16), Color.Wheat, 0.6f);
+                            Ressource.Draw("ore", new Rectangle(brush_pos[i, j].X, 
+                                brush_pos[i, j].Y, 16, 16), Color.Wheat, 0.6f);
                         }
                     }
                     break;
