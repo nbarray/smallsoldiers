@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Media;
 
 namespace smallsoldiers
 {
@@ -14,6 +15,7 @@ namespace smallsoldiers
         private static Dictionary<string, Texture2D> textures;
         private static Dictionary<string, SpriteFont> fonts;
         private static Dictionary<string, SoundEffect> effects;
+        private static Dictionary<string, Song> songs;
 
         public static SpriteBatch sb;
         private static ContentManager content;
@@ -29,6 +31,8 @@ namespace smallsoldiers
             textures = new Dictionary<string, Texture2D>();
             fonts = new Dictionary<string, SpriteFont>();
             effects = new Dictionary<string, SoundEffect>();
+            songs = new Dictionary<string, Song>();
+
         }
 
         public static void LoadContent()
@@ -50,8 +54,24 @@ namespace smallsoldiers
             textures.Add("flag_louis", content.Load<Texture2D>("image/flag_louis"));
             textures.Add("building_nicolas", content.Load<Texture2D>("image/building_nicolas"));
             textures.Add("test", content.Load<Texture2D>("image/grid_perso_test"));
-            
+            textures.Add("building_icone", content.Load<Texture2D>("image/building_icone"));
+            textures.Add("slotmenu_bg", content.Load<Texture2D>("image/slotmenu_bg"));
+
             fonts.Add("medium", content.Load<SpriteFont>("font/medium"));
+
+           // songs.Add("theme01", content.Load<Song>("son/theme01"));
+        }
+
+        public static void PlayTheme(string _asset)
+        {
+            if (MediaPlayer.State != MediaState.Playing)
+            {
+                MediaPlayer.Play(songs[_asset]);
+            }
+        }
+        public static void Stop()
+        {
+            MediaPlayer.Stop();
         }
 
         public static void Draw(string _asset, Rectangle _rect, Color _color, float _depth)

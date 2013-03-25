@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using smallsoldiers.land;
 using smallsoldiers.entity;
 using smallsoldiers.gui;
+using smallsoldiers.son;
 
 namespace smallsoldiers
 {
@@ -21,6 +22,7 @@ namespace smallsoldiers
         Player p1, p2;
         Battlefield call_of_duty;
         Hud hud;
+        Music music;
 
         public Game1()
         {
@@ -42,6 +44,7 @@ namespace smallsoldiers
             p2 = new Player("nicolas", false);
             call_of_duty = new Battlefield();
             hud = new Hud();
+            music = new Music();
 
             base.Initialize();
         }

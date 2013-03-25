@@ -129,6 +129,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Ressource.cs" />
+    <Compile Include="son\Music.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

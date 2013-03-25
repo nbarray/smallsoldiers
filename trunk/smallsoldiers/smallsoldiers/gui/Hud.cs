@@ -29,13 +29,13 @@ namespace smallsoldiers.gui
             p2_pop = "0 pop";
         }
 
-        public void Update(Player p1, Player p2)
+        public void Update(Player _p1, Player _p2)
         {
-            p1_pop = p1.GetPopulation().ToString() + " pop";
-            p2_pop = p2.GetPopulation().ToString() + " pop";
+            p1_pop = _p1.GetPopulation().ToString() + " pop";
+            p2_pop = _p2.GetPopulation().ToString() + " pop";
 
-            p1_income = p1.GetIncome().ToString() + " g";
-            p2_income = p1.GetIncome().ToString() + " g";
+            p1_income = _p1.GetIncome().ToString() + " g";
+            p2_income = _p2.GetIncome().ToString() + " g";
         }
 
         public void Draw()

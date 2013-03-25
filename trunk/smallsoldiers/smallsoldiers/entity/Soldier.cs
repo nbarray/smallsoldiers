@@ -26,6 +26,8 @@ namespace smallsoldiers.entity
         private List<Arrow> arrows;
 
         private Animation walk_anim, attack_anim;
+        
+        
         public int get_Y()
         {
             return rect.Y;
@@ -50,6 +52,10 @@ namespace smallsoldiers.entity
         {
             return life < maxlife;
         }
+
+        public string GetAsset() { return base.asset; }
+        public sold_type GetSoldierType() { return type; }
+
 
         public Soldier(string _asset, sold_type _t, int _x, int _y, Flag _link)
             : base(_asset,
@@ -199,6 +205,7 @@ namespace smallsoldiers.entity
 
         public override void Draw()
         {
+            //health bar
             Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 8, 32, 4), Color.LightGray, Cons.DEPTH_HUD);
             Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 8, (int)(life * 32 / maxlife), 4), Color.Green, Cons.DEPTH_HUD + 0.01f);
 
