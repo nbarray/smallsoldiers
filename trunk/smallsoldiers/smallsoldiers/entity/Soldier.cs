@@ -81,7 +81,7 @@ namespace smallsoldiers.entity
                     armor = 0;
                     maxlife = 20;
                     range = 96;
-                    damage = -3f;
+                    damage = -2f;
                     break;
                 default:
                     speed = 1.1f;
@@ -108,7 +108,8 @@ namespace smallsoldiers.entity
             arrows = new List<Arrow>();
 
             walk_anim = new Animation(asset, new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE), 6, 0, depth, false);
-            attack_anim = new Animation(asset, new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE), 7, 6, depth, false);
+            attack_anim = new Animation(asset, new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE), 7, 6, depth, 
+                false, (type == sold_type.Ranger));
         }
 
         public void move_to(int _dest_x, int _dest_y)
@@ -124,7 +125,7 @@ namespace smallsoldiers.entity
             move_to(fanion.get_X() + s_x, fanion.get_Y() + s_y);
         }
 
-        public void Update(GameTime _gameTime, Army _allies, Army _ennemies, Music _soundengine)
+        public void Update(GameTime _gameTime, Army _allies, Army _ennemies, bool write)
         {
             //move_to(Mouse.GetState().X, Mouse.GetState().Y);
             int detect_ennemy = (type != sold_type.Ranger) ? (range * 3) / 2 : range;
@@ -202,7 +203,7 @@ namespace smallsoldiers.entity
                 if (arrows[i].isdead())
                     arrows.RemoveAt(i);
                 else
-                    arrows[i].Update(_gameTime, _ennemies);
+                    arrows[i].Update(_gameTime, _ennemies, write);
             }
         }
 

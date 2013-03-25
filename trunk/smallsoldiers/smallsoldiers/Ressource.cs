@@ -95,6 +95,12 @@ namespace smallsoldiers
             //_src, Color.Black, 0f, new Vector2(), _se, _depth-0.001f);
             sb.Draw(textures[_asset], _rect, _src, _color, 0f, new Vector2(), _se, _depth);
         }
+        public static void Draw(string _asset, Rectangle _rect, Rectangle _src, Color _color, float _depth, 
+            SpriteEffects _se, float _a)
+        {
+            sb.Draw(textures[_asset], new Rectangle(_rect.X + _src.Width / 2, _rect.Y + _src.Height / 2, _rect.Width, _rect.Height), 
+                _src, _color, _a, new Vector2(_src.Width/2, _src.Height/2), _se, _depth);
+        }
 
         public static void DrawString(string _asset, string _text, Vector2 _vector, Color _color, float _depth)
         {
