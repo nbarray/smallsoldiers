@@ -24,7 +24,6 @@ namespace smallsoldiers.entity
         private SpriteEffects se;
         private bool dead, blind;
         private sold_type type;
-        private List<Arrow> arrows;
 
         private Animation walk_anim, attack_anim;
 
@@ -62,10 +61,10 @@ namespace smallsoldiers.entity
         public sold_type GetSoldierType() { return type; }
 
 
-        public Soldier(string _asset, sold_type _t, int _x, int _y, Flag _link)
+        public Soldier(string _asset, sold_type _t, int _x, int _y, Flag _link, int _level)
             : base(_asset,
                    new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE),
-                   new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE),
+                   new Rectangle(0, Cons.MAN_SIZE*(_level-1), Cons.MAN_SIZE, Cons.MAN_SIZE),
                    Color.White, 0.6f)
         {
             #region Carac
@@ -74,29 +73,29 @@ namespace smallsoldiers.entity
             switch (type)
             {
                 case sold_type.Ranger:
-                    speed = 1.3f;
-                    armor = 0;
-                    maxlife = 20;
+                    speed = 1.2f+0.1f*_level;
+                    armor = 0.3f*_level;
+                    maxlife = 20+2*_level;
                     range = 320;
-                    damage = 10;
+                    damage = 6+_level;
                     break;
                 case sold_type.Healer:
-                    speed = 1.2f;
-                    armor = 0;
-                    maxlife = 20;
+                    speed = 1.2f + 0.05f * _level;
+                    armor = 0.2f*_level;
+                    maxlife = 20+3*_level;
                     range = 96;
-                    damage = -2f;
+                    damage = -2 - _level;
                     break;
                 default:
-                    speed = 1.1f;
-                    armor = 0.5f;
-                    maxlife = 30;
+                    speed = 1.1f + 0.05f * _level;
+                    armor = 0.5f*_level;
+                    maxlife = 30 + 3 * _level;
                     range = 32;
-                    damage = 4f;
+                    damage = 4f+_level;
                     break;
             }
             life = maxlife;
-            accuracy = 10;
+            accuracy = 9+_level;
             #endregion
             pos_x = _x;
             dest_x = _x;
@@ -110,11 +109,12 @@ namespace smallsoldiers.entity
             target = null;
             se = SpriteEffects.None;
             dead = false;
-            arrows = new List<Arrow>();
             blind = false;
 
-            walk_anim = new Animation(asset, new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE), 6, 0, depth, false);
-            attack_anim = new Animation(asset, new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE), 7, 6, depth,
+            walk_anim = new Animation(asset, new Rectangle(0, Cons.MAN_SIZE * (_level - 1), 
+                Cons.MAN_SIZE, Cons.MAN_SIZE), 6, 0, depth, false);
+            attack_anim = new Animation(asset, new Rectangle(0, Cons.MAN_SIZE * (_level - 1), 
+                Cons.MAN_SIZE, Cons.MAN_SIZE), 7, 6, depth,
                 false, (type == sold_type.Ranger));
         }
 
@@ -175,7 +175,7 @@ namespace smallsoldiers.entity
                                     {
                                         int a = 40-accuracy;
                                         Random r = new Random();
-                                        arrows.Add(new Arrow("arrow_louis",
+                                        _allies.Add_arrows(new Arrow("arrow_louis",
                                             rect.X + Cons.MAN_SIZE / 2, rect.Y - Cons.MAN_SIZE / 4,
                                             target.get_X() + r.Next(100) % a - a/2,
                                             target.get_Y() + r.Next(100) % a - a/2,
@@ -227,14 +227,6 @@ namespace smallsoldiers.entity
                         set_attack_on(target);
                     break;
             }
-
-            for (int i = arrows.Count - 1; i >= 0; i--)
-            {
-                if (arrows[i].isdead())
-                    arrows.RemoveAt(i);
-                else
-                    arrows[i].Update(_gameTime, _ennemies);
-            }
         }
 
         public override void Draw()
@@ -256,11 +248,6 @@ namespace smallsoldiers.entity
                     break;
                 default:
                     break;
-            }
-
-            foreach (Arrow item in arrows)
-            {
-                item.Draw();
             }
         }
 

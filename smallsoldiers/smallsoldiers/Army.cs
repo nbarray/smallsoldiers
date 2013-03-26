@@ -13,10 +13,12 @@ namespace smallsoldiers
     {
         public List<Soldier> soldiers;
         private bool isPlayer;
+        private List<Arrow> arrows;
 
         public Army(bool _isplayer)
         {
             soldiers = new List<Soldier>();
+            arrows = new List<Arrow>();
             isPlayer = _isplayer;
         }
 
@@ -32,6 +34,10 @@ namespace smallsoldiers
             {
                 return false;
             }
+        }
+        public void Add_arrows(Arrow _a)
+        {
+            arrows.Add(_a);
         }
 
         public int HowMany(Rectangle _r)
@@ -54,11 +60,22 @@ namespace smallsoldiers
                 else
                     soldiers[i].Update(_gameTime, this, _ennemy, _soundengine);
             }
+            for (int i = arrows.Count - 1; i >= 0; i--)
+            {
+                if (arrows[i].isdead())
+                    arrows.RemoveAt(i);
+                else
+                    arrows[i].Update(_gameTime, _ennemy);
+            }
         }
 
         public void Draw()
         {
             foreach (Soldier item in soldiers)
+            {
+                item.Draw();
+            }
+            foreach (Arrow item in arrows)
             {
                 item.Draw();
             }
