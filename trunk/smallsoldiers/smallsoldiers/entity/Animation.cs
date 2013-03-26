@@ -61,6 +61,11 @@ namespace smallsoldiers.entity
                 return false;
         }
 
+        public void level_up(int size)
+        {
+            source.Y += size;
+        }
+
         public void Draw(Rectangle _rect)
         {
             Ressource.Draw(asset, _rect, source, Color.White, depth);

@@ -10,7 +10,8 @@ namespace smallsoldiers.entity
     {
         private Flag fanion;
         public bool display_flag, blind_flag, dead;
-        private int delay, time_since_last, building_state, elapsed, life, life_max;
+        private int delay, time_since_last, building_state, elapsed, life, life_max, level;
+        private float xp;
         private Animation working_anim;
         public bool is_dead()
         {
@@ -36,8 +37,10 @@ namespace smallsoldiers.entity
             blind_flag = false;
             life_max = 100;
             life = life_max;
+            level = 1;
+            xp = 0;
 
-            product = new Soldier(_soldierAsset, _soldierType, rect.X + 32, rect.Y + 64, fanion);
+            product = new Soldier(_soldierAsset, _soldierType, rect.X + 32, rect.Y + 64, fanion, 1);
 
             working_anim = new Animation(_asset, new Rectangle(0, 0, 96, 96), 3, 0, depth, false);
             //model = new Soldier("fighter_louis", 50, 75, fanion);
@@ -59,7 +62,7 @@ namespace smallsoldiers.entity
                     {
                         source.X = 0;
                     }
-                } 
+                }
                 #endregion
             }
             else
@@ -73,17 +76,23 @@ namespace smallsoldiers.entity
                         if (_owner.GetIncome() > 0)
                         {
                             if (_a.Add_soldier(new Soldier(product.GetAsset(),
-                                product.GetSoldierType(), rect.X + 32, rect.Y + 64, fanion), blind_flag))
+                                product.GetSoldierType(), rect.X + 32, rect.Y + 64, fanion, level), blind_flag))
                             {
                                 _owner.RemoveFromIncome(1);
                                 time_since_last = 0;
+                                xp += 160f / (float)level;
+                                if (level < (int)xp / 160 + 1)
+                                {
+                                    //level = (int)xp / 160+1;
+                                    //level_up();
+                                }
                             }
                         }
                     }
                     if (time_since_last <= delay)
                     {
                         working_anim.Update(_gameTime);
-                    } 
+                    }
                     #endregion
                 }
                 else
@@ -97,7 +106,7 @@ namespace smallsoldiers.entity
                 fanion.Update(_gameTime);
             }
 
-            if (life<0)
+            if (life < 0)
             {
                 dead = true;
                 fanion.pass_the_flag(_default_flag);
@@ -115,11 +124,15 @@ namespace smallsoldiers.entity
             blind_flag = _blindness;
             fanion.set_new_pos(_x, _y, _blindness);
         }
+        private void level_up()
+        {
+            working_anim.level_up(Cons.BUILDING_SIZE);
+        }
 
         public override void Draw()
         {
             if (building_state > 2 && time_since_last <= delay)
-                working_anim.Draw(rect);
+                working_anim.Draw(rect, color);
             else
                 base.Draw();
         }
