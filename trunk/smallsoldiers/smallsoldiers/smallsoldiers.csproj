@@ -118,6 +118,8 @@
     <Compile Include="entity\Entity.cs" />
     <Compile Include="entity\Flag.cs" />
     <Compile Include="entity\Soldier.cs" />
+    <Compile Include="entity\Town.cs" />
+    <Compile Include="entity\TownMenu.cs" />
     <Compile Include="gui\Hud.cs" />
     <Compile Include="gui\SlotMenu.cs" />
     <Compile Include="land\Battlefield.cs" />

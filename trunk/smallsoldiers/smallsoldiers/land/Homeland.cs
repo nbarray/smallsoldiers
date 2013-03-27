@@ -13,6 +13,7 @@ namespace smallsoldiers.land
     class Homeland
     {
         private Slot[] slots;
+        private Town town;
         private Rectangle rect;
         private bool isPlayer;
 
@@ -22,6 +23,7 @@ namespace smallsoldiers.land
         {
             isPlayer = _isPlayer;
             owner = _p;
+            town = new Town("building_louis", _p);
 
             slots = new Slot[4];
             for (int i = 0; i < slots.Length; i++)
