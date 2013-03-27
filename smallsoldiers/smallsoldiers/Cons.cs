@@ -33,6 +33,6 @@ namespace smallsoldiers
 
         public const float INCOME_DURATION = 5000f; // Milliseconds
 
-        public static e_GameMode mode = e_GameMode.multi;
+        public static e_GameMode mode = e_GameMode.solo;
     }
 }

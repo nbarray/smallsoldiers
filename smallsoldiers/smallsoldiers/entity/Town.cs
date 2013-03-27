@@ -40,7 +40,7 @@ namespace smallsoldiers.entity
         public Town(string _asset, Player _owner)
             : base(_asset,
                    new Rectangle(0, (Cons.HEIGHT - Cons.TOWN_SIZE) / 2, Cons.TOWN_SIZE, Cons.TOWN_SIZE),
-                   new Rectangle(0, 0, Cons.TOWN_SIZE, Cons.TOWN_SIZE),
+                   new Rectangle(0, 0, Cons.BUILDING_SIZE, Cons.BUILDING_SIZE),//Cons.TOWN_SIZE, Cons.TOWN_SIZE),
                    Color.White, 0.3f)
         {
             fanion = new Flag("flag_louis");
@@ -71,10 +71,20 @@ namespace smallsoldiers.entity
                 menu = new TownMenu(this, new Rectangle(rect.X - 128 - 4, (Cons.HEIGHT - Cons.TOWN_SIZE) / 2 + 16, 128, 42));
             }
             else
+            {
+                rect.X = 0;
                 menu = new TownMenu(this, new Rectangle(rect.X + 4, (Cons.HEIGHT - Cons.TOWN_SIZE) / 2 + 16, 128, 42));
+            }
         }
 
         public void Update(GameTime _gameTime, int _mx, int _my, bool _mpressed, bool _rpressed)
+        {
+            Update1(_gameTime);
+
+            Update2(_gameTime, _mx, _my, _mpressed, _rpressed);
+        }
+
+        private void Update1(GameTime _gameTime)
         {
             if (building_state < 3)
             {
@@ -105,11 +115,8 @@ namespace smallsoldiers.entity
             {
                 dead = true;
             }
-
-            Update2(_gameTime, _mx, _my, _mpressed, _rpressed);
         }
-
-        public void Update2(GameTime _gameTime, int _mx, int _my, bool _mpressed, bool _rpressed)
+        private void Update2(GameTime _gameTime, int _mx, int _my, bool _mpressed, bool _rpressed)
         {
             if (is_selected)
                 Update_when_selected(_mx, _my, _rpressed);
@@ -139,7 +146,6 @@ namespace smallsoldiers.entity
             }
             #endregion
         }
-
         private void Update_when_selected(int _mx, int _my, bool _rpressed)
         {
                 if (right_click && _rpressed)
@@ -152,8 +158,10 @@ namespace smallsoldiers.entity
                     right_click = true;
                 }
         }
-        public void Update_IA(GameTime _gameTime, Player _p, Flag _default_flag)
+
+        public void Update_IA(GameTime _gameTime)
         {
+            Update1(_gameTime);
         }
 
         public void Draw_flag()//or_not
