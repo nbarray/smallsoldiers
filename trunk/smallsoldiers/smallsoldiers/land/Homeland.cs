@@ -23,7 +23,7 @@ namespace smallsoldiers.land
         {
             isPlayer = _isPlayer;
             owner = _p;
-            town = new Town("building_louis", _p);
+            town = new Town("building_nicolas", _p);
 
             slots = new Slot[4];
             for (int i = 0; i < slots.Length; i++)
@@ -54,14 +54,18 @@ namespace smallsoldiers.land
         public void Update(GameTime _gameTime, int _mx, int _my, bool _mpressed, bool _rpressed)
         {
             if (owner.IsPlayer() || Cons.mode == e_GameMode.multi)
+            {
+                town.Update(_gameTime, _mx, _my, _mpressed, _rpressed);
                 for (int i = 0; i < slots.Length; i++)
                 {
                     slots[i].Update(_gameTime, _mx, _my, _mpressed, _rpressed, owner.default_flag);
                 }
+            }
         }
 
         public void Update_IA(GameTime _gameTime, Player _p)
         {
+            town.Update_IA(_gameTime);
             for (int i = 0; i < slots.Length; i++)
             {
                 slots[i].Update_IA(_gameTime, _p, _p.default_flag);
@@ -70,6 +74,7 @@ namespace smallsoldiers.land
 
         public void Draw()
         {
+            town.Draw();
             if (isPlayer)
                 Ressource.Draw("homelands_nicolas", rect, Color.White, 0.1f);
             else
@@ -79,6 +84,7 @@ namespace smallsoldiers.land
             {
                 slots[i].Draw();
             }
+            town.Draw();
         }
     }
 }
