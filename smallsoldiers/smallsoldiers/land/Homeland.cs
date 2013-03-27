@@ -23,7 +23,7 @@ namespace smallsoldiers.land
         {
             isPlayer = _isPlayer;
             owner = _p;
-            town = new Town("building_nicolas", _p);
+            town = new Town("building_nicolas", _p, _isPlayer);
 
             slots = new Slot[4];
             for (int i = 0; i < slots.Length; i++)
