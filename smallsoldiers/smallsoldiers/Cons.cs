@@ -16,6 +16,7 @@ namespace smallsoldiers
 
         public const int MAN_SIZE = 32;
         public const int BUILDING_SIZE = MAN_SIZE * 3;
+        public const int TOWN_SIZE = MAN_SIZE * 6;
         public const int WIDTH = 1366;
         public const int HEIGHT = 768;
         public const int HOMELAND_SIZE = 200;
