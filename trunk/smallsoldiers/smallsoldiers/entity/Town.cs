@@ -37,7 +37,7 @@ namespace smallsoldiers.entity
 
         public void SetPosition(Point _p) { rect.X = _p.X; rect.Y = _p.Y; }
 
-        public Town(string _asset, Player _owner)
+        public Town(string _asset, Player _owner, bool _isplayer)
             : base(_asset,
                    new Rectangle(0, (Cons.HEIGHT - Cons.TOWN_SIZE) / 2, Cons.TOWN_SIZE, Cons.TOWN_SIZE),
                    new Rectangle(0, 0, Cons.BUILDING_SIZE, Cons.BUILDING_SIZE),//Cons.TOWN_SIZE, Cons.TOWN_SIZE),
@@ -65,7 +65,7 @@ namespace smallsoldiers.entity
             free = true;
             owner = _owner;
 
-            if (!_owner.IsPlayer())
+            if (!_isplayer)
             {
                 rect.X = Cons.WIDTH - Cons.TOWN_SIZE;
                 menu = new TownMenu(this, new Rectangle(rect.X - 128 - 4, (Cons.HEIGHT - Cons.TOWN_SIZE) / 2 + 16, 128, 42));
