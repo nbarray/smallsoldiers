@@ -2,3 +2,5 @@
 -Batiment principal
 -income et pop en fonction des régions
 -meilleur gestion des flèches
+-agrandissement de la carte
+-multijoueur (réseau)
