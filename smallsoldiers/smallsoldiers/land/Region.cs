@@ -74,21 +74,21 @@ namespace smallsoldiers.land
             int army2_count = _army2.HowMany(rect);
 
             valeur = (int)(army1_count) - (int)(army2_count) + valeur;
-            if (valeur > 32)
-                valeur = 32;
-            if (valeur < -32)
-                valeur = -32;
+            if (valeur > 256)
+                valeur = 256;
+            if (valeur < -256)
+                valeur = -256;
 
             if(valeur != 0)
             anim_region_flag.Update(_gameTime);
 
-            rect_flag.Y = (rect_region_staff.Y + rect_region_staff.Height - 32) - (Math.Abs(valeur));
+            rect_flag.Y = (rect_region_staff.Y + rect_region_staff.Height - 32) - (Math.Abs(valeur/8));
 
-            if (valeur > 0)
+            if (valeur == 256)
             {
                 flag_color = Color.Blue;
             }
-            else if(valeur < 0)
+            else if(valeur == -256)
             {
                 flag_color = Color.Red;
             }

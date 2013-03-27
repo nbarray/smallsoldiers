@@ -15,7 +15,7 @@ namespace smallsoldiers.entity
     class Soldier : Entity
     {
         private int dest_x, dest_y, range, accuracy;
-        private float speed, life, maxlife, armor, damage;
+        private float speed, life, maxlife, armor, damage, mana, maxmana;
         private act_mode mode;
         protected float pos_x, pos_y;
         private Flag fanion;
@@ -24,9 +24,10 @@ namespace smallsoldiers.entity
         private SpriteEffects se;
         private bool dead, blind;
         private sold_type type;
+        private float elapsed_time;
+
 
         private Animation walk_anim, attack_anim;
-
 
         public int get_Y()
         {
@@ -64,7 +65,7 @@ namespace smallsoldiers.entity
         public Soldier(string _asset, sold_type _t, int _x, int _y, Flag _link, int _level)
             : base(_asset,
                    new Rectangle(0, 0, Cons.MAN_SIZE, Cons.MAN_SIZE),
-                   new Rectangle(0, Cons.MAN_SIZE*(_level-1), Cons.MAN_SIZE, Cons.MAN_SIZE),
+                   new Rectangle(0, Cons.MAN_SIZE * (_level - 1), Cons.MAN_SIZE, Cons.MAN_SIZE),
                    Color.White, 0.6f)
         {
             #region Carac
@@ -73,29 +74,33 @@ namespace smallsoldiers.entity
             switch (type)
             {
                 case sold_type.Ranger:
-                    speed = 1.2f+0.1f*_level;
-                    armor = 0.3f*_level;
-                    maxlife = 20+2*_level;
+                    speed = 1.2f + 0.1f * _level;
+                    armor = 0.3f * _level;
+                    maxlife = 20 + 2 * _level;
                     range = 320;
-                    damage = 6+_level;
+                    damage = 6 + _level;
+                    maxmana = 0;
                     break;
                 case sold_type.Healer:
                     speed = 1.2f + 0.05f * _level;
-                    armor = 0.2f*_level;
-                    maxlife = 20+3*_level;
+                    armor = 0.2f * _level;
+                    maxlife = 20 + 3 * _level;
                     range = 96;
                     damage = -2 - _level;
+                    maxmana = 100;
                     break;
                 default:
                     speed = 1.1f + 0.05f * _level;
-                    armor = 0.5f*_level;
+                    armor = 0.5f * _level;
                     maxlife = 30 + 3 * _level;
                     range = 32;
-                    damage = 4f+_level;
+                    damage = 4f + _level;
+                    maxmana = 0;
                     break;
             }
             life = maxlife;
-            accuracy = 9+_level;
+            mana = maxmana;
+            accuracy = 9 + _level;
             #endregion
             pos_x = _x;
             dest_x = _x;
@@ -110,10 +115,11 @@ namespace smallsoldiers.entity
             se = SpriteEffects.None;
             dead = false;
             blind = false;
+            elapsed_time = 0f;
 
-            walk_anim = new Animation(asset, new Rectangle(0, Cons.MAN_SIZE * (_level - 1), 
+            walk_anim = new Animation(asset, new Rectangle(0, Cons.MAN_SIZE * (_level - 1),
                 Cons.MAN_SIZE, Cons.MAN_SIZE), 6, 0, depth, false);
-            attack_anim = new Animation(asset, new Rectangle(0, Cons.MAN_SIZE * (_level - 1), 
+            attack_anim = new Animation(asset, new Rectangle(0, Cons.MAN_SIZE * (_level - 1),
                 Cons.MAN_SIZE, Cons.MAN_SIZE), 7, 6, depth,
                 false, (type == sold_type.Ranger));
         }
@@ -173,22 +179,32 @@ namespace smallsoldiers.entity
                                 if (attack_anim.Update(_gameTime))
                                     if (type == sold_type.Ranger)
                                     {
-                                        int a = 40-accuracy;
+                                        int a = 40 - accuracy;
                                         Random r = new Random();
                                         _allies.Add_arrows(new Arrow("arrow_louis",
                                             rect.X + Cons.MAN_SIZE / 2, rect.Y - Cons.MAN_SIZE / 4,
-                                            target.get_X() + r.Next(100) % a - a/2,
-                                            target.get_Y() + r.Next(100) % a - a/2,
+                                            target.get_X() + r.Next(100) % a - a / 2,
+                                            target.get_Y() + r.Next(100) % a - a / 2,
                                             damage));
                                         _soundengine.Play("fleche");
+                                    }
+                                    else if (type == sold_type.Healer)
+                                    {
+                                        if (mana > 25 && target.life < target.maxlife)
+                                        {
+                                            mana = mana > 0 ? mana - 25 : 0;
+                                            target.do_damage(damage);
+                                            _soundengine.Play("wololo");
+                                        }
+                                        else
+                                        {
+                                            goto case act_mode.Wait;
+                                        }
                                     }
                                     else
                                     {
                                         target.do_damage(damage);
-                                        if (type == sold_type.Fighter)
-                                            _soundengine.Play("epee");
-                                        if (type == sold_type.Healer)
-                                            _soundengine.Play("wololo");
+                                        _soundengine.Play("epee");
                                     }
                             }
                         }
@@ -212,13 +228,20 @@ namespace smallsoldiers.entity
                     switch (type)
                     {
                         case sold_type.Fighter:
-                        target = _ennemies.get_target(rect.X, rect.Y, detect_ennemy);
+                            target = _ennemies.get_target(rect.X, rect.Y, detect_ennemy);
                             break;
                         case sold_type.Ranger:
-                        target = _ennemies.get_target(rect.X, rect.Y, detect_ennemy, 64);
+                            target = _ennemies.get_target(rect.X, rect.Y, detect_ennemy, 64);
                             break;
                         case sold_type.Healer:
-                        target = _allies.get_target_to_heal(rect.X, rect.Y, detect_ennemy);
+                            target = _allies.get_target_to_heal(rect.X, rect.Y, detect_ennemy);
+                            elapsed_time += _gameTime.ElapsedGameTime.Milliseconds;
+                            Console.WriteLine(elapsed_time);
+                            if (elapsed_time > 1000)
+                            {
+                                elapsed_time -= 1000;
+                                mana = mana <= maxmana - 20 ? (mana + 20) : maxmana;
+                            }
                             break;
                         default:
                             break;
@@ -232,8 +255,14 @@ namespace smallsoldiers.entity
         public override void Draw()
         {
             //health bar
-            Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 8, 32, 4), Color.LightGray, Cons.DEPTH_HUD);
-            Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 8, (int)(life * 32 / maxlife), 4), Color.Green, Cons.DEPTH_HUD + 0.01f);
+            Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 10, 32, 4), Color.LightGray, Cons.DEPTH_HUD);
+            Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 10, (int)(life * 32 / maxlife), 4), Color.Green, Cons.DEPTH_HUD + 0.01f);
+            //mana bar
+            if (type == sold_type.Healer)
+            {
+                Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 6, 32, 4), Color.LightGray, Cons.DEPTH_HUD);
+                Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 6, (int)(mana * 32 / maxmana), 4), Color.Blue, Cons.DEPTH_HUD + 0.01f);
+            }
 
             switch (mode)
             {
