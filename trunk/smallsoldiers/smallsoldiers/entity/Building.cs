@@ -30,7 +30,7 @@ namespace smallsoldiers.entity
         {
             fanion = new Flag("flag_louis");
             display_flag = false;
-            delay = 700;
+            delay = 60; // 700
             time_since_last = 0;
             building_state = 0;
             elapsed = 0;

@@ -80,6 +80,7 @@ namespace smallsoldiers
             GamePadState gp = GamePad.GetState(_index);
             gpx += gp.ThumbSticks.Right.X * 20 + gp.ThumbSticks.Left.X * 5;
             gpy -= gp.ThumbSticks.Right.Y * 20 + gp.ThumbSticks.Left.Y * 5;
+
             home.Update(_gameTime, (int)gpx, (int)gpy, gp.Buttons.A == ButtonState.Pressed, gp.Buttons.B == ButtonState.Pressed);
         }
         private void Update_income(GameTime _gameTime)
