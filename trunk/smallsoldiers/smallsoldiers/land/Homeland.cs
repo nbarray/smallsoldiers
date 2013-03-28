@@ -51,14 +51,14 @@ namespace smallsoldiers.land
             }
         }
 
-        public void Update(GameTime _gameTime, int _mx, int _my, bool _mpressed, bool _rpressed)
+        public void Update(GameTime _gameTime, Inputs _inputs)
         {
             if (owner.IsPlayer() || Cons.mode == e_GameMode.multi)
             {
-                town.Update(_gameTime, _mx, _my, _mpressed, _rpressed);
+                town.Update(_gameTime, _inputs);
                 for (int i = 0; i < slots.Length; i++)
                 {
-                    slots[i].Update(_gameTime, _mx, _my, _mpressed, _rpressed, owner.default_flag);
+                    slots[i].Update(_gameTime, _inputs, owner.default_flag);
                 }
             }
         }

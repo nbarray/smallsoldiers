@@ -34,15 +34,6 @@ namespace smallsoldiers.gui
 
         public void Update(Player _p1, Player _p2)
         {
-            if (Cons.mode == e_GameMode.multi)
-            {
-                cursor_j1.X = _p1.GetGPX();
-                cursor_j1.Y = _p1.GetGPY();
-
-                cursor_j2.X = _p2.GetGPX();
-                cursor_j2.Y = _p2.GetGPY();
-            }
-
             p1_pop = _p1.GetPopulation().ToString() + " pop";
             p2_pop = _p2.GetPopulation().ToString() + " pop";
 
