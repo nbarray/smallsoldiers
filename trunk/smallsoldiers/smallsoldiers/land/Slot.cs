@@ -159,9 +159,11 @@ namespace smallsoldiers.land
             if (free)
             {
                 if (is_selected)
-                    Ressource.Draw("slot02", rect, new Rectangle(96, 0, 96, 96), color, 0.8f);
+                    Ressource.Draw("slot02", rect, new Rectangle(96, 0, 96, 96), 
+                        color, 0.5f + ((float)(rect.Y + rect.Height)) / 10000f);
                 else
-                    Ressource.Draw("slot02", rect, new Rectangle(0, 0, 96, 96), color, 0.8f);
+                    Ressource.Draw("slot02", rect, new Rectangle(0, 0, 96, 96), 
+                        color, 0.5f + ((float)(rect.Y + rect.Height)) / 10000f);
             }
             else
             {

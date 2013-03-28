@@ -1,4 +1,3 @@
-Content\son\cool.xnb
 Content\image\bg01.xnb
 Content\image\pixel.xnb
 Content\image\fighter_louis.xnb
@@ -10,6 +9,7 @@ Content\image\homelands_louis.xnb
 Content\image\homelands_nicolas.xnb
 Content\image\building_nicolas.xnb
 Content\image\flag_louis.xnb
+Content\font\medium.xnb
 Content\image\yes_no_hud.xnb
 Content\image\slot02.xnb
 Content\image\ranger_louis.xnb
@@ -18,15 +18,16 @@ Content\image\grid_perso_test.xnb
 Content\image\arrow_louis.xnb
 Content\image\building_icone.xnb
 Content\image\slotmenu_bg.xnb
+Content\son\cool.xnb
+Content\son\fleche.xnb
+Content\son\epee.xnb
 Content\image\produce_or_not.xnb
 Content\image\region_village.xnb
+Content\son\wololo.xnb
 Content\image\ble.xnb
 Content\image\buisson.xnb
 Content\image\ore.xnb
 Content\image\flag_region.xnb
 Content\image\flag_staff.xnb
-Content\font\medium.xnb
-Content\son\fleche.xnb
-Content\son\epee.xnb
-Content\son\wololo.xnb
+Content\image\town_louis.xnb
 Content\son\cool.wma
