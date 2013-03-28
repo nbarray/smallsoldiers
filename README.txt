@@ -1,5 +1,6 @@
 -Anims de combat
--Batiment principal
+-//Batiment principal
+-Menu de batiment principal
 -income et pop en fonction des régions
 -meilleur gestion des flèches
 -agrandissement de la carte
