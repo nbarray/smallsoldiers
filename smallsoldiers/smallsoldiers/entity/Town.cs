@@ -40,7 +40,7 @@ namespace smallsoldiers.entity
         public Town(string _asset, Player _owner, bool _isplayer)
             : base(_asset,
                    new Rectangle(0, (Cons.HEIGHT - Cons.TOWN_SIZE) / 2, Cons.TOWN_SIZE, Cons.TOWN_SIZE),
-                   new Rectangle(0, 0, Cons.BUILDING_SIZE, Cons.BUILDING_SIZE),//Cons.TOWN_SIZE, Cons.TOWN_SIZE),
+                   new Rectangle(0, 0, Cons.TOWN_SIZE, Cons.TOWN_SIZE),
                    Color.White, 0.3f)
         {
             fanion = new Flag("flag_louis");
@@ -68,12 +68,14 @@ namespace smallsoldiers.entity
             if (!_isplayer)
             {
                 rect.X = Cons.WIDTH - Cons.TOWN_SIZE;
-                menu = new TownMenu(this, new Rectangle(rect.X - 128 - 4, (Cons.HEIGHT - Cons.TOWN_SIZE) / 2 + 16, 128, 42));
+                menu = new TownMenu(this, new Rectangle(rect.X - 128 - 4 - Cons.TOWN_SIZE / 2, 
+                    (Cons.HEIGHT - Cons.TOWN_SIZE+42) / 2 + 16, 128, 42));
             }
             else
             {
                 rect.X = 0;
-                menu = new TownMenu(this, new Rectangle(rect.X + 4, (Cons.HEIGHT - Cons.TOWN_SIZE) / 2 + 16, 128, 42));
+                menu = new TownMenu(this, new Rectangle(rect.X + Cons.TOWN_SIZE/2, 
+                    (Cons.HEIGHT - Cons.TOWN_SIZE + 42) / 2 + 16, 128, 42));
             }
         }
 
