@@ -236,7 +236,6 @@ namespace smallsoldiers.entity
                         case sold_type.Healer:
                             target = _allies.get_target_to_heal(rect.X, rect.Y, detect_ennemy);
                             elapsed_time += _gameTime.ElapsedGameTime.Milliseconds;
-                            Console.WriteLine(elapsed_time);
                             if (elapsed_time > 1000)
                             {
                                 elapsed_time -= 1000;

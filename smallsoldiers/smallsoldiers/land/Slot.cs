@@ -64,15 +64,15 @@ namespace smallsoldiers.land
             }
         }
 
-        public void Update(GameTime _gameTime, int _mx, int _my, bool _mpressed, bool _rpressed, Flag _default_flag)
+        public void Update(GameTime _gameTime, Inputs _inputs, Flag _default_flag)
         {
             if (is_selected)
-                Update_when_selected(_mx, _my, _rpressed);
+                Update_when_selected(_inputs.GetX(), _inputs.GetY(), _inputs.GetMRpressed());
 
             #region mouse
-            if (rect.Contains(_mx, _my) || (is_selected && menu.Update(_mx, _my, _mpressed)))
+            if (rect.Contains(_inputs.GetX(), _inputs.GetY()) || (is_selected && menu.Update(_inputs.GetX(), _inputs.GetY(), _inputs.GetMLpressed())))
             {
-                if (!_mpressed)
+                if (_inputs.GetMLreleased())
                 {
                     een = false;
                 }
@@ -87,7 +87,7 @@ namespace smallsoldiers.land
             }
             else
             {
-                if (_mpressed)
+                if (_inputs.GetMLpressed())
                 {
                     is_selected = false;
                 }

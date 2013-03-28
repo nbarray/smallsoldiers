@@ -79,11 +79,10 @@ namespace smallsoldiers.entity
             }
         }
 
-        public void Update(GameTime _gameTime, int _mx, int _my, bool _mpressed, bool _rpressed)
+        public void Update(GameTime _gameTime, Inputs _inputs)
         {
             Update1(_gameTime);
-
-            Update2(_gameTime, _mx, _my, _mpressed, _rpressed);
+            Update2(_gameTime, _inputs);
         }
 
         private void Update1(GameTime _gameTime)
@@ -118,15 +117,15 @@ namespace smallsoldiers.entity
                 dead = true;
             }
         }
-        private void Update2(GameTime _gameTime, int _mx, int _my, bool _mpressed, bool _rpressed)
+        private void Update2(GameTime _gameTime, Inputs _inputs)
         {
             if (is_selected)
-                Update_when_selected(_mx, _my, _rpressed);
+                Update_when_selected(_inputs);
 
             #region mouse
-            if (rect.Contains(_mx, _my) || (is_selected && menu.Update(_mx, _my, _mpressed)))
+            if (rect.Contains(_inputs.GetX(), _inputs.GetY()) || (is_selected && menu.Update(_inputs.GetX(), _inputs.GetY(), _inputs.GetMLpressed())))
             {
-                if (!_mpressed)
+                if (_inputs.GetMLreleased())
                 {
                     een = false;
                 }
@@ -141,21 +140,21 @@ namespace smallsoldiers.entity
             }
             else
             {
-                if (_mpressed)
+                if (_inputs.GetMLpressed())
                 {
                     is_selected = false;
                 }
             }
             #endregion
         }
-        private void Update_when_selected(int _mx, int _my, bool _rpressed)
+        private void Update_when_selected(Inputs _inputs)
         {
-                if (right_click && _rpressed)
+                if (right_click && _inputs.GetMRpressed())
                 {
                     right_click = false;
-                    owner.default_flag.set_new_pos(_mx, _my, Keyboard.GetState().IsKeyDown(Keys.LeftControl));
+                    owner.default_flag.set_new_pos(_inputs);
                 }
-                if (!_rpressed)
+                if (!right_click && _inputs.GetMRreleased())
                 {
                     right_click = true;
                 }

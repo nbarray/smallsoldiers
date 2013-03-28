@@ -23,6 +23,7 @@ namespace smallsoldiers
         Battlefield call_of_duty;
         Hud hud;
         Music music;
+        Inputs inputs;
 
         public Game1()
         {
@@ -46,6 +47,7 @@ namespace smallsoldiers
             call_of_duty = new Battlefield();
             hud = new Hud();
             music = new Music();
+            inputs = new Inputs();
 
             base.Initialize();
         }
@@ -58,15 +60,17 @@ namespace smallsoldiers
 
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            inputs.Update(Mouse.GetState(), Keyboard.GetState());
+
+            if (inputs.GetIsPressed(Keys.Escape))
                 this.Exit();
 
-            if (Keyboard.GetState().IsKeyDown(Keys.M)) Cons.mode = e_GameMode.multi;
-            if (Keyboard.GetState().IsKeyDown(Keys.L)) Cons.mode = e_GameMode.solo;
+            if (inputs.GetIsPressed(Keys.M)) Cons.mode = e_GameMode.multi;
+            if (inputs.GetIsPressed(Keys.L)) Cons.mode = e_GameMode.solo;
 
             MouseState mstate = Mouse.GetState();
-            int mx = mstate.X;
-            int my = mstate.Y;
+            int mx = inputs.GetX();
+            int my = inputs.GetY();
             bool mpressed = mstate.LeftButton == ButtonState.Pressed;
             bool mreleased = mstate.LeftButton == ButtonState.Released;
             bool rpressed = mstate.RightButton == ButtonState.Pressed;
@@ -74,8 +78,8 @@ namespace smallsoldiers
 
             hud.Update(p1, p2);
 
-            p1.Update(gameTime, p2.army, mx, my, mpressed, rpressed, music);
-            p2.Update(gameTime, p1.army, mx, my, mpressed, rpressed, music);
+            p1.Update(gameTime, p2.army, inputs, music);
+            p2.Update(gameTime, p1.army, inputs, music);
 
             call_of_duty.Update(gameTime, p1, p2);
 

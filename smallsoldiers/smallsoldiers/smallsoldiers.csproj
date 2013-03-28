@@ -122,6 +122,7 @@
     <Compile Include="entity\TownMenu.cs" />
     <Compile Include="gui\Hud.cs" />
     <Compile Include="gui\SlotMenu.cs" />
+    <Compile Include="Inputs.cs" />
     <Compile Include="land\Battlefield.cs" />
     <Compile Include="land\Homeland.cs" />
     <Compile Include="land\Region.cs" />
