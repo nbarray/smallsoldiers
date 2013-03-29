@@ -14,6 +14,7 @@ namespace smallsoldiers
     class Player
     {
         private string name;
+        private List<Point> pushes;
         private Homeland home;
         private bool player;
         public Army army;
@@ -47,6 +48,8 @@ namespace smallsoldiers
             camX = 0;
             camY = 0;
 
+            pushes = new List<Point>();
+
             income = 200;
             benefice = 15;
         }
@@ -65,6 +68,8 @@ namespace smallsoldiers
                 home.Update(_gameTime, _inputs);
             }
             army.Update(_gameTime, _ennemy, _soundeffect);
+            //army.make_pushes(ref pushes);
+            //army.push(pushes);
         }
         private void Update_IA(GameTime _gameTime)
         {

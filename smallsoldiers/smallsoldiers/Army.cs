@@ -53,7 +53,7 @@ namespace smallsoldiers
 
         public void Update(GameTime _gameTime, Army _ennemy, Music _soundengine)
         {
-            for (int i = soldiers.Count-1; i > -1; i--)
+            for (int i = soldiers.Count - 1; i > -1; i--)
             {
                 if (soldiers[i].isdead())
                     soldiers.RemoveAt(i);
@@ -66,6 +66,39 @@ namespace smallsoldiers
                     arrows.RemoveAt(i);
                 else
                     arrows[i].Update(_gameTime, _ennemy);
+            }
+        }
+
+        public void make_pushes(ref List<Point> _push)
+        {
+            _push = new List<Point>();
+            foreach (Soldier item in soldiers)
+            {
+                if (item.can_be_pushed())
+                    _push.Add(new Point(item.get_X(), item.get_Y()));
+            }
+        }
+        public void push(List<Point> _push)
+        {
+            foreach (Point p in _push)
+            {
+                foreach (Soldier item in soldiers)
+                {
+                    if (item.can_be_pushed())
+                    {
+                        int dx = 0;
+                        int dy = 0;
+                        if (item.get_X() - p.X != 0)
+                        {
+                            dx = 5 / (item.get_X() - p.X);
+                        }
+                        if (item.get_Y() - p.Y != 0)
+                        {
+                            dy = 5 / (item.get_Y() - p.Y);
+                        }
+                        item.push((float)dx / 10.0f, (float)dy / 10.0f);
+                    }
+                }
             }
         }
 
@@ -87,7 +120,7 @@ namespace smallsoldiers
             int min = _dist;
             foreach (Soldier item in soldiers)
             {
-                if (item.dist_from_a_point(_x, _y) < min && item.dist_from_a_point(_x, _y)>1)
+                if (item.dist_from_a_point(_x, _y) < min && item.dist_from_a_point(_x, _y) > 1)
                 {
                     target = item;
                     min = (int)item.dist_from_a_point(_x, _y);

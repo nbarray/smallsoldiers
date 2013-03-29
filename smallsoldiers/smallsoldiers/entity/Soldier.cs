@@ -37,6 +37,22 @@ namespace smallsoldiers.entity
         {
             return rect.X;
         }
+        public act_mode get_mode()
+        {
+            return mode;
+        }
+        public bool can_be_pushed()
+        {
+            return mode == act_mode.Wait ||
+                (mode == act_mode.Attack && type == sold_type.Ranger);
+        }
+        public void push(float _x, float _y)
+        {
+            pos_x += _x;
+            pos_y += _y;
+            rect.X = (int)pos_x;
+            rect.Y = (int)pos_y;
+        }
         public bool isdead()
         {
             return dead;
@@ -212,12 +228,19 @@ namespace smallsoldiers.entity
                         {
                             if (type != sold_type.Ranger)
                                 move_to(target.get_X(), target.get_Y());
+                            else
+                            {
+                                target = null;
+                                if (dist_from_a_point(fanion.get_X(), fanion.get_Y()) > 50)
+                                    go_to_flag(false);
+                            }
                         }
                     }
                     else
                     {
                         target = null;
-                        go_to_flag(false);
+                        if (dist_from_a_point(fanion.get_X(), fanion.get_Y()) > 50)
+                            go_to_flag(false);
                     }
                     #endregion
                     break;
