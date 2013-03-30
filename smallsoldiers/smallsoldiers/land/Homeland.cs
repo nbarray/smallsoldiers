@@ -37,19 +37,19 @@ namespace smallsoldiers.land
 
             if (isPlayer)
             {
-                rect = new Rectangle(0, 0, Cons.HOMELAND_SIZE, Cons.HEIGHT);
+                rect = new Rectangle(0, 0, Cons.HOMELAND_SIZE, Cons.MAP_HEIGHT);
                 slots[0] = new Slot(100, 40);
                 slots[1] = new Slot(300, 40);
-                slots[2] = new Slot(100, Cons.HEIGHT - 150);
-                slots[3] = new Slot(300, Cons.HEIGHT - 150);
+                slots[2] = new Slot(100, Cons.MAP_HEIGHT - 150);
+                slots[3] = new Slot(300, Cons.MAP_HEIGHT - 150);
             }
             else
             {
-                rect = new Rectangle(Cons.BATTLEFIELD_SIZE + Cons.HOMELAND_SIZE, 0, Cons.HOMELAND_SIZE, Cons.HEIGHT);
+                rect = new Rectangle(Cons.BATTLEFIELD_SIZE + Cons.HOMELAND_SIZE, 0, Cons.HOMELAND_SIZE, Cons.MAP_HEIGHT);
                 slots[0] = new Slot(Cons.MAP_WIDTH - Cons.BUILDING_SIZE - 100, 40);
                 slots[1] = new Slot(Cons.MAP_WIDTH - Cons.BUILDING_SIZE - 300, 40);
-                slots[2] = new Slot(Cons.MAP_WIDTH - Cons.BUILDING_SIZE - 100, Cons.HEIGHT - 150);
-                slots[3] = new Slot(Cons.MAP_WIDTH - Cons.BUILDING_SIZE - 300, Cons.HEIGHT - 150);
+                slots[2] = new Slot(Cons.MAP_WIDTH - Cons.BUILDING_SIZE - 100, Cons.MAP_HEIGHT - 150);
+                slots[3] = new Slot(Cons.MAP_WIDTH - Cons.BUILDING_SIZE - 300, Cons.MAP_HEIGHT - 150);
             }
         }
 
