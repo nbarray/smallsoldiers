@@ -106,11 +106,11 @@ namespace smallsoldiers
         {
             foreach (Soldier item in soldiers)
             {
-                item.Draw();
+                item.Draw(true);
             }
             foreach (Arrow item in arrows)
             {
-                item.Draw();
+                item.Draw(true);
             }
         }
 

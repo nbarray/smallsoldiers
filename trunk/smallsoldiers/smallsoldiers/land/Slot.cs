@@ -15,14 +15,12 @@ namespace smallsoldiers.land
         private bool free, is_selected, een, right_click;
         private Color color;
         private Building building;
+        private Building_hud action_menu;
         private Player owner;
-        private SlotMenu menu;
 
         private Random r;
         private float elapsed_time = 0f;
         private bool ai_wait_to_create;
-
-
         public Point GetPosition() { return rect.Location; }
         public void SetOwner(Player _owner) { if (owner == null) owner = _owner; }
         public Player GetOwner() { return owner; }
@@ -39,15 +37,11 @@ namespace smallsoldiers.land
             een = false;
             ai_wait_to_create = false;
             is_selected = false;
+            action_menu = new Building_hud(sold_type.Fighter);
 
             building = null;
             free = true;
             owner = null;
-
-            if (_i > Cons.WIDTH / 2)
-                menu = new SlotMenu(this, new Rectangle(_i - 128 - 4, _j + 16, 128, 42));
-            else
-                menu = new SlotMenu(this, new Rectangle(_i + Cons.BUILDING_SIZE + 4, _j + 16, 128, 42));
         }
 
         public void AddBuilding(Building _b)
@@ -64,13 +58,13 @@ namespace smallsoldiers.land
             }
         }
 
-        public void Update(GameTime _gameTime, Inputs _inputs, Flag _default_flag)
+        public void Update(GameTime _gameTime, Inputs _inputs, Flag _default_flag, Hud _hud)
         {
             if (is_selected)
-                Update_when_selected(_inputs.GetX(), _inputs.GetY(), _inputs.GetMRpressed());
+                Update_when_selected(_inputs);
 
             #region mouse
-            if (rect.Contains(_inputs.GetX(), _inputs.GetY()) || (is_selected && menu.Update(_inputs.GetX(), _inputs.GetY(), _inputs.GetMLpressed())))
+            if (rect.Contains(_inputs.GetRelativeX(), _inputs.GetRelativeY()))
             {
                 if (_inputs.GetMLreleased())
                 {
@@ -87,7 +81,7 @@ namespace smallsoldiers.land
             }
             else
             {
-                if (_inputs.GetMLpressed())
+                if (_inputs.GetMLpressed() && !_hud.Contains(_inputs.GetAbsoluteX(), _inputs.GetAbsoluteY()))
                 {
                     is_selected = false;
                 }
@@ -96,31 +90,38 @@ namespace smallsoldiers.land
 
             if (building != null)
             {
-                building.Update(_gameTime, owner.army, owner, menu.GetProductionState(), _default_flag);
+                building.Update(_gameTime, owner.army, owner, _default_flag);
             }
         }
 
-        private void Update_when_selected(int _mx, int _my, bool _rpressed)
+        private void Update_when_selected(Inputs _inputs)
         {
+            Update_buttons(_inputs);
             if (building != null)
             {
-                if (right_click && _rpressed)
+                #region Positionner le fanion
+                if (right_click && _inputs.GetMRpressed())
                 {
                     right_click = false;
-                    building.set_new_flag_pos(_mx, _my, Keyboard.GetState().IsKeyDown(Keys.LeftControl));
+                    building.set_new_flag_pos(_inputs.GetRelativeX(), _inputs.GetRelativeY(), _inputs.GetIsPressed(Keys.LeftControl));
                 }
-                if (!_rpressed)
+                if (_inputs.GetMRreleased())
                 {
                     right_click = true;
                 }
-
+                #endregion
             }
         }
+        private void Update_buttons(Inputs _inputs)
+        {
+            action_menu.Update(_inputs, this);
+        }
+
         public void Update_IA(GameTime _gameTime, Player _p, Flag _default_flag)
         {
             if (building != null)
             {
-                building.Update(_gameTime, _p.army, _p, menu.GetProductionState(), _default_flag);
+                building.Update(_gameTime, _p.army, _p, _default_flag);
             }
             else
             {
@@ -159,17 +160,17 @@ namespace smallsoldiers.land
             if (free)
             {
                 if (is_selected)
-                    Ressource.Draw("slot02", rect, new Rectangle(96, 0, 96, 96), 
-                        color, 0.5f + ((float)(rect.Y + rect.Height)) / 10000f);
+                    Ressource.Draw("slot02", rect, new Rectangle(96, 0, 96, 96),
+                        color, 0.5f + ((float)(rect.Y + rect.Height)) / 10000f, true);
                 else
-                    Ressource.Draw("slot02", rect, new Rectangle(0, 0, 96, 96), 
-                        color, 0.5f + ((float)(rect.Y + rect.Height)) / 10000f);
+                    Ressource.Draw("slot02", rect, new Rectangle(0, 0, 96, 96),
+                        color, 0.5f + ((float)(rect.Y + rect.Height)) / 10000f, true);
             }
             else
             {
                 if (building != null)
                 {
-                    building.Draw();
+                    building.Draw(true);
                     building.display_flag = is_selected;
                     building.Draw_flag();
                 }
@@ -177,7 +178,7 @@ namespace smallsoldiers.land
         }
         private void Draw_when_selected()
         {
-            menu.Draw();
+            action_menu.Draw();
         }
     }
 }

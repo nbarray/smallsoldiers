@@ -98,9 +98,9 @@ namespace smallsoldiers.entity
             }
         }
 
-        public override void Draw()
+        public override void Draw(bool _isOffset)
         {
-            base.Draw(se, (int)z, angle);
+            base.Draw(se, (int)z, angle, _isOffset);
         }
     }
 }

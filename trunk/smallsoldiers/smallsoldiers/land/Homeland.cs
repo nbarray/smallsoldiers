@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Input;
 using smallsoldiers;
 using Microsoft.Xna.Framework.Graphics;
 using smallsoldiers.entity;
+using smallsoldiers.gui;
 
 namespace smallsoldiers.land
 {
@@ -30,17 +31,26 @@ namespace smallsoldiers.land
             {
                 int padding = 32;
                 int y = Cons.BUILDING_SIZE * i + i * padding / 2 + padding * 3;
-                
-                if (isPlayer)
-                    slots[i] = new Slot(padding, y + (i > 1 ? 96 : 0));
-                else
-                    slots[i] = new Slot(Cons.WIDTH - Cons.BUILDING_SIZE - padding, y + (i > 1 ? 96 : 0));
+
+                slots[i] = new Slot(Cons.WIDTH - Cons.BUILDING_SIZE - padding, y + (i > 1 ? 96 : 0));
             }
 
             if (isPlayer)
+            {
                 rect = new Rectangle(0, 0, Cons.HOMELAND_SIZE, Cons.HEIGHT);
+                slots[0] = new Slot(100, 40);
+                slots[1] = new Slot(300, 40);
+                slots[2] = new Slot(100, Cons.HEIGHT - 150);
+                slots[3] = new Slot(300, Cons.HEIGHT - 150);
+            }
             else
-                rect = new Rectangle(Cons.WIDTH - Cons.HOMELAND_SIZE, 0, Cons.HOMELAND_SIZE, Cons.HEIGHT);
+            {
+                rect = new Rectangle(Cons.BATTLEFIELD_SIZE + Cons.HOMELAND_SIZE, 0, Cons.HOMELAND_SIZE, Cons.HEIGHT);
+                slots[0] = new Slot(Cons.MAP_WIDTH - Cons.BUILDING_SIZE - 100, 40);
+                slots[1] = new Slot(Cons.MAP_WIDTH - Cons.BUILDING_SIZE - 300, 40);
+                slots[2] = new Slot(Cons.MAP_WIDTH - Cons.BUILDING_SIZE - 100, Cons.HEIGHT - 150);
+                slots[3] = new Slot(Cons.MAP_WIDTH - Cons.BUILDING_SIZE - 300, Cons.HEIGHT - 150);
+            }
         }
 
         public void InitializeSlots()
@@ -51,14 +61,14 @@ namespace smallsoldiers.land
             }
         }
 
-        public void Update(GameTime _gameTime, Inputs _inputs)
+        public void Update(GameTime _gameTime, Inputs _inputs, Hud _hud)
         {
             if (owner.IsPlayer() || Cons.mode == e_GameMode.multi)
             {
                 town.Update(_gameTime, _inputs);
                 for (int i = 0; i < slots.Length; i++)
                 {
-                    slots[i].Update(_gameTime, _inputs, owner.default_flag);
+                    slots[i].Update(_gameTime, _inputs, owner.default_flag, _hud);
                 }
             }
         }
@@ -74,17 +84,16 @@ namespace smallsoldiers.land
 
         public void Draw()
         {
-            town.Draw();
+            town.Draw(true);
             if (isPlayer)
-                Ressource.Draw("homelands_nicolas", rect, Color.White, 0.1f);
+                Ressource.Draw("new_homeland", rect, Color.White, 0.1f, true);
             else
-                Ressource.Draw("homelands_louis", rect, Color.White, 0.1f, SpriteEffects.FlipHorizontally);
+                Ressource.Draw("new_homeland", rect, Color.White, 0.1f, SpriteEffects.FlipHorizontally, true);
 
             for (int i = 0; i < slots.Length; i++)
             {
                 slots[i].Draw();
             }
-            town.Draw();
         }
     }
 }
