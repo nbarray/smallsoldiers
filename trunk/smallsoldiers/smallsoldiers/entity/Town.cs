@@ -37,7 +37,7 @@ namespace smallsoldiers.entity
 
         public Town(string _asset, Player _owner, bool _isplayer)
             : base(_asset,
-                   new Rectangle(0, (Cons.HEIGHT - Cons.TOWN_SIZE) / 2, Cons.TOWN_SIZE, Cons.TOWN_SIZE),
+                   new Rectangle(0, (Cons.MAP_HEIGHT - Cons.TOWN_SIZE) / 2, Cons.TOWN_SIZE, Cons.TOWN_SIZE),
                    new Rectangle(0, 0, Cons.TOWN_SIZE, Cons.TOWN_SIZE),
                    Color.White, 0.3f)
         {

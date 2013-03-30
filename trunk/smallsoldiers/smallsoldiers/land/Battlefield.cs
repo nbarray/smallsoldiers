@@ -13,13 +13,13 @@ namespace smallsoldiers.land
 
         public Battlefield()
         {
-            rect = new Rectangle(Cons.HOMELAND_SIZE - 32, 0, Cons.BATTLEFIELD_SIZE + 64, Cons.HEIGHT);
+            rect = new Rectangle(Cons.HOMELAND_SIZE - 32, 0, Cons.BATTLEFIELD_SIZE + 64, Cons.MAP_HEIGHT);
 
             int region_width = 300;
             int region_height = 300;
 
             int regions_width = Cons.BATTLEFIELD_SIZE / region_width;
-            int regions_height = Cons.HEIGHT / region_height;
+            int regions_height = Cons.MAP_HEIGHT / region_height;
 
             regions = new Region[regions_width, regions_height];
             for (int i = 0; i < regions.GetLength(0); i++)

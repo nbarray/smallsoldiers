@@ -22,6 +22,7 @@ namespace smallsoldiers
         public const int HOMELAND_SIZE = 600;
         public const int BATTLEFIELD_SIZE = 2 * WIDTH - 2 * HOMELAND_SIZE;
         public const int MAP_WIDTH = BATTLEFIELD_SIZE + 2 * HOMELAND_SIZE;
+        public const int MAP_HEIGHT = 568;
         public const int test_max_pop = 25;
 
         public const int entity_count = 10;
