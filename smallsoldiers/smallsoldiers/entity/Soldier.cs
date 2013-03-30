@@ -274,16 +274,16 @@ namespace smallsoldiers.entity
             }
         }
 
-        public override void Draw()
+        public override void Draw(bool _isOffset)
         {
             //health bar
-            Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 10, 32, 4), Color.LightGray, Cons.DEPTH_HUD);
-            Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 10, (int)(life * 32 / maxlife), 4), Color.Green, Cons.DEPTH_HUD + 0.01f);
+            Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 10, 32, 4), Color.LightGray, Cons.DEPTH_HUD, _isOffset);
+            Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 10, (int)(life * 32 / maxlife), 4), Color.Green, Cons.DEPTH_HUD + 0.01f, _isOffset);
             //mana bar
             if (type == sold_type.Healer)
             {
-                Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 6, 32, 4), Color.LightGray, Cons.DEPTH_HUD);
-                Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 6, (int)(mana * 32 / maxmana), 4), Color.Blue, Cons.DEPTH_HUD + 0.01f);
+                Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 6, 32, 4), Color.LightGray, Cons.DEPTH_HUD, _isOffset);
+                Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 6, (int)(mana * 32 / maxmana), 4), Color.Blue, Cons.DEPTH_HUD + 0.01f, _isOffset);
             }
 
             switch (mode)
@@ -295,7 +295,7 @@ namespace smallsoldiers.entity
                     attack_anim.Draw(rect, se);
                     break;
                 case act_mode.Wait:
-                    base.Draw(se);
+                    base.Draw(se, _isOffset);
                     break;
                 default:
                     break;

@@ -38,8 +38,8 @@ namespace smallsoldiers.entity
         }
         public void set_new_pos(Inputs _inputs)
         {
-            rect.X = _inputs.GetX();
-            rect.Y = _inputs.GetY();
+            rect.X = _inputs.GetRelativeX();
+            rect.Y = _inputs.GetRelativeY();
             depth = 0.5f + ((float)(rect.Y + 32)) / 10000f;
             for (int i = 0; i < soldiers_linked.Count; i++)
 			{
@@ -71,7 +71,7 @@ namespace smallsoldiers.entity
             wind_anim.Update(_gameTime);
         }
 
-        public override void  Draw()
+        public override void Draw(bool _isOffset)
         {
             wind_anim.Draw(rect);
         }

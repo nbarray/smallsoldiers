@@ -32,20 +32,25 @@ namespace smallsoldiers.entity
             depth = _depth;
         }
 
-        public virtual void Draw()
+        public virtual void Draw(bool _isOffset)
         {
             if(asset != "null")
-                Ressource.Draw(asset, rect, source, color, 0.5f + ((float)(rect.Y + rect.Height)) / 10000f);
+                Ressource.Draw(asset, rect, source, color, 0.5f + ((float)(rect.Y + rect.Height)) / 10000f, _isOffset);
         }
-        public virtual void Draw(SpriteEffects _se)
+        public virtual void DrawDepth(bool _isOffset)
         {
             if (asset != "null")
-                Ressource.Draw(asset, rect, source, color, 0.5f + ((float)(rect.Y + rect.Height)) / 10000f, _se);
+                Ressource.Draw(asset, rect, source, color, depth, _isOffset);
         }
-        public virtual void Draw(SpriteEffects _se, int _alt, float _angle)
+        public virtual void Draw(SpriteEffects _se, bool _isOffset)
         {
             if (asset != "null")
-                Ressource.Draw(asset, rect, source, color, 0.5f + ((float)(rect.Y + rect.Height+_alt)) / 10000f, _se, _angle);
+                Ressource.Draw(asset, rect, source, color, 0.5f + ((float)(rect.Y + rect.Height)) / 10000f, _se, _isOffset);
+        }
+        public virtual void Draw(SpriteEffects _se, int _alt, float _angle, bool _isOffset)
+        {
+            if (asset != "null")
+                Ressource.Draw(asset, rect, source, color, 0.5f + ((float)(rect.Y + rect.Height + _alt)) / 10000f, _se, _angle, _isOffset);
         }
     }
 }

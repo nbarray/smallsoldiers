@@ -68,18 +68,11 @@ namespace smallsoldiers
             if (inputs.GetIsPressed(Keys.M)) Cons.mode = e_GameMode.multi;
             if (inputs.GetIsPressed(Keys.L)) Cons.mode = e_GameMode.solo;
 
-            MouseState mstate = Mouse.GetState();
-            int mx = inputs.GetX();
-            int my = inputs.GetY();
-            bool mpressed = mstate.LeftButton == ButtonState.Pressed;
-            bool mreleased = mstate.LeftButton == ButtonState.Released;
-            bool rpressed = mstate.RightButton == ButtonState.Pressed;
-            bool rreleased = mstate.RightButton == ButtonState.Released;
-
             hud.Update(p1, p2);
+            Hud.UpdateCam(inputs);
 
-            p1.Update(gameTime, p2.army, inputs, music);
-            p2.Update(gameTime, p1.army, inputs, music);
+            p1.Update(gameTime, p2.army, inputs, music, hud);
+            p2.Update(gameTime, p1.army, inputs, music, hud);
 
             call_of_duty.Update(gameTime, p1, p2);
 

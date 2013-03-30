@@ -18,12 +18,10 @@ namespace smallsoldiers.entity
         //private Animation working_anim;private Rectangle rect;
         private bool free, is_selected, een, right_click;
         private Player owner;
-        private TownMenu menu;
 
         private Random r;
         private float elapsed_time = 0f;
         private bool ai_wait_to_create;
-
 
         public Point GetPosition() { return rect.Location; }
         public void SetOwner(Player _owner) { if (owner == null) owner = _owner; }
@@ -67,15 +65,11 @@ namespace smallsoldiers.entity
 
             if (!_isplayer)
             {
-                rect.X = Cons.WIDTH - Cons.TOWN_SIZE;
-                menu = new TownMenu(this, new Rectangle(rect.X - 128 - 4 - Cons.TOWN_SIZE / 2, 
-                    (Cons.HEIGHT - Cons.TOWN_SIZE+42) / 2 + 16, 128, 42));
+                rect.X = Cons.MAP_WIDTH - Cons.TOWN_SIZE - 10;
             }
             else
             {
-                rect.X = 0;
-                menu = new TownMenu(this, new Rectangle(rect.X + Cons.TOWN_SIZE/2, 
-                    (Cons.HEIGHT - Cons.TOWN_SIZE + 42) / 2 + 16, 128, 42));
+                rect.X = 10;
             }
         }
 
@@ -123,7 +117,7 @@ namespace smallsoldiers.entity
                 Update_when_selected(_inputs);
 
             #region mouse
-            if (rect.Contains(_inputs.GetX(), _inputs.GetY()) || (is_selected && menu.Update(_inputs.GetX(), _inputs.GetY(), _inputs.GetMLpressed())))
+            if (rect.Contains(_inputs.GetRelativeX(), _inputs.GetRelativeY()))
             {
                 if (_inputs.GetMLreleased())
                 {
@@ -159,7 +153,6 @@ namespace smallsoldiers.entity
                     right_click = true;
                 }
         }
-
         public void Update_IA(GameTime _gameTime)
         {
             Update1(_gameTime);
@@ -168,7 +161,7 @@ namespace smallsoldiers.entity
         public void Draw_flag()//or_not
         {
             if (display_flag)
-                fanion.Draw();
+                fanion.Draw(true);
         }
         public void set_new_flag_pos(int _x, int _y, bool _blindness)
         {
@@ -178,16 +171,6 @@ namespace smallsoldiers.entity
         private void level_up()
         {
             //working_anim.level_up(Cons.BUILDING_SIZE);
-        }
-
-        public override void Draw()
-        {
-            if (is_selected)
-                menu.Draw();
-            //if (building_state > 2 && time_since_last <= delay)
-            //    working_anim.Draw(rect, color);
-            //else
-                base.Draw();
         }
     }
 }

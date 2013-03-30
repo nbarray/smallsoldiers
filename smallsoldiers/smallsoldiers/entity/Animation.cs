@@ -68,15 +68,15 @@ namespace smallsoldiers.entity
 
         public void Draw(Rectangle _rect)
         {
-            Ressource.Draw(asset, _rect, source, Color.White, 0.5f + ((float)(_rect.Y + _rect.Height)) / 10000f);
+            Ressource.Draw(asset, _rect, source, Color.White, 0.5f + ((float)(_rect.Y + _rect.Height)) / 10000f, true);
         }
         public void Draw(Rectangle _rect, Color _c)
         {
-            Ressource.Draw(asset, _rect, source, _c, 0.5f + ((float)(_rect.Y + _rect.Height)) / 10000f);
+            Ressource.Draw(asset, _rect, source, _c, 0.5f + ((float)(_rect.Y + _rect.Height)) / 10000f, true);
         }
         public void Draw(Rectangle _rect, SpriteEffects _se)
         {
-            Ressource.Draw(asset, _rect, source, Color.White, 0.5f + ((float)(_rect.Y + _rect.Height)) / 10000f, _se);
+            Ressource.Draw(asset, _rect, source, Color.White, 0.5f + ((float)(_rect.Y + _rect.Height)) / 10000f, _se, true);
         }
     }
 }

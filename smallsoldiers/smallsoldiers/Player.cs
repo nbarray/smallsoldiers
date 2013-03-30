@@ -54,7 +54,7 @@ namespace smallsoldiers
             benefice = 15;
         }
 
-        public void Update(GameTime _gameTime, Army _ennemy, Inputs _inputs, Music _soundeffect)
+        public void Update(GameTime _gameTime, Army _ennemy, Inputs _inputs, Music _soundeffect, Hud _hud)
         {
             army_population = army.soldiers.Count;
             Update_income(_gameTime);
@@ -65,12 +65,13 @@ namespace smallsoldiers
             }
             else
             {
-                home.Update(_gameTime, _inputs);
+                home.Update(_gameTime, _inputs, _hud);
             }
             army.Update(_gameTime, _ennemy, _soundeffect);
             //army.make_pushes(ref pushes);
             //army.push(pushes);
         }
+
         private void Update_IA(GameTime _gameTime)
         {
             home.Update_IA(_gameTime, this);

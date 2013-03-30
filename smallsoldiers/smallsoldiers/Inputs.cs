@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
+using smallsoldiers.gui;
 
 namespace smallsoldiers
 {
@@ -12,11 +13,21 @@ namespace smallsoldiers
         private KeyboardState ks;
 
         private Dictionary<Keys, bool> keys;
+        private bool isML, isMR;
 
         #region Getters
 
-        public int GetX() { return ms.X; }
-        public int GetY() { return ms.Y; }
+        public bool GetIsML() { return isML; }
+        public bool GetIsMR() { return isMR; }
+
+        public void SetIsML(bool b) { isML = b; }
+        public void SetIsMR(bool b) { isMR = b; }
+
+        public int GetRelativeX() { return ms.X + Hud.camX; }
+        public int GetRelativeY() { return ms.Y + Hud.camY; }
+
+        public int GetAbsoluteX() { return ms.X; }
+        public int GetAbsoluteY() { return ms.Y; }
 
         public bool GetMLpressed() { return ms.LeftButton == ButtonState.Pressed; }
         public bool GetMLreleased() { return ms.LeftButton == ButtonState.Released; }
@@ -50,6 +61,8 @@ namespace smallsoldiers
             ms = default(MouseState);
             ks = default(KeyboardState);
             keys = new Dictionary<Keys, bool>();
+            isML = false;
+            isMR = false;
             LoadKeys();
         }
 
@@ -75,6 +88,7 @@ namespace smallsoldiers
         {
             ms = _ms;
             ks = _ks;
-        }        
+        }
+
     }
 }

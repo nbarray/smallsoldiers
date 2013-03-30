@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using smallsoldiers.gui;
 
 namespace smallsoldiers.entity
 {
@@ -13,12 +14,12 @@ namespace smallsoldiers.entity
         private int delay, time_since_last, building_state, elapsed, life, life_max, level;
         private float xp;
         private Animation working_anim;
+        private Soldier product;
+       
         public bool is_dead()
         {
             return dead;
         }
-
-        private Soldier product;
 
         public void SetPosition(Point _p) { rect.X = _p.X; rect.Y = _p.Y; }
 
@@ -47,7 +48,7 @@ namespace smallsoldiers.entity
             //model.move_to(Cons.WIDTH / 2, Cons.HEIGHT / 2);
         }
 
-        public void Update(GameTime _gameTime, Army _a, Player _owner, bool _producing, Flag _default_flag)
+        public void Update(GameTime _gameTime, Army _a, Player _owner, Flag _default_flag)
         {
             if (building_state < 3)
             {
@@ -67,7 +68,7 @@ namespace smallsoldiers.entity
             }
             else
             {
-                if (_producing)
+                if (true)
                 {
                     #region Production
                     time_since_last++;
@@ -117,7 +118,7 @@ namespace smallsoldiers.entity
         public void Draw_flag()//or_not
         {
             if (display_flag)
-                fanion.Draw();
+                fanion.Draw(true);
         }
         public void set_new_flag_pos(int _x, int _y, bool _blindness)
         {
@@ -129,12 +130,12 @@ namespace smallsoldiers.entity
             working_anim.level_up(Cons.BUILDING_SIZE);
         }
 
-        public override void Draw()
+        public override void Draw(bool _isOffset)
         {
             if (building_state > 2 && time_since_last <= delay)
                 working_anim.Draw(rect, color);
             else
-                base.Draw();
+                base.Draw(true);
         }
 
     }

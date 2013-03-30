@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
+using smallsoldiers.gui;
 
 namespace smallsoldiers
 {
@@ -45,7 +46,7 @@ namespace smallsoldiers
             textures.Add("arrow_louis", content.Load<Texture2D>("image/arrow_louis"));
             textures.Add("healer_louis", content.Load<Texture2D>("image/healer_louis"));
             textures.Add("hud01", content.Load<Texture2D>("image/hud01"));
-            textures.Add("hud02", content.Load<Texture2D>("image/yes_no_hud"));
+            textures.Add("yes_or_no_button", content.Load<Texture2D>("image/yes_no_hud"));
             textures.Add("flag01", content.Load<Texture2D>("image/flag01"));
             textures.Add("flag02", content.Load<Texture2D>("image/flag02"));
             textures.Add("slot01", content.Load<Texture2D>("image/slot01"));
@@ -65,6 +66,8 @@ namespace smallsoldiers
             textures.Add("ore", content.Load<Texture2D>("image/ore"));
             textures.Add("flag_staff", content.Load<Texture2D>("image/flag_staff"));
             textures.Add("flag_region", content.Load<Texture2D>("image/flag_region"));
+            textures.Add("new_homeland", content.Load<Texture2D>("image/new_homeland"));
+            textures.Add("hud", content.Load<Texture2D>("image/hud"));
 
             fonts.Add("medium", content.Load<SpriteFont>("font/medium"));
 
@@ -88,33 +91,68 @@ namespace smallsoldiers
             MediaPlayer.Stop();
         }
 
-        public static void Draw(string _asset, Rectangle _rect, Color _color, float _depth)
+        public static void Draw(string _asset, Rectangle _rect, Color _color, float _depth, bool _isOffset)
         {
-            sb.Draw(textures[_asset], _rect, textures[_asset].Bounds, _color, 0f, new Vector2(), SpriteEffects.None, _depth);
+            if (_isOffset)
+            {
+                Rectangle drawRect = new Rectangle(_rect.X - Hud.camX, _rect.Y - Hud.camY, _rect.Width, _rect.Height);
+                sb.Draw(textures[_asset], drawRect, textures[_asset].Bounds, _color, 0f, new Vector2(), SpriteEffects.None, _depth);
+            }
+            else
+                sb.Draw(textures[_asset], _rect, textures[_asset].Bounds, _color, 0f, new Vector2(), SpriteEffects.None, _depth);
         }
-        public static void Draw(string _asset, Rectangle _rect, Rectangle _src, Color _color, float _depth)
+        public static void Draw(string _asset, Rectangle _rect, Rectangle _src, Color _color, float _depth, bool _isOffset)
         {
-            sb.Draw(textures[_asset], _rect, _src, _color, 0f, new Vector2(), SpriteEffects.None, _depth);
+            if (_isOffset)
+            {
+                Rectangle drawRect = new Rectangle(_rect.X - Hud.camX, _rect.Y - Hud.camY, _rect.Width, _rect.Height);
+                sb.Draw(textures[_asset], drawRect, _src, _color, 0f, new Vector2(), SpriteEffects.None, _depth);
+            }
+            else
+                sb.Draw(textures[_asset], _rect, _src, _color, 0f, new Vector2(), SpriteEffects.None, _depth);
         }
-        public static void Draw(string _asset, Rectangle _rect, Color _color, float _depth, SpriteEffects _se)
+        public static void Draw(string _asset, Rectangle _rect, Color _color, float _depth, SpriteEffects _se, bool _isOffset)
         {
-            sb.Draw(textures[_asset], _rect, textures[_asset].Bounds, _color, 0f, new Vector2(), _se, _depth);
+            if (_isOffset)
+            {
+                Rectangle drawRect = new Rectangle(_rect.X - Hud.camX, _rect.Y - Hud.camY, _rect.Width, _rect.Height);
+                sb.Draw(textures[_asset], drawRect, textures[_asset].Bounds, _color, 0f, new Vector2(), _se, _depth);
+            }
+            else
+                sb.Draw(textures[_asset], _rect, textures[_asset].Bounds, _color, 0f, new Vector2(), _se, _depth);
         }
-        public static void Draw(string _asset, Rectangle _rect, Rectangle _src, Color _color, float _depth, SpriteEffects _se)
+        public static void Draw(string _asset, Rectangle _rect, Rectangle _src, Color _color, float _depth, SpriteEffects _se, bool _isOffset)
         {
-            //sb.Draw(textures[_asset], new Rectangle(_rect.X-1, _rect.Y-2, _rect.Width+2, _rect.Height+4), 
-            //_src, Color.Black, 0f, new Vector2(), _se, _depth-0.001f);
+            if (_isOffset)
+            {
+                Rectangle drawRect = new Rectangle(_rect.X - Hud.camX, _rect.Y - Hud.camY, _rect.Width, _rect.Height);
+                sb.Draw(textures[_asset], drawRect, _src, _color, 0f, new Vector2(), _se, _depth);
+            }
+            else
             sb.Draw(textures[_asset], _rect, _src, _color, 0f, new Vector2(), _se, _depth);
         }
-        public static void Draw(string _asset, Rectangle _rect, Rectangle _src, Color _color, float _depth, 
-            SpriteEffects _se, float _a)
+        public static void Draw(string _asset, Rectangle _rect, Rectangle _src, Color _color, float _depth,
+            SpriteEffects _se, float _a, bool _isOffset)
         {
-            sb.Draw(textures[_asset], new Rectangle(_rect.X + _src.Width / 2, _rect.Y + _src.Height / 2, _rect.Width, _rect.Height), 
-                _src, _color, _a, new Vector2(_src.Width/2, _src.Height/2), _se, _depth);
+            if (_isOffset)
+            {
+                Rectangle drawRect = new Rectangle(_rect.X - Hud.camX, _rect.Y - Hud.camY, _rect.Width, _rect.Height);
+                sb.Draw(textures[_asset], new Rectangle(drawRect.X + _src.Width / 2, drawRect.Y + _src.Height / 2, drawRect.Width, drawRect.Height),
+                _src, _color, _a, new Vector2(_src.Width / 2, _src.Height / 2), _se, _depth);
+            }
+            else
+            sb.Draw(textures[_asset], new Rectangle(_rect.X + _src.Width / 2, _rect.Y + _src.Height / 2, _rect.Width, _rect.Height),
+                _src, _color, _a, new Vector2(_src.Width / 2, _src.Height / 2), _se, _depth);
         }
 
-        public static void DrawString(string _asset, string _text, Vector2 _vector, Color _color, float _depth)
+        public static void DrawString(string _asset, string _text, Vector2 _vector, Color _color, float _depth, bool _isOffset)
         {
+            if (_isOffset)
+            {
+                Vector2 drawVect = new Vector2(_vector.X - Hud.camX, _vector.Y - Hud.camY);
+                sb.DrawString(fonts[_asset], _text, drawVect, _color, 0f, new Vector2(), 1f, SpriteEffects.None, _depth);
+            }
+            else
             sb.DrawString(fonts[_asset], _text, _vector, _color, 0f, new Vector2(), 1f, SpriteEffects.None, _depth);
         }
     }
