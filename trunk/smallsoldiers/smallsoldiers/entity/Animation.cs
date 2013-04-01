@@ -19,6 +19,11 @@ namespace smallsoldiers.entity
         private float elapsed;
         private float frame_time;
 
+        public bool ended()
+        {
+            return indexX == frame_count - 1;
+        }
+
         public Animation(string _asset, Rectangle _source, int _frame_count, int _offsetX, float _depth, bool _isflag)
         {
             asset = _asset;

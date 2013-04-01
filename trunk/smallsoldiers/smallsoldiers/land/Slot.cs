@@ -25,7 +25,11 @@ namespace smallsoldiers.land
         public void SetOwner(Player _owner) { if (owner == null) owner = _owner; }
         public Player GetOwner() { return owner; }
         public Building GetBuilding() { return building; }
-        public void EreaseBuilding() { building = null; }
+        public void EraseBuilding() 
+        { 
+            building = null;
+            free = true;
+        }
         public void SetFree(bool _b) { free = _b; }
 
         public Slot(int _i, int _j)

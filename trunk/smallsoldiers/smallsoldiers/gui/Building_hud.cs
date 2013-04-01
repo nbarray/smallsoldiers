@@ -60,7 +60,7 @@ namespace smallsoldiers.gui
                                     _slot.AddBuilding(new Building("building_nicolas", "healer_louis", sold_type.Healer, _slot.GetPosition()));
                                     break;
                                 case button_type.sell:
-                                    _slot.EreaseBuilding();
+                                    _slot.EraseBuilding();
                                     break;
                                 case button_type.upgrade:
                                     break;
