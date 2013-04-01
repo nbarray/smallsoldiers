@@ -55,7 +55,7 @@ namespace smallsoldiers
         {
             for (int i = soldiers.Count - 1; i > -1; i--)
             {
-                if (soldiers[i].isdead())
+                if (soldiers[i].to_clear())
                     soldiers.RemoveAt(i);
                 else
                     soldiers[i].Update(_gameTime, this, _ennemy, _soundengine);

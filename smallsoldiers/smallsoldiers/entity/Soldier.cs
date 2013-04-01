@@ -26,8 +26,7 @@ namespace smallsoldiers.entity
         private sold_type type;
         private float elapsed_time;
 
-
-        private Animation walk_anim, attack_anim;
+        private Animation walk_anim, attack_anim, death_anim;
 
         public int get_Y()
         {
@@ -56,6 +55,10 @@ namespace smallsoldiers.entity
         public bool isdead()
         {
             return dead;
+        }
+        public bool to_clear()
+        {
+            return dead && death_anim.ended();
         }
         public void do_damage(float _d)
         {
@@ -135,6 +138,8 @@ namespace smallsoldiers.entity
 
             walk_anim = new Animation(asset, new Rectangle(0, Cons.MAN_SIZE * (_level - 1),
                 Cons.MAN_SIZE, Cons.MAN_SIZE), 6, 0, depth, false);
+            death_anim = new Animation(asset, new Rectangle(0, Cons.MAN_SIZE * (_level - 1),
+                Cons.MAN_SIZE, Cons.MAN_SIZE), 3, 13, depth, true);
             attack_anim = new Animation(asset, new Rectangle(0, Cons.MAN_SIZE * (_level - 1),
                 Cons.MAN_SIZE, Cons.MAN_SIZE), 7, 6, depth,
                 false, (type == sold_type.Ranger));
@@ -148,157 +153,175 @@ namespace smallsoldiers.entity
         }
         public void go_to_flag(bool _blindness)
         {
-            int s_x = ((r.Next(1000) % 100) + (r.Next(1000) % 100)) / 2 - 50;
-            int s_y = ((r.Next(1000) % 100) + (r.Next(1000) % 100)) / 2 - 50;
-            blind = _blindness;
-            move_to(fanion.get_X() + s_x, fanion.get_Y() + s_y);
+            if (dist_from_a_point(fanion.get_X(), fanion.get_Y()) > 50)
+            {
+                int s_x = ((r.Next(1000) % 100) + (r.Next(1000) % 100)) / 2 - 50;
+                int s_y = ((r.Next(1000) % 100) + (r.Next(1000) % 100)) / 2 - 50;
+                blind = _blindness;
+                move_to(fanion.get_X() + s_x, fanion.get_Y() + s_y);
+            }
         }
 
         public void Update(GameTime _gameTime, Army _allies, Army _ennemies, Music _soundengine)
         {
-            //move_to(Mouse.GetState().X, Mouse.GetState().Y);
-            int detect_ennemy = (type != sold_type.Ranger) ? (range * 3) / 2 : range;
-            switch (mode)
+
+            if (dead)
             {
-                case act_mode.Move:
-                    #region move
-                    walk_anim.Update(_gameTime);
-                    double total_distance = Math.Sqrt((dest_x - pos_x) * (dest_x - pos_x)
-                        + (dest_y - pos_y) * (dest_y - pos_y));
-                    pos_x += (float)(((dest_x - pos_x) * speed) / total_distance);
-                    pos_y += (float)(((dest_y - pos_y) * speed) / total_distance);
-                    se = (rect.X < dest_x - 1) ? SpriteEffects.None : se;
-                    se = (rect.X > dest_x + 1) ? SpriteEffects.FlipHorizontally : se;
-                    rect.X = (int)pos_x;
-                    rect.Y = (int)pos_y;
-                    if (blind)
-                        detect_ennemy = 0;
-                    if (Math.Abs(rect.X - dest_x) < 2 && Math.Abs(rect.Y - dest_y) < 2)
-                        mode = act_mode.Wait;
-                    #endregion
-                    goto default;
-                case act_mode.Attack:
-                    #region Attack
-                    if (target != null && !target.isdead())
-                    {
-                        if (target.dist_from_a_point(rect.X, rect.Y) < range)
+                death_anim.Update(_gameTime);
+            }
+            else
+            {
+                int detect_ennemy = (type != sold_type.Ranger) ? (range * 3) / 2 : range;
+                switch (mode)
+                {
+                    case act_mode.Move:
+                        #region move
+                        walk_anim.Update(_gameTime);
+                        double total_distance = Math.Sqrt((dest_x - pos_x) * (dest_x - pos_x)
+                            + (dest_y - pos_y) * (dest_y - pos_y));
+                        pos_x += (float)(((dest_x - pos_x) * speed) / total_distance);
+                        pos_y += (float)(((dest_y - pos_y) * speed) / total_distance);
+                        se = (rect.X < dest_x - 1) ? SpriteEffects.None : se;
+                        se = (rect.X > dest_x + 1) ? SpriteEffects.FlipHorizontally : se;
+                        rect.X = (int)pos_x;
+                        rect.Y = (int)pos_y;
+                        if (blind)
+                            detect_ennemy = 0;
+                        if (Math.Abs(rect.X - dest_x) < 2 && Math.Abs(rect.Y - dest_y) < 2)
+                            mode = act_mode.Wait;
+                        #endregion
+                        goto default;
+                    case act_mode.Attack:
+                        #region Attack
+                        if (target != null && !target.isdead())
                         {
-                            se = (rect.X < target.get_X()) ? SpriteEffects.None
-                                : SpriteEffects.FlipHorizontally;
-                            if (type == sold_type.Fighter && target.get_Y() < rect.Y)
+                            if (target.dist_from_a_point(rect.X, rect.Y) < range)
                             {
-                                rect.Y--;
-                                pos_y--;
-                            }
-                            else
-                            {
-                                if (attack_anim.Update(_gameTime))
-                                    if (type == sold_type.Ranger)
-                                    {
-                                        int a = 40 - accuracy;
-                                        Random r = new Random();
-                                        _allies.Add_arrows(new Arrow("arrow_louis",
-                                            rect.X + Cons.MAN_SIZE / 2, rect.Y - Cons.MAN_SIZE / 4,
-                                            target.get_X() + r.Next(100) % a - a / 2,
-                                            target.get_Y() + r.Next(100) % a - a / 2,
-                                            damage));
-                                        _soundengine.Play("fleche");
-                                    }
-                                    else if (type == sold_type.Healer)
-                                    {
-                                        if (mana > 25 && target.life < target.maxlife)
+                                se = (rect.X < target.get_X()) ? SpriteEffects.None
+                                    : SpriteEffects.FlipHorizontally;
+                                if (type == sold_type.Fighter && target.get_Y() < rect.Y)
+                                {
+                                    rect.Y--;
+                                    pos_y--;
+                                }
+                                else
+                                {
+                                    if (attack_anim.Update(_gameTime))
+                                        if (type == sold_type.Ranger)
                                         {
-                                            mana = mana > 0 ? mana - 25 : 0;
-                                            target.do_damage(damage);
-                                            _soundengine.Play("wololo");
+                                            int a = 40 - accuracy;
+                                            Random r = new Random();
+                                            _allies.Add_arrows(new Arrow("arrow_louis",
+                                                rect.X + Cons.MAN_SIZE / 2, rect.Y - Cons.MAN_SIZE / 4,
+                                                target.get_X() + r.Next(100) % a - a / 2,
+                                                target.get_Y() + r.Next(100) % a - a / 2,
+                                                damage));
+                                            _soundengine.Play("fleche");
+                                        }
+                                        else if (type == sold_type.Healer)
+                                        {
+                                            if (mana > 25 && target.life < target.maxlife)
+                                            {
+                                                mana = mana > 0 ? mana - 25 : 0;
+                                                target.do_damage(damage);
+                                                _soundengine.Play("wololo");
+                                            }
+                                            else
+                                            {
+                                                goto case act_mode.Wait;
+                                            }
                                         }
                                         else
                                         {
-                                            goto case act_mode.Wait;
+                                            target.do_damage(damage);
+                                            _soundengine.Play("epee");
                                         }
-                                    }
-                                    else
-                                    {
-                                        target.do_damage(damage);
-                                        _soundengine.Play("epee");
-                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (type != sold_type.Ranger)
+                                    move_to(target.get_X(), target.get_Y());
+                                else
+                                {
+                                    target = _ennemies.get_target(rect.X, rect.Y, detect_ennemy, 64);
+                                    //if (target == null)
+                                    //    go_to_flag(false);
+                                }
                             }
                         }
                         else
                         {
-                            if (type != sold_type.Ranger)
-                                move_to(target.get_X(), target.get_Y());
-                            else
-                            {
-                                target = null;
-                                if (dist_from_a_point(fanion.get_X(), fanion.get_Y()) > 50)
-                                    go_to_flag(false);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        target = null;
-                        if (dist_from_a_point(fanion.get_X(), fanion.get_Y()) > 50)
+                            target = null;
                             go_to_flag(false);
-                    }
-                    #endregion
-                    break;
-                case act_mode.Wait:
-                    detect_ennemy = (type != sold_type.Ranger) ? range * 3 : range;
-                    goto default;
-                default:
-                    switch (type)
-                    {
-                        case sold_type.Fighter:
-                            target = _ennemies.get_target(rect.X, rect.Y, detect_ennemy);
-                            break;
-                        case sold_type.Ranger:
-                            target = _ennemies.get_target(rect.X, rect.Y, detect_ennemy, 64);
-                            break;
-                        case sold_type.Healer:
-                            target = _allies.get_target_to_heal(rect.X, rect.Y, detect_ennemy);
-                            elapsed_time += _gameTime.ElapsedGameTime.Milliseconds;
-                            if (elapsed_time > 1000)
-                            {
-                                elapsed_time -= 1000;
-                                mana = mana <= maxmana - 20 ? (mana + 20) : maxmana;
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                    if (target != null && target != this)
-                        set_attack_on(target);
-                    break;
+                        }
+                        #endregion
+                        break;
+                    case act_mode.Wait:
+                        detect_ennemy = (type != sold_type.Ranger) ? range * 3 : range;
+                        goto default;
+                    default:
+                        #region default
+                        switch (type)
+                        {
+                            case sold_type.Fighter:
+                                target = _ennemies.get_target(rect.X, rect.Y, detect_ennemy);
+                                break;
+                            case sold_type.Ranger:
+                                target = _ennemies.get_target(rect.X, rect.Y, detect_ennemy, 64);
+                                break;
+                            case sold_type.Healer:
+                                target = _allies.get_target_to_heal(rect.X, rect.Y, detect_ennemy);
+                                elapsed_time += _gameTime.ElapsedGameTime.Milliseconds;
+                                if (elapsed_time > 1000)
+                                {
+                                    elapsed_time -= 1000;
+                                    mana = mana <= maxmana - 20 ? (mana + 20) : maxmana;
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                        if (target != null && target != this)
+                            set_attack_on(target);
+                        #endregion
+                        break;
+                }
             }
         }
 
         public override void Draw(bool _isOffset)
         {
-            //health bar
-            Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 10, 32, 4), Color.LightGray, Cons.DEPTH_HUD, _isOffset);
-            Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 10, (int)(life * 32 / maxlife), 4), Color.Green, Cons.DEPTH_HUD + 0.01f, _isOffset);
-            //mana bar
-            if (type == sold_type.Healer)
+            if (dead)
             {
-                Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 6, 32, 4), Color.LightGray, Cons.DEPTH_HUD, _isOffset);
-                Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 6, (int)(mana * 32 / maxmana), 4), Color.Blue, Cons.DEPTH_HUD + 0.01f, _isOffset);
+                death_anim.Draw(rect, se);
             }
-
-            switch (mode)
+            else
             {
-                case act_mode.Move:
-                    walk_anim.Draw(rect, se);
-                    break;
-                case act_mode.Attack:
-                    attack_anim.Draw(rect, se);
-                    break;
-                case act_mode.Wait:
-                    base.Draw(se, _isOffset);
-                    break;
-                default:
-                    break;
+                //health bar
+                Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 10, 32, 4), Color.LightGray, Cons.DEPTH_HUD, _isOffset);
+                Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 10, (int)(life * 32 / maxlife), 4), Color.Green, Cons.DEPTH_HUD + 0.01f, _isOffset);
+                //mana bar
+                if (type == sold_type.Healer)
+                {
+                    Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 6, 32, 4), Color.LightGray, Cons.DEPTH_HUD, _isOffset);
+                    Ressource.Draw("pixel", new Rectangle(rect.X, rect.Y - 6, (int)(mana * 32 / maxmana), 4), Color.Blue, Cons.DEPTH_HUD + 0.01f, _isOffset);
+                }
+
+                switch (mode)
+                {
+                    case act_mode.Move:
+                        walk_anim.Draw(rect, se);
+                        break;
+                    case act_mode.Attack:
+                        attack_anim.Draw(rect, se);
+                        break;
+                    case act_mode.Wait:
+                        base.Draw(se, _isOffset);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 

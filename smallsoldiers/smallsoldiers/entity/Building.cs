@@ -10,7 +10,7 @@ namespace smallsoldiers.entity
     class Building : Entity
     {
         private Flag fanion;
-        public bool display_flag, blind_flag, dead;
+        public bool display_flag, blind_flag, dead, working;
         private int delay, time_since_last, building_state, elapsed, life, life_max, level;
         private float xp;
         private Animation working_anim;
@@ -19,6 +19,10 @@ namespace smallsoldiers.entity
         public bool is_dead()
         {
             return dead;
+        }
+        public void change_working()
+        {
+            working = !working;
         }
 
         public void SetPosition(Point _p) { rect.X = _p.X; rect.Y = _p.Y; }
@@ -40,6 +44,7 @@ namespace smallsoldiers.entity
             life = life_max;
             level = 1;
             xp = 0;
+            working = true;
 
             product = new Soldier(_soldierAsset, _soldierType, rect.X + 32, rect.Y + 64, fanion, 1);
 
@@ -68,7 +73,7 @@ namespace smallsoldiers.entity
             }
             else
             {
-                if (true)
+                if (working)
                 {
                     #region Production
                     time_since_last++;

@@ -1,4 +1,4 @@
--Anims de combat
+-Anims de mort
 -//Batiment principal
 -Menu de batiment principal
 -income et pop en fonction des régions

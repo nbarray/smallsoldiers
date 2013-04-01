@@ -9,7 +9,7 @@ namespace smallsoldiers.entity
 {
     class Arrow : Entity
     {
-        private float start_x, start_y, dest_x, dest_y, z, d;
+        private float start_x, start_y, dest_x, dest_y, z, d, pos_x;
         private float damage, angle;
         private bool dead, right, sleep;
         private float speed;
@@ -30,10 +30,14 @@ namespace smallsoldiers.entity
             d = Math.Abs(dest_x - start_x);
             right = dest_x > start_x;
             z = (d / 3) * (1 - (1 - 2 * (rect.X - start_x) / d) * (1 - 2 * (rect.X - start_x) / d)); ;
-            speed = 4 * (float)(d / Math.Sqrt(d * d + (start_y - dest_y) * (start_y - dest_y)));
+            speed = 4 * ((float)d / (float)Math.Sqrt(d * d + (start_y - dest_y) * (start_y - dest_y)));
+            if (speed == 0)
+                speed = (dest_x - start_x) / d * 0.1f;
+            pos_x = _x;
             dead = false;
             damage = _damage;
             angle = 0;
+            //rect.Width = (int)(1 + (float)Cons.MAN_SIZE * (float)Math.Abs(start_y - dest_y) / d);
             se = (right) ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         }
 
@@ -44,35 +48,40 @@ namespace smallsoldiers.entity
                 #region Movement
                 if (right)
                 {
-                    rect.X += (int)speed;
+                    pos_x += speed;
+                    rect.X = (int)pos_x;
                     z = (d / 3) * (1 - (1 - 2 * (rect.X - start_x) / d) * (1 - 2 * (rect.X - start_x) / d));
 
                     rect.Y = (int)(start_y - z + (rect.X - start_x) * (dest_y - start_y) / d);
-                    angle = (float)Math.Asin(4 * (rect.X - start_x) / d - 1) / 2;
+                    //angle = (float)Math.Asin(4 * (rect.X - start_x) / d - 1) / 2;
                     if ((rect.X - start_x) < d / 2)
                     {
-                        angle = (float)(Math.Asin((8f / 6f) * (rect.X - start_x) / d - 2f / 3f /*- (dest_y - start_y) / d*/));
+                        //angle = (float)(Math.Asin((4f / 3f) * (rect.X - start_x) / d - 2f / 3f /*+ (dest_y - start_y) / d*/));
                     }
                     else
                     {
-                        angle = (float)(-Math.Asin((8f / 6f) * (dest_x - rect.X) / d - 2f / 3f /*- (dest_y - start_y) / d*/));
+                        //angle = (float)(-Math.Asin((4f / 3f) * (dest_x - rect.X) / d - 2f / 3f /*- (dest_y - start_y) / d*/));
                     }
+                    angle = (float)(Math.Asin((dest_y - start_y) / d));
+                    //angle = (float)Math.Asin(1);
                 }
                 else
                 {
-                    rect.X -= (int)speed;
+                    pos_x -= speed;
+                    rect.X = (int)pos_x;
                     z = (d / 3) * (1 - (1 - 2 * (start_x - rect.X) / d) * (1 - 2 * (start_x - rect.X) / d));
 
                     rect.Y = (int)(start_y - z + (start_x - rect.X) * (dest_y - start_y) / d);
                     if ((start_x - rect.X) < d / 2)
                     {
-                        angle = (float)(-Math.Asin((8f / 6f) * (start_x - rect.X) / d - 2f / 3f/*-(dest_y - start_y) / d*/));
+                        angle = (float)(-Math.Asin((4f / 3f) * (start_x - rect.X) / d - 2f / 3f /*- (dest_y - start_y) / d*/));
                     }
                     else
                     {
-                        angle = (float)(Math.Asin((8f / 6f) * (rect.X - dest_x) / d - 2f / 3f/*-(dest_y - start_y) / d*/));
+                        angle = (float)(Math.Asin((4f / 3f) * (rect.X - dest_x) / d - 2f / 3f /*+ (dest_y - start_y) / d*/));
                     }
-                } 
+                    angle -= (float)(Math.Asin((dest_y - start_y) / d));
+                }
                 #endregion
 
                 if (Math.Abs(rect.X - dest_x) < 4 && Math.Abs(rect.Y - dest_y) < 4)
