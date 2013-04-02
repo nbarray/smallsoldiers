@@ -20,17 +20,6 @@ namespace smallsoldiers.gui
         static public int camX = 0, camY = 0;
         public static void UpdateCam(Inputs _inputs)
         {
-            if (_inputs.GetIsPressed(Keys.Z))
-            {
-                if (camY > -64)
-                    camY -= Cons.CAM_SPEED;
-            }
-            else if (_inputs.GetIsPressed(Keys.S))
-            {
-                if (camY < 200 - Cons.CAM_SPEED)
-                    camY += Cons.CAM_SPEED;
-            }
-
             if (_inputs.GetIsPressed(Keys.D))
             {
                 if (camX < Cons.BATTLEFIELD_SIZE - 175 || _inputs.GetIsPressed(Keys.LeftShift))
