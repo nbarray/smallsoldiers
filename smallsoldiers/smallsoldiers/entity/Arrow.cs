@@ -9,10 +9,10 @@ namespace smallsoldiers.entity
 {
     class Arrow : Entity
     {
-        private float start_x, start_y, dest_x, dest_y, z, d, pos_x;
-        private float damage, angle;
-        private bool dead, right, sleep;
-        private float speed;
+        private float start_x, start_y, dest_x, dest_y, ya, yb, x, dx, dy;
+        private float damage, angle, speed, maxhigh;
+        private int North, East;
+        private bool dead, sleep;
         private SpriteEffects se;
         public bool isdead()
         {
@@ -27,18 +27,19 @@ namespace smallsoldiers.entity
         {
             start_x = _x; start_y = _y;
             dest_x = _x2; dest_y = _y2;
-            d = Math.Abs(dest_x - start_x);
-            right = dest_x > start_x;
-            z = (d / 3) * (1 - (1 - 2 * (rect.X - start_x) / d) * (1 - 2 * (rect.X - start_x) / d)); ;
-            speed = 4 * ((float)d / (float)Math.Sqrt(d * d + (start_y - dest_y) * (start_y - dest_y)));
-            if (speed == 0)
-                speed = (dest_x - start_x) / d * 0.1f;
-            pos_x = _x;
+            dx = Math.Abs(dest_x - start_x);
+            dy = Math.Abs(dest_y - start_y);
+            x = 0; ya = 0; yb = 0;
+            East = dest_x > start_x ? 1 : -1;
+            North = dest_y > start_y ? 1 : -1;
+            speed = 2 * (float)((dx + 1) / Math.Sqrt(dx * dx + dy * dy));
+            maxhigh = dx / 3;
             dead = false;
             damage = _damage;
             angle = 0;
             //rect.Width = (int)(1 + (float)Cons.MAN_SIZE * (float)Math.Abs(start_y - dest_y) / d);
-            se = (right) ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            se = SpriteEffects.None;
+            //se = (East > 0) ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         }
 
         public void Update(GameTime _gameTime, Army _a)
@@ -46,41 +47,17 @@ namespace smallsoldiers.entity
             if (!sleep)
             {
                 #region Movement
-                if (right)
+                x += speed;
+                ya = x * (dy + 1) / (dx + 1);
+                yb = ((dx + 1) * (dx + 1) - (2 * x - dx) * (2 * x - dx)) * maxhigh / ((dx + 1) * (dx + 1));
+                rect.X = (int)(start_x + East * x);
+                rect.Y = (int)(start_y + North * ya - yb);
+                angle = North * (float)Math.Asin((dy + 1) / (dx + 1));
+                angle -= (float)Math.Asin((4 * dx - 6 * x) * maxhigh / ((dx + 1) * (dx + 1)));
+                if (East<0)
                 {
-                    pos_x += speed;
-                    rect.X = (int)pos_x;
-                    z = (d / 3) * (1 - (1 - 2 * (rect.X - start_x) / d) * (1 - 2 * (rect.X - start_x) / d));
-
-                    rect.Y = (int)(start_y - z + (rect.X - start_x) * (dest_y - start_y) / d);
-                    //angle = (float)Math.Asin(4 * (rect.X - start_x) / d - 1) / 2;
-                    if ((rect.X - start_x) < d / 2)
-                    {
-                        //angle = (float)(Math.Asin((4f / 3f) * (rect.X - start_x) / d - 2f / 3f /*+ (dest_y - start_y) / d*/));
-                    }
-                    else
-                    {
-                        //angle = (float)(-Math.Asin((4f / 3f) * (dest_x - rect.X) / d - 2f / 3f /*- (dest_y - start_y) / d*/));
-                    }
-                    angle = (float)(Math.Asin((dest_y - start_y) / d));
-                    //angle = (float)Math.Asin(1);
-                }
-                else
-                {
-                    pos_x -= speed;
-                    rect.X = (int)pos_x;
-                    z = (d / 3) * (1 - (1 - 2 * (start_x - rect.X) / d) * (1 - 2 * (start_x - rect.X) / d));
-
-                    rect.Y = (int)(start_y - z + (start_x - rect.X) * (dest_y - start_y) / d);
-                    if ((start_x - rect.X) < d / 2)
-                    {
-                        angle = (float)(-Math.Asin((4f / 3f) * (start_x - rect.X) / d - 2f / 3f /*- (dest_y - start_y) / d*/));
-                    }
-                    else
-                    {
-                        angle = (float)(Math.Asin((4f / 3f) * (rect.X - dest_x) / d - 2f / 3f /*+ (dest_y - start_y) / d*/));
-                    }
-                    angle -= (float)(Math.Asin((dest_y - start_y) / d));
+                    angle *= -1;
+                    angle += (float)Math.PI;
                 }
                 #endregion
 
@@ -93,14 +70,14 @@ namespace smallsoldiers.entity
                         hit.do_damage(damage);
                         dead = true;
                     }
-                    d = 0;
+                    dx = 0;
                     depth = 0.5f + ((float)(rect.Y + 32)) / 10000f;
                 }
             }
             else
             {
-                d += _gameTime.ElapsedGameTime.Milliseconds;
-                if (d > 7000)
+                dx += _gameTime.ElapsedGameTime.Milliseconds;
+                if (dx > 7000)
                 {
                     dead = true;
                 }
@@ -109,7 +86,7 @@ namespace smallsoldiers.entity
 
         public override void Draw(bool _isOffset)
         {
-            base.Draw(se, (int)z, angle, _isOffset);
+            base.Draw(se, (int)yb, angle, _isOffset);
         }
     }
 }

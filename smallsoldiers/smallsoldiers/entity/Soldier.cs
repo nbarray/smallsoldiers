@@ -121,6 +121,9 @@ namespace smallsoldiers.entity
             mana = maxmana;
             accuracy = 9 + _level;
             #endregion
+
+            speed *= 4;
+
             pos_x = _x;
             dest_x = _x;
             rect.X = _x;
@@ -254,6 +257,7 @@ namespace smallsoldiers.entity
                         {
                             target = null;
                             go_to_flag(false);
+                            mode = act_mode.Wait;
                         }
                         #endregion
                         break;
