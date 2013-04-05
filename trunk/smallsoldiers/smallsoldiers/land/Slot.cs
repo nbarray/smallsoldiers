@@ -141,15 +141,15 @@ namespace smallsoldiers.land
                         int i = Cons.r.Next(7);
                         if (i < 3)
                         {
-                            AddBuilding(new Building("building_nicolas", "fighter_louis", sold_type.Fighter, GetPosition()));
+                            AddBuilding(new Building("fighter_louis", sold_type.Fighter, GetPosition()));
                         }
                         else if (i > 3)
                         {
-                            AddBuilding(new Building("building_nicolas", "ranger_louis", sold_type.Ranger, GetPosition()));
+                            AddBuilding(new Building("ranger_louis", sold_type.Ranger, GetPosition()));
                         }
                         else
                         {
-                            AddBuilding(new Building("building_nicolas", "healer_louis", sold_type.Healer, GetPosition()));
+                            AddBuilding(new Building("healer_louis", sold_type.Healer, GetPosition()));
                         }
                     }
                 }

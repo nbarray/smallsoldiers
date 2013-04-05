@@ -54,7 +54,8 @@ namespace smallsoldiers
             textures.Add("homelands_nicolas", content.Load<Texture2D>("image/homelands_nicolas"));
             textures.Add("homelands_louis", content.Load<Texture2D>("image/homelands_louis"));
             textures.Add("flag_louis", content.Load<Texture2D>("image/flag_louis"));
-            textures.Add("building_nicolas", content.Load<Texture2D>("image/building_nicolas"));
+            textures.Add("buildingfighter_louis", content.Load<Texture2D>("image/buildingfighter_louis"));
+            textures.Add("buildingranger_louis", content.Load<Texture2D>("image/buildingranger_louis"));
             textures.Add("town_louis", content.Load<Texture2D>("image/town_louis"));
             textures.Add("test", content.Load<Texture2D>("image/grid_perso_test"));
             textures.Add("building_icone", content.Load<Texture2D>("image/building_icone"));
