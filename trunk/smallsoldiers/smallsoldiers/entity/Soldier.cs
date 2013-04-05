@@ -122,7 +122,7 @@ namespace smallsoldiers.entity
             accuracy = 9 + _level;
             #endregion
 
-            speed *= 4;
+            //speed *= 4;
 
             pos_x = _x;
             dest_x = _x;
