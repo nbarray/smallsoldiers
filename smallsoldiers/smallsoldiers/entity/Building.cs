@@ -27,12 +27,26 @@ namespace smallsoldiers.entity
 
         public void SetPosition(Point _p) { rect.X = _p.X; rect.Y = _p.Y; }
 
-        public Building(string _asset, string _soldierAsset, sold_type _soldierType, Point _p)
-            : base(_asset,
+        public Building(string _soldierAsset, sold_type _soldierType, Point _p)
+            : base("",
                    new Rectangle(_p.X, _p.Y, Cons.BUILDING_SIZE, Cons.BUILDING_SIZE),
                    new Rectangle(3 * Cons.BUILDING_SIZE, 0, Cons.BUILDING_SIZE, Cons.BUILDING_SIZE),
                    Color.White, 0.3f)
         {
+            #region asset
+            switch (_soldierType)
+            {
+                case sold_type.Fighter:
+                    asset = "buildingfighter_louis";
+                    break;
+                case sold_type.Ranger:
+                    asset = "buildingranger_louis";
+                    break;
+                default:
+                    asset = "buildingfighter_louis";
+                    break;
+            } 
+            #endregion
             fanion = new Flag("flag_louis");
             display_flag = false;
             delay = 60; // 700
@@ -48,7 +62,7 @@ namespace smallsoldiers.entity
 
             product = new Soldier(_soldierAsset, _soldierType, rect.X + 32, rect.Y + 64, fanion, 1);
 
-            working_anim = new Animation(_asset, new Rectangle(0, 0, 96, 96), 3, 0, depth, false);
+            working_anim = new Animation(asset, new Rectangle(0, 0, 96, 96), 3, 0, depth, false);
             //model = new Soldier("fighter_louis", 50, 75, fanion);
             //model.move_to(Cons.WIDTH / 2, Cons.HEIGHT / 2);
         }

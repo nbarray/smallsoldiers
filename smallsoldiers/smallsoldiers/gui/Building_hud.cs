@@ -51,13 +51,13 @@ namespace smallsoldiers.gui
                             switch (buttons[i,j].GetSpecificity())
                             {
                                 case button_type.make_barrack:
-                                    _slot.AddBuilding(new Building("building_nicolas", "fighter_louis", sold_type.Fighter, _slot.GetPosition()));
+                                    _slot.AddBuilding(new Building("fighter_louis", sold_type.Fighter, _slot.GetPosition()));
                                     break;
                                 case button_type.make_archery:
-                                    _slot.AddBuilding(new Building("building_nicolas", "ranger_louis", sold_type.Ranger, _slot.GetPosition()));
+                                    _slot.AddBuilding(new Building("ranger_louis", sold_type.Ranger, _slot.GetPosition()));
                                     break;
                                 case button_type.make_temple:
-                                    _slot.AddBuilding(new Building("building_nicolas", "healer_louis", sold_type.Healer, _slot.GetPosition()));
+                                    _slot.AddBuilding(new Building("healer_louis", sold_type.Healer, _slot.GetPosition()));
                                     break;
                                 case button_type.sell:
                                     _slot.EraseBuilding();
