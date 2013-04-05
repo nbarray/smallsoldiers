@@ -17,6 +17,8 @@ namespace smallsoldiers.son
             Ressource.PlayTheme("theme01");
             MediaPlayer.IsRepeating = true;
             isPlaying = false;
+            MediaPlayer.Volume = 0f;
+            
         }
 
         public void Play(string _asset)
@@ -26,7 +28,7 @@ namespace smallsoldiers.son
                 isPlaying = true;
                 soundengine = Ressource.GetFX(_asset).CreateInstance();
                 soundengine.IsLooped = false;
-                soundengine.Volume = 0.1f;
+                soundengine.Volume = 0; // 0.1f;
                 if (soundengine.State == SoundState.Stopped) 
                     soundengine.Play();
                 isPlaying = false;
