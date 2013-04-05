@@ -121,7 +121,9 @@
     <Compile Include="entity\Town.cs" />
     <Compile Include="gui\Building_hud.cs" />
     <Compile Include="gui\Button_action.cs" />
+    <Compile Include="gui\Button_menu.cs" />
     <Compile Include="gui\Hud.cs" />
+    <Compile Include="gui\Menu.cs" />
     <Compile Include="Inputs.cs" />
     <Compile Include="land\Battlefield.cs" />
     <Compile Include="land\Homeland.cs" />

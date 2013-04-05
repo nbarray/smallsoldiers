@@ -25,6 +25,8 @@ namespace smallsoldiers
         Music music;
         Inputs inputs;
 
+        Menu menus;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -48,6 +50,7 @@ namespace smallsoldiers
             hud = new Hud();
             music = new Music();
             inputs = new Inputs();
+            menus = new Menu();
 
             base.Initialize();
         }
@@ -65,16 +68,33 @@ namespace smallsoldiers
             if (inputs.GetIsPressed(Keys.Escape))
                 this.Exit();
 
-            if (inputs.GetIsPressed(Keys.M)) Cons.mode = e_GameMode.multi;
-            if (inputs.GetIsPressed(Keys.L)) Cons.mode = e_GameMode.solo;
+            switch (menus.GetState())
+            {
+                case e_MenuState.main:
+                case e_MenuState.quit:
 
-            hud.Update(p1, p2);
-            Hud.UpdateCam(inputs);
+                    menus.Update(this, inputs);
 
-            p1.Update(gameTime, p2.army, inputs, music, hud);
-            p2.Update(gameTime, p1.army, inputs, music, hud);
+                    break;
+                case e_MenuState.game:
 
-            call_of_duty.Update(gameTime, p1, p2);
+                    if (inputs.GetIsPressed(Keys.M)) Cons.mode = e_GameMode.multi;
+                    if (inputs.GetIsPressed(Keys.L)) Cons.mode = e_GameMode.solo;
+
+                    hud.Update(p1, p2);
+                    Hud.UpdateCam(inputs);
+
+                    p1.Update(gameTime, p2.army, inputs, music, hud);
+                    p2.Update(gameTime, p1.army, inputs, music, hud);
+
+                    call_of_duty.Update(gameTime, p1, p2);
+
+                    break;
+                default:
+                    break;
+            }
+
+
 
             base.Update(gameTime);
         }
@@ -84,10 +104,28 @@ namespace smallsoldiers
             GraphicsDevice.Clear(Color.Black);
 
             Ressource.sb.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
-            p1.Draw();
-            p2.Draw();
-            call_of_duty.Draw();
-            hud.Draw();
+            switch (menus.GetState())
+            {
+                case e_MenuState.main:
+                case e_MenuState.quit:
+
+                    menus.Draw(false);
+
+                    break;
+                case e_MenuState.game:
+
+                    p1.Draw();
+                    p2.Draw();
+                    call_of_duty.Draw();
+                    hud.Draw();
+
+                    break;
+                default:
+                    break;
+            }
+
+
+
             Ressource.sb.End();
             base.Draw(gameTime);
         }
